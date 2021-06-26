@@ -1,0 +1,82 @@
+import { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Character } from 'apple-nest-interfaces';
+import { CharacterWebservice } from '../api/CharacterWebService';
+import { Loading } from '../components/Loading';
+import { ErrorMessage } from '../components/ErrorMessage';
+import { History } from 'history';
+import './SelectCharacter.scss';
+
+interface SelectCharacterProps {
+    history: History;
+}
+
+interface SelectCharacterState {
+    characters: Character[];
+    loading: boolean;
+    error: any;
+}
+
+export class SelectCharacter extends Component<SelectCharacterProps, SelectCharacterState> {
+    constructor(props: SelectCharacterProps) {
+        super(props);
+        this.state = {
+            characters: [],
+            loading: true,
+            error: null
+        };
+    }
+
+    async componentDidMount() {
+        await this.load();
+    }
+
+    private async load() {
+        try {
+            this.setState({
+                characters: [],
+                loading: true,
+                error: null
+            });
+
+            const characterWebService = new CharacterWebservice();
+            const characters = await characterWebService.getCharacters();
+            this.setState({
+                characters,
+                loading: false,
+                error: null
+            });
+        } catch (err) {
+            this.setState({
+                characters: [],
+                loading: false,
+                error: err
+            });
+        }
+    }
+
+    selectCharacter(c: Character) {
+        // TODO: setup character in state
+        this.props.history.push('/town');
+    }
+
+    render() {
+        const characters = this.state.characters.map(c => {
+            return <button key={c.uuid} onClick={() => this.selectCharacter(c)}>{c.name}</button>
+        });
+
+        return <Loading loading={this.state.loading}>
+            <ErrorMessage error={this.state.error} />
+            <h2>
+                Select Character
+            </h2>
+            <div>
+                {characters}
+            </div>
+            <div>
+                <Link to="/create-character">Create Character</Link>
+                <Link to="/">Log Out</Link>
+            </div>
+        </Loading>
+    }
+}
