@@ -1,8 +1,7 @@
-import { Character } from '../../../apple-nest-interfaces/src';
+import { Character } from 'apple-nest-interfaces';
 import { Webservice } from './WebService';
 
 export class CharacterWebservice extends Webservice {
-
   constructor() {
     super('/character');
   }
@@ -13,5 +12,9 @@ export class CharacterWebservice extends Webservice {
 
   getCharacters() {
     return this.get('/');
+  }
+ 
+  getCharacter(characterId: string) {
+    return this.get(`/${characterId}`);
   }
 }

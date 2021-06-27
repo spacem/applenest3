@@ -1,12 +1,17 @@
-import { FunctionComponent } from 'react';
-import { Switch, Route, Router } from 'react-router-dom';
+import { Switch, Route, Router, useParams } from 'react-router-dom';
 import { SelectCharacter } from './pages/SelectCharacter';
 import { createBrowserHistory } from 'history';
 import { CreateCharacter } from './pages/CreateCharacter';
-import { Town } from './pages/Town';
 import { Home } from './pages/Home';
+import { Game } from './pages/Game'
 
-export const AppleNestRouter: FunctionComponent<{}> = props => {
+function GameWrapper(params: any) {
+    // must be a better way to do this
+    const { characterId } = useParams<{ characterId: string }>();
+    return <Game characterId={characterId} history={params.history} />
+}
+
+export function AppleNestRouter() {
     const history = createBrowserHistory();
     return <Router history={history}>
         <Switch>
@@ -16,8 +21,8 @@ export const AppleNestRouter: FunctionComponent<{}> = props => {
             <Route path="/create-character">
                 <CreateCharacter history={history} />
             </Route>
-            <Route path="/town">
-                <Town history={history} />
+            <Route path="/game/:characterId">
+                <GameWrapper history={history} />
             </Route>
             <Route path="/">
                 <Home></Home>

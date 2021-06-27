@@ -15,7 +15,7 @@ export class Webservice {
     }
   }
 
-  protected async post(path: string, data: any) {
+  protected async post(path: string, data?: any) {
     try {
       console.log('posting');
       const postOptions: RequestInit = {
@@ -23,7 +23,7 @@ export class Webservice {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data)
+        body: data ? JSON.stringify(data) : null
       };
       const response = await fetch(this.createFullUrl(path), postOptions);
       const retVal = this.returnFromResponse(response);

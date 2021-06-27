@@ -56,8 +56,7 @@ export class SelectCharacter extends Component<SelectCharacterProps, SelectChara
     }
 
     selectCharacter(c: Character) {
-        // TODO: setup character in state
-        this.props.history.push('/town');
+        this.props.history.push(`/game/${c.uuid}`);
     }
 
     render() {
@@ -75,7 +74,7 @@ export class SelectCharacter extends Component<SelectCharacterProps, SelectChara
             </div>
             <div>
                 <Link to="/create-character">Create Character</Link>
-                <Link to="/">Log Out</Link>
+                <Link to="/">Sign Out</Link>
             </div>
         </Loading>
     }

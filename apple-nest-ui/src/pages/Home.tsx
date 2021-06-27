@@ -8,7 +8,7 @@ export class Home extends Component {
       Apple Nest
     </h1>
     <div>
-      <Link to="/select-character">Select Character</Link>
+      <Link to="/select-character">Sign In</Link>
     </div>
     </>
   }
