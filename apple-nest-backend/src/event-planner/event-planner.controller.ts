@@ -1,12 +1,14 @@
 import { Controller, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
+import { Character } from 'apple-nest-interfaces';
 import { CharacterService } from '../character/character.service';
-
-const REWARD_TIME = 60 * 60;
+import { EventPlannerService } from './event-planner.service';
 
 @Controller('event-planner')
 export class EventPlannerController {
 
-  constructor(private characterService: CharacterService) {
+  constructor(
+    private characterService: CharacterService,
+    private eventPlannerService: EventPlannerService) {
   }
 
   @Post('/give-reward/:characterId')
@@ -15,26 +17,33 @@ export class EventPlannerController {
     if (!character) {
       throw new HttpException('Invalid character id' + characterId, HttpStatus.BAD_REQUEST);
     }
-    
-    let remainingTime = 0;
-    if (character.lastRewardDate) {
-      remainingTime =
-        REWARD_TIME - (new Date().valueOf() - character.lastRewardDate) / 1000;
+    return await this.eventPlannerService.giveReward(character, new Date().valueOf());
+  }
+
+  @Post('/complete-quest/:characterId')
+  async completeQuest(@Param('characterId') characterId) {
+    const character = await this.characterService.fetchById(characterId);
+    if (!character) {
+      throw new HttpException('Invalid character id' + characterId, HttpStatus.BAD_REQUEST);
     }
 
-    if (remainingTime > 0) {
-      const message = `${Math.ceil(remainingTime / 60)} minutes left until you can get another event reward`;
-      throw new HttpException(message, HttpStatus.BAD_REQUEST);
+    const status = this.eventPlannerService.isQuestComplete(character);
+    if (status) {
+      const updatedCharacter: Character = {
+        ...character,
+        questNumber: character.questNumber ? character.questNumber + 1 : 2
+      };
+      await this.characterService.update(updatedCharacter);
+
+      return {
+        character: updatedCharacter,
+        message: 'Good job! Come back to me for more quests!'
+      };
+    } else {
+      return {
+        character: character,
+        message: 'Looks like the quest is not completed???'
+      };
     }
-
-    const currentMoney = character?.bag?.money || 0;
-    character.bag = {
-      ...(character.bag || {}),
-      money: currentMoney + 1
-    };
-    character.lastRewardDate = new Date().valueOf();
-
-    await this.characterService.update(character);
-    return character;
   }
 }

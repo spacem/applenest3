@@ -1,7 +1,7 @@
 import { Component } from 'react';
 
 interface SavingProps {
-  saving: boolean;
+  saving?: boolean;
 }
 
 export class Saving extends Component<SavingProps, {}> {

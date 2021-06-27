@@ -6,9 +6,20 @@ import { Place } from '../interfaces/place';
 import { PlaceProps } from '../interfaces/place-props';
 
 interface EventPlannerState {
-  saving: boolean;
-  error: any
+  saving?: boolean;
+  error?: any,
+  message?: string;
+  doingQuest?: boolean;
 }
+
+export const Quest = {
+  GetMoney: 1,
+  BuySeed: 2,
+}
+
+const questText: string[] = [];  
+questText[Quest.GetMoney] = 'Your first quest is to get some money. Perhaps from a reward?';
+questText[Quest.BuySeed] = 'Your next quest is to get a seed from the famer. Go back to town to get to the farm.';
 
 export class EventPlanner extends Component<PlaceProps, EventPlannerState> {
 
@@ -16,22 +27,47 @@ export class EventPlanner extends Component<PlaceProps, EventPlannerState> {
         super(props);
         this.state = {
           saving: false,
-          error: null
+          error: null,
+          message: 'Do you want a quest?'
         };
     }
 
     doQuest() {
+      const quest = this.props.character.questNumber || Quest.GetMoney;
+      this.setState({
+        doingQuest: true,
+        message: questText[quest]
+      });
+    }
+
+    async completeQuest() {
+      try {
+        this.setState({ saving: true, error: null });
+        const webService = new EventPlannerWebservice();
+        const { character: updatedCharacter, message } = await webService.completeQuest(this.props.character);
+        this.props.onUpdateCharacter(updatedCharacter);
+        this.setState({ message, saving: false, doingQuest: false });
+      } catch (err) {
+        this.setState({ error: err, saving: false });
+      }
+    }
+
+    acceptQuest() {
+      this.setState({
+        doingQuest: false,
+        message: 'Come back when the quest is completed'
+      });
     }
 
     async collectReward() {
       try {
         this.setState({ saving: true, error: null });
         const webService = new EventPlannerWebservice();
-        const updatedCharacter = await webService.giveReward(this.props.character);
+        const { character: updatedCharacter, message } = await webService.giveReward(this.props.character);
         this.props.onUpdateCharacter(updatedCharacter);
-        this.setState({ saving: false, error: null });
+        this.setState({ message, saving: false });
       } catch (err) {
-        this.setState({ saving: false, error: err });
+        this.setState({ error: err, saving: false });
       }
     }
 
@@ -41,14 +77,26 @@ export class EventPlanner extends Component<PlaceProps, EventPlannerState> {
         <div>
           Hello I am the event planner.
         </div>
+        <div>
+          {this.state.message}
+        </div>
         <Saving saving={this.state.saving}>
           <div>
             <ErrorMessage error={this.state.error}></ErrorMessage>
           </div>
-          <div>
-            <button onClick={() => this.doQuest()}>Do Quest</button>
-            <button onClick={() => this.collectReward()}>Collect Reward</button>
-          </div>
+          {(() => {
+            if (this.state.doingQuest) {
+              return <div>
+              <button onClick={() => this.acceptQuest()}>Accept Quest</button>
+              <button onClick={() => this.completeQuest()}>Complete Quest</button>
+            </div>
+            } else {
+              return <div>
+                <button onClick={() => this.doQuest()}>Do Quest</button>
+                <button onClick={() => this.collectReward()}>Collect Reward</button>
+              </div>
+            }
+          })()}
           <div>
             <button onClick={() => this.props.onChangePlace(Place.Town)}>Back To Town</button>
           </div>
