@@ -38,6 +38,8 @@ export class CharacterService {
   }
 
   async update(character: Character) {
+    // TODO: This is not very safe since changes will be lost if other
+    // players update their characters at the same time
     let characters = await this.fetchAll();
     if (!characters) {
       characters = [];

@@ -43,11 +43,11 @@ export class EventPlanner extends Component<PlaceProps, EventPlannerState> {
         </div>
         <Saving saving={this.state.saving}>
           <div>
-            <button onClick={() => this.doQuest()}>Do Quest</button>
-            <button onClick={() => this.collectReward()}>Collect Reward</button>
+            <ErrorMessage error={this.state.error}></ErrorMessage>
           </div>
           <div>
-            <ErrorMessage error={this.state.error}></ErrorMessage>
+            <button onClick={() => this.doQuest()}>Do Quest</button>
+            <button onClick={() => this.collectReward()}>Collect Reward</button>
           </div>
           <div>
             <button onClick={() => this.props.onChangePlace(Place.Town)}>Back To Town</button>

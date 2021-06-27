@@ -19,6 +19,7 @@ describe('EventPlannerController', () => {
     const testCharacter: Character = {
       uuid: '123',
       name: 'test',
+      lastRewardDate: 123,
       bag: {
         money: 22
       }

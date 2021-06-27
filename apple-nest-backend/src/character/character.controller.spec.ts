@@ -15,23 +15,23 @@ describe('CharacterController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('no error when not exists', () => {
+  it('no error when not exists', async () => {
     const existing = {
       uuid: 'test',
       name: 'test name2'
     };
     jest.spyOn(characterService, 'fetchAll').mockImplementation(() => Promise.resolve([existing]));
     jest.spyOn(characterService, 'create').mockImplementation(() => Promise.resolve(null));
-    expect(controller.create({ name: 'test name' })).rejects.toThrow(HttpException);
+    await controller.create({ name: 'test name' });
   });
 
-  it('fails to create when exists', () => {
+  it('fails to create when exists', async () => {
     const existing = {
       uuid: 'test',
       name: 'test name'
     };
     jest.spyOn(characterService, 'fetchAll').mockImplementation(() => Promise.resolve([existing]));
     jest.spyOn(characterService, 'create').mockImplementation(() => Promise.resolve(null));
-    expect(controller.create({ name: 'test name' })).rejects.toThrow(HttpException);
+    await expect(controller.create({ name: 'test name' })).rejects.toThrow(HttpException);
   });
 });
