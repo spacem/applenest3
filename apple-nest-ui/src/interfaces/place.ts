@@ -1,4 +1,6 @@
 export enum Place {
   Town = 'town',
-  EventPlanner = 'event-planner'
+  EventPlanner = 'event-planner',
+  Farm = 'farm',
+  Farmer = 'farmer'
 }

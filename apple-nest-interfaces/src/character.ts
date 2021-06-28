@@ -1,4 +1,5 @@
-import { Bag } from "./bag";
+import { Quest } from './quest';
+import { Bag } from './bag';
 
 export interface Character {
   uuid?: string;
@@ -11,5 +12,5 @@ export interface Character {
   megaSeedReadyDate?: number;
   legendarySeedReadyDate?: number;
   rankBeaten?: number;
-  questNumber?: number;
+  questNumber?: Quest;
 }

@@ -15,6 +15,17 @@ describe('EventPlannerService', () => {
     expect(service).toBeDefined();
   });
 
+  it('gives reward when no bag', async () => {
+    const testCharacter: Character = {
+      uuid: '123',
+      name: 'test'
+    }
+
+    jest.spyOn(characterService, 'update').mockImplementation(c => Promise.resolve(c));
+    const result = await service.giveReward(testCharacter, 99999999);
+    expect(result.character.bag.money).toBe(1);
+  });
+
   it('gives reward when no time', async () => {
     const testCharacter: Character = {
       uuid: '123',

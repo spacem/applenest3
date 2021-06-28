@@ -4,17 +4,13 @@ import { ErrorMessage } from '../components/ErrorMessage';
 import { Saving } from '../components/Saving';
 import { Place } from '../interfaces/place';
 import { PlaceProps } from '../interfaces/place-props';
+import { Quest } from 'apple-nest-interfaces'
 
 interface EventPlannerState {
   saving?: boolean;
   error?: any,
   message?: string;
   doingQuest?: boolean;
-}
-
-export const Quest = {
-  GetMoney: 1,
-  BuySeed: 2,
 }
 
 const questText: string[] = [];  

@@ -8,6 +8,8 @@ import { Loading } from '../components/Loading';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Place } from '../interfaces/place';
 import { EventPlanner } from '../places/EventPlanner';
+import { Farmer } from '../places/Farmer';
+import { Farm } from '../places/Farm';
 
 interface GameState {
     place: Place;
@@ -77,6 +79,18 @@ export class Game extends Component<GameProps, GameState> {
                         onUpdateCharacter={c => this.updateCharacter(c)}
                         onChangePlace={place => this.handleChangePlace(place)}>
                     </EventPlanner>
+                case Place.Farmer:
+                    return <Farmer
+                        character={this.state.character}
+                        onUpdateCharacter={c => this.updateCharacter(c)}
+                        onChangePlace={place => this.handleChangePlace(place)}>
+                    </Farmer>
+                case Place.Farm:
+                    return <Farm
+                        character={this.state.character}
+                        onUpdateCharacter={c => this.updateCharacter(c)}
+                        onChangePlace={place => this.handleChangePlace(place)}>
+                    </Farm>
                 default:
                     return <Town
                         character={this.state.character}
