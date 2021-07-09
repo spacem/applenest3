@@ -45,6 +45,8 @@ export class EventPlannerService {
         return character?.bag?.money > 0
       case Quest.BuySeed:
         return character?.bag?.seeds > 0
+      case Quest.GrowApple:
+        return character?.bag?.apples > 0
       default:
         return false;
     }

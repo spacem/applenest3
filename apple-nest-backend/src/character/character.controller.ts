@@ -22,7 +22,7 @@ export class CharacterController {
     }
   }
 
-  @Post('/create')
+  @Post('/')
   async create(@Body() character: Character) {
     if (!character.name) {
       throw new HttpException('Character must have a name', HttpStatus.BAD_REQUEST);

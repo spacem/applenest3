@@ -1,22 +1,22 @@
 import { ActionBody, ActionResponse, ActionType, Character } from 'apple-nest-interfaces';
 import { Webservice } from './WebService';
 
-export class EventPlannerWebservice extends Webservice {
+export class PlotWebservice extends Webservice {
   constructor() {
-    super('/event-planner');
+    super('/plot');
   }
 
-  giveReward(character: Character): Promise<ActionResponse> {
+  plantSeed(character: Character): Promise<ActionResponse> {
     const body: ActionBody = {
-      type: ActionType.Reward,
+      type: ActionType.Plant,
       characterId: character.uuid
     };
     return this.post(`/action`, body);
   }
 
-  completeQuest(character: Character): Promise<ActionResponse> {
+  harvestCrop(character: Character): Promise<ActionResponse> {
     const body: ActionBody = {
-      type: ActionType.Quest,
+      type: ActionType.Harvest,
       characterId: character.uuid
     };
     return this.post(`/action`, body);

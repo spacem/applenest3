@@ -10,6 +10,8 @@ import { Place } from '../interfaces/place';
 import { EventPlanner } from '../places/EventPlanner';
 import { Farmer } from '../places/Farmer';
 import { Farm } from '../places/Farm';
+import { BagContents } from '../components/BagContents';
+import { Plot } from '../places/Plot';
 
 interface GameState {
     place: Place;
@@ -85,6 +87,12 @@ export class Game extends Component<GameProps, GameState> {
                         onUpdateCharacter={c => this.updateCharacter(c)}
                         onChangePlace={place => this.handleChangePlace(place)}>
                     </Farmer>
+                case Place.Plot:
+                    return <Plot
+                        character={this.state.character}
+                        onUpdateCharacter={c => this.updateCharacter(c)}
+                        onChangePlace={place => this.handleChangePlace(place)}>
+                    </Plot>
                 case Place.Farm:
                     return <Farm
                         character={this.state.character}
@@ -101,13 +109,6 @@ export class Game extends Component<GameProps, GameState> {
         } else {
             return null;
         }
-    }
-
-    getBag() {
-        const bag = this.state.character?.bag;
-        return <>
-            Money: {bag?.money || 0} | Apples: {bag?.apples || 0} | Seeds: {bag?.seeds || 0}
-        </>
     }
 
     handleChangePlace(newPlace: Place) {
@@ -128,7 +129,7 @@ export class Game extends Component<GameProps, GameState> {
                 <ErrorMessage error={this.state.error}></ErrorMessage>
             </div>
             <div>
-                {this.getBag()}
+                <BagContents bag={this.state.character?.bag} />
             </div>
             <div>
                 {this.getPlace()}

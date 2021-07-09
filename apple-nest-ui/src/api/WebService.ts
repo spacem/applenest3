@@ -17,7 +17,6 @@ export class Webservice {
 
   protected async post(path: string, data?: any) {
     try {
-      console.log('posting');
       const postOptions: RequestInit = {
         method: 'POST',
         headers: {

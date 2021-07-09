@@ -1,4 +1,4 @@
-import { ActionResponse, Character } from 'apple-nest-interfaces';
+import { ActionResponse, ActionType, Character, QtyActionBody } from 'apple-nest-interfaces';
 import { Webservice } from './WebService';
 
 export class FarmerWebservice extends Webservice {
@@ -7,6 +7,11 @@ export class FarmerWebservice extends Webservice {
   }
 
   buySeeds(character: Character, numSeeds: number): Promise<ActionResponse> {
-    return this.post(`/buy-seeds/${character.uuid}/${numSeeds}`);
+    const body: QtyActionBody = {
+      type: ActionType.BuySeeds,
+      characterId: character.uuid,
+      quantity: numSeeds
+    };
+    return this.post(`/action`, body);
   }
 }

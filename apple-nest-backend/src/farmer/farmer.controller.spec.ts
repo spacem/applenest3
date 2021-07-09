@@ -1,4 +1,4 @@
-import { Character } from '../../../apple-nest-interfaces/src';
+import { ActionType, Character } from 'apple-nest-interfaces';
 import { CharacterService } from '../character/character.service';
 import { FarmerController } from './farmer.controller';
 
@@ -22,7 +22,7 @@ describe('FarmerController', () => {
 
     jest.spyOn(characterService, 'update').mockImplementation(c => Promise.resolve(c));
     jest.spyOn(characterService, 'fetchById').mockImplementation(c => Promise.resolve(testCharacter));
-    const result = await controller.giveReward('u', 2);
+    const result = await controller.action({ characterId: 'u', quantity: 2, type: ActionType.BuySeeds });
     expect(result.character.bag.money).toBe(20);
     expect(result.character.bag.seeds).toBe(2);
   });

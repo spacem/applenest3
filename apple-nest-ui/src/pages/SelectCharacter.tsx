@@ -69,10 +69,10 @@ export class SelectCharacter extends Component<SelectCharacterProps, SelectChara
             <h2>
                 Select Character
             </h2>
-            <div>
+            <div className="character-list">
                 {characters}
             </div>
-            <div>
+            <div className="actions">
                 <Link to="/create-character">Create Character</Link>
                 <Link to="/">Sign Out</Link>
             </div>

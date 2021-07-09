@@ -7,7 +7,7 @@ export class CharacterWebservice extends Webservice {
   }
 
   createCharacter(character: Partial<Character>) {
-    return this.post('/create', character);
+    return this.post('/', character);
   }
 
   getCharacters() {

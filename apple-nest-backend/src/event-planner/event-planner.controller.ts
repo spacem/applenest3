@@ -1,5 +1,5 @@
-import { Controller, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
-import { Character } from 'apple-nest-interfaces';
+import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
+import { ActionBody, Character, ActionType } from 'apple-nest-interfaces';
 import { CharacterService } from '../character/character.service';
 import { EventPlannerService } from './event-planner.service';
 
@@ -11,22 +11,24 @@ export class EventPlannerController {
     private eventPlannerService: EventPlannerService) {
   }
 
-  @Post('/give-reward/:characterId')
-  async giveReward(@Param('characterId') characterId) {
-    const character = await this.characterService.fetchById(characterId);
+  @Post('/action')
+  async action(@Body() body: ActionBody) {
+    const character = await this.characterService.fetchById(body.characterId);
     if (!character) {
-      throw new HttpException('Invalid character id' + characterId, HttpStatus.BAD_REQUEST);
+      throw new HttpException(`Invalid character id ${body.characterId}`, HttpStatus.BAD_REQUEST);
     }
-    return await this.eventPlannerService.giveReward(character, new Date().valueOf());
+
+    switch(body.type) {
+      case ActionType.Reward:
+        return await this.eventPlannerService.giveReward(character, new Date().valueOf());
+      case ActionType.Quest:
+        return this.doQuest(character);
+      default:
+        throw new HttpException(`Invalid event planner action ${body.type}`, HttpStatus.BAD_REQUEST);
+    }
   }
 
-  @Post('/complete-quest/:characterId')
-  async completeQuest(@Param('characterId') characterId) {
-    const character = await this.characterService.fetchById(characterId);
-    if (!character) {
-      throw new HttpException('Invalid character id' + characterId, HttpStatus.BAD_REQUEST);
-    }
-
+  async doQuest(character: Character) {
     const status = this.eventPlannerService.isQuestComplete(character);
     if (status) {
       const updatedCharacter: Character = {

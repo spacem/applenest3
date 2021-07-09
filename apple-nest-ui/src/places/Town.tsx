@@ -18,7 +18,7 @@ export class Town extends Component<PlaceProps, {}> {
 
         if (this.props.character.questNumber) {
             if (this.props.character.questNumber >= Quest.BuySeed) {
-                places.push(<button onClick={() => this.props.onChangePlace(Place.Farm)}>Farm</button>);
+                places.push(<button key={Place.Farm} onClick={() => this.props.onChangePlace(Place.Farm)}>Farm</button>);
             }   
         }
 

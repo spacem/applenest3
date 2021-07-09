@@ -16,6 +16,7 @@ interface EventPlannerState {
 const questText: string[] = [];  
 questText[Quest.GetMoney] = 'Your first quest is to get some money. Perhaps from a reward?';
 questText[Quest.BuySeed] = 'Your next quest is to get a seed from the famer. Go back to town to get to the farm.';
+questText[Quest.GrowApple] = 'Now you need to grow an apple. Go back to the farm and use the plot.';
 
 export class EventPlanner extends Component<PlaceProps, EventPlannerState> {
 
@@ -31,8 +32,8 @@ export class EventPlanner extends Component<PlaceProps, EventPlannerState> {
     doQuest() {
       const quest = this.props.character.questNumber || Quest.GetMoney;
       this.setState({
-        doingQuest: true,
-        message: questText[quest]
+        doingQuest: questText[quest] != null,
+        message: questText[quest] || 'There are no more quests at this time'
       });
     }
 

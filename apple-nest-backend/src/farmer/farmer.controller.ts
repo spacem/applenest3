@@ -1,5 +1,5 @@
-import { Controller, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
-import { Character } from 'apple-nest-interfaces';
+import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
+import { ActionType, Character, QtyActionBody } from 'apple-nest-interfaces';
 import { CharacterService } from '../character/character.service';
 
 @Controller('farmer')
@@ -7,15 +7,19 @@ export class FarmerController {
   constructor(private characterService: CharacterService) {
   }
 
-  @Post('/buy-seeds/:characterId/:numSeeds')
-  async giveReward(@Param('characterId') characterId, @Param('numSeeds') numSeedsString) {
-    const character = await this.characterService.fetchById(characterId);
-    if (!character) {
-      throw new HttpException('Invalid character id' + characterId, HttpStatus.BAD_REQUEST);
+  @Post('/action')
+  async action(@Body() body: QtyActionBody) {
+    if (body.type !== ActionType.BuySeeds) {
+      throw new HttpException(`Invalid Farmer Action ${body.type}`, HttpStatus.BAD_REQUEST);
     }
 
-    const numSeeds = Number(numSeedsString);
-    if (character.bag?.money > numSeeds) {
+    const character = await this.characterService.fetchById(body.characterId);
+    if (!character) {
+      throw new HttpException('Invalid character id' + body.characterId, HttpStatus.BAD_REQUEST);
+    }
+
+    const numSeeds = body.quantity;
+    if (character.bag?.money >= numSeeds) {
       const updatedCharacter: Character = {
         ...character,
         bag: {
