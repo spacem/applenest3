@@ -33,12 +33,12 @@ jobs:
     steps:
       - checkout
       - node/install-packages
-    - run:
-        name: Run api tests
-        command: npm run test-api
-    - run:
-        name: Run ui tests
-        command: npm run test-ui
+      - run:
+          name: Run api tests
+          command: npm run test-api
+      - run:
+          name: Run ui tests
+          command: npm run test-ui
   lint:
     docker:
         - image: circleci/node:14.17
