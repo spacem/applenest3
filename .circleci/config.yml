@@ -30,24 +30,24 @@ jobs:
   test:
     docker:
         - image: circleci/node:14.17
-      steps:
-        - checkout
-        - node/install-packages
-      - run:
-          name: Run api tests
-          command: npm run test-api
-      - run:
-          name: Run ui tests
-          command: npm run test-ui
+    steps:
+      - checkout
+      - node/install-packages
+    - run:
+        name: Run api tests
+        command: npm run test-api
+    - run:
+        name: Run ui tests
+        command: npm run test-ui
   lint:
     docker:
         - image: circleci/node:14.17
-      steps:
-        - checkout
-        - node/install-packages
-        - run:
-          name: Lint
-          command: npm run lint
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+        name: Lint
+        command: npm run lint
 workflows:
   sample:
     jobs:
