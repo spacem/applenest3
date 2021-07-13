@@ -10,6 +10,8 @@
     "build-api": "nx build apple-nest-3-api",
     "build-ui": "nx build apple-nest-3",
     "test": "nx test apple-nest-3 && nx test apple-nest-3-api",
+    "test-api": "nx test apple-nest-3-api",
+    "test-ui": "nx test apple-nest-3",
     "tdd-api": "nx test apple-nest-3-api --watch",
     "tdd-ui": "nx test apple-nest-3 --watch",
     "lint": "nx workspace-lint && nx lint",
