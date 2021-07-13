@@ -1,0 +1,44 @@
+{
+  "npmScope": "apple-nest-3",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "projects": {
+    "apple-nest-3": {
+      "tags": []
+    },
+    "apple-nest-3-api": {
+      "tags": []
+    },
+    "apple-nest-3-e2e": {
+      "tags": [],
+      "implicitDependencies": ["apple-nest-3"]
+    },
+    "apple-nest-interfaces": {
+      "tags": []
+    }
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "version": 2,
+  "projects": {
+    "apple-nest-3": {
+      "root": "apps/apple-nest-3",
+      "sourceRoot": "apps/apple-nest-3/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/apple-nest-3",
+            "index": "apps/apple-nest-3/src/index.html",
+            "main": "apps/apple-nest-3/src/main.tsx",
+            "polyfills": "apps/apple-nest-3/src/polyfills.ts",
+            "tsConfig": "apps/apple-nest-3/tsconfig.app.json",
+            "assets": [
+              "apps/apple-nest-3/src/favicon.ico",
+              "apps/apple-nest-3/src/assets"
+            ],
+            "styles": ["apps/apple-nest-3/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/apple-nest-3/src/environments/environment.ts",
+                  "with": "apps/apple-nest-3/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "apple-nest-3:build",
+            "hmr": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "apple-nest-3:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/apple-nest-3/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/apple-nest-3"],
+          "options": {
+            "jestConfig": "apps/apple-nest-3/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "apple-nest-3-api": {
+      "root": "apps/apple-nest-3-api",
+      "sourceRoot": "apps/apple-nest-3-api/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/apple-nest-3-api",
+            "main": "apps/apple-nest-3-api/src/main.ts",
+            "tsConfig": "apps/apple-nest-3-api/tsconfig.app.json",
+            "assets": ["apps/apple-nest-3-api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/apple-nest-3-api/src/environments/environment.ts",
+                  "with": "apps/apple-nest-3-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "apple-nest-3-api:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/apple-nest-3-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/apple-nest-3-api"],
+          "options": {
+            "jestConfig": "apps/apple-nest-3-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "apple-nest-3-e2e": {
+      "root": "apps/apple-nest-3-e2e",
+      "sourceRoot": "apps/apple-nest-3-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/apple-nest-3-e2e/cypress.json",
+            "tsConfig": "apps/apple-nest-3-e2e/tsconfig.e2e.json",
+            "devServerTarget": "apple-nest-3:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "apple-nest-3:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/apple-nest-3-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "apple-nest-interfaces": {
+      "root": "libs/apple-nest-interfaces",
+      "sourceRoot": "libs/apple-nest-interfaces/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/apple-nest-interfaces/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/apple-nest-interfaces"],
+          "options": {
+            "jestConfig": "libs/apple-nest-interfaces/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "scss"
+      },
+      "library": {
+        "style": "scss",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "apple-nest-3"
+}
