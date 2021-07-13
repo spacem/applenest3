@@ -7,7 +7,7 @@ import { PlaceProps } from '../interfaces/place-props';
 
 interface PlotState {
   saving?: boolean;
-  error?: any;
+  error?: Error;
   message?: string;
 }
 
@@ -21,13 +21,13 @@ export class Plot extends Component<PlaceProps, PlotState> {
     ) {
       this.state = {
         saving: false,
-        error: null,
+        error: undefined,
         message: 'If you had seeds you could plant them here.',
       };
     } else {
       this.state = {
         saving: false,
-        error: null,
+        error: undefined,
         message: '',
       };
     }
@@ -35,7 +35,7 @@ export class Plot extends Component<PlaceProps, PlotState> {
 
   async plantSeed() {
     try {
-      this.setState({ saving: true, error: null });
+      this.setState({ saving: true });
       const webService = new PlotWebservice();
       const { character: updatedCharacter, message } =
         await webService.plantSeed(this.props.character);
@@ -48,7 +48,7 @@ export class Plot extends Component<PlaceProps, PlotState> {
 
   async harvestCrop() {
     try {
-      this.setState({ saving: true, error: null });
+      this.setState({ saving: true });
       const webService = new PlotWebservice();
       const { character: updatedCharacter, message } =
         await webService.harvestCrop(this.props.character);

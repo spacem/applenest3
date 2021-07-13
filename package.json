@@ -1,12 +1,14 @@
 {
   "name": "apple-nest-3",
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "",
   "scripts": {
     "nx": "nx",
     "start": "nx serve apple-nest-3",
     "start-api": "nx serve apple-nest-3-api",
     "build": "nx build && nx build apple-nest-3-api",
+    "build-api": "nx build apple-nest-3-api",
+    "build-ui": "nx build apple-nest-3",
     "test": "nx test apple-nest-3 && nx test apple-nest-3-api",
     "tdd-api": "nx test apple-nest-3-api --watch",
     "tdd-ui": "nx test apple-nest-3 --watch",

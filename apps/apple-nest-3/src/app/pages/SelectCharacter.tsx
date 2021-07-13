@@ -14,7 +14,7 @@ interface SelectCharacterProps {
 interface SelectCharacterState {
   characters: Character[];
   loading: boolean;
-  error: any;
+  error?: Error;
 }
 
 export class SelectCharacter extends Component<
@@ -26,7 +26,6 @@ export class SelectCharacter extends Component<
     this.state = {
       characters: [],
       loading: true,
-      error: null,
     };
   }
 
@@ -39,7 +38,6 @@ export class SelectCharacter extends Component<
       this.setState({
         characters: [],
         loading: true,
-        error: null,
       });
 
       const characterWebService = new CharacterWebservice();
@@ -47,7 +45,6 @@ export class SelectCharacter extends Component<
       this.setState({
         characters,
         loading: false,
-        error: null,
       });
     } catch (err) {
       this.setState({

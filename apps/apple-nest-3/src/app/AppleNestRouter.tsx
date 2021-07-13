@@ -4,8 +4,9 @@ import { createBrowserHistory } from 'history';
 import { CreateCharacter } from './pages/CreateCharacter';
 import { Home } from './pages/Home';
 import { Game } from './pages/Game';
+import { History } from 'history';
 
-function GameWrapper(params: any) {
+function GameWrapper(params: { history: History }) {
   // must be a better way to do this
   const { characterId } = useParams<{ characterId: string }>();
   return <Game characterId={characterId} history={params.history} />;

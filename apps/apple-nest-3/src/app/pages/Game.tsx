@@ -17,7 +17,7 @@ interface GameState {
   place: Place;
   character: Character | null;
   loading: boolean;
-  error: any;
+  error?: Error;
 }
 
 interface GameProps {
@@ -32,7 +32,6 @@ export class Game extends Component<GameProps, GameState> {
       place: Place.Town,
       character: null,
       loading: true,
-      error: null,
     };
   }
 
@@ -45,7 +44,6 @@ export class Game extends Component<GameProps, GameState> {
       this.setState({
         character: null,
         loading: true,
-        error: null,
         place: this.state.place,
       });
 
@@ -68,7 +66,6 @@ export class Game extends Component<GameProps, GameState> {
     this.setState({
       character,
       loading: false,
-      error: null,
       place: this.state.place,
     });
   }

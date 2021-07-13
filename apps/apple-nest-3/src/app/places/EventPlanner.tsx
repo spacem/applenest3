@@ -8,7 +8,7 @@ import { Quest } from '@apple-nest-3/apple-nest-interfaces';
 
 interface EventPlannerState {
   saving?: boolean;
-  error?: any;
+  error?: Error;
   message?: string;
   doingQuest?: boolean;
 }
@@ -26,7 +26,6 @@ export class EventPlanner extends Component<PlaceProps, EventPlannerState> {
     super(props);
     this.state = {
       saving: false,
-      error: null,
       message: 'Do you want a quest?',
     };
   }
@@ -41,7 +40,7 @@ export class EventPlanner extends Component<PlaceProps, EventPlannerState> {
 
   async completeQuest() {
     try {
-      this.setState({ saving: true, error: null });
+      this.setState({ saving: true });
       const webService = new EventPlannerWebservice();
       const { character: updatedCharacter, message } =
         await webService.completeQuest(this.props.character);
@@ -61,7 +60,7 @@ export class EventPlanner extends Component<PlaceProps, EventPlannerState> {
 
   async collectReward() {
     try {
-      this.setState({ saving: true, error: null });
+      this.setState({ saving: true });
       const webService = new EventPlannerWebservice();
       const { character: updatedCharacter, message } =
         await webService.giveReward(this.props.character);

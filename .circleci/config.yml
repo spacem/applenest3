@@ -24,22 +24,21 @@ jobs:
       # Next, the node orb's install-packages step will install the dependencies from a package.json.
       # The orb install-packages step will also automatically cache them for faster future runs.
       - node/install-packages:
-          app-dir: apple-nest-backend
       - run:
-          name: Run tests
+          name: Run api tests
           command: npm test-api
       - run:
-          name: Build
-          working_directory: apple-nest-backend
-          command: npm run build
-
-      # Now build UI
-      - node/install-packages:
-          app-dir: apple-nest-ui
+          name: Run ui tests
+          command: npm test-ui
       - run:
-          name: Build
-          working_directory: apple-nest-ui
-          command: npm run build
+          name: Build API
+          command: npm run build-api
+      - run:
+          name: Build UI
+          command: npm run build-ui
+      - run:
+          name: Lint
+          command: npm run lint
 
 workflows:
   # Below is the definition of your workflow.

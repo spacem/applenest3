@@ -7,7 +7,7 @@ import { FarmerWebservice } from '../api/FarmerWebService';
 
 interface FarmerState {
   saving?: boolean;
-  error?: any;
+  error?: Error;
   message?: string;
 }
 
@@ -16,14 +16,13 @@ export class Farmer extends Component<PlaceProps, FarmerState> {
     super(props);
     this.state = {
       saving: false,
-      error: null,
       message: 'You can buy seeds from me.',
     };
   }
 
   async buySeed(numSeeds: number) {
     try {
-      this.setState({ saving: true, error: null });
+      this.setState({ saving: true });
       const webService = new FarmerWebservice();
       const { character: updatedCharacter, message } =
         await webService.buySeeds(this.props.character, numSeeds);

@@ -4,7 +4,7 @@ interface LoadingProps {
   loading: boolean;
 }
 
-export class Loading extends Component<LoadingProps, {}> {
+export class Loading extends Component<LoadingProps, never> {
   render() {
     if (this.props.loading) {
       return <>Loading...</>;

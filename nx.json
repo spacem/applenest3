@@ -1,7 +1,7 @@
 {
   "npmScope": "apple-nest-3",
   "affected": {
-    "defaultBase": "master"
+    "defaultBase": "main"
   },
   "implicitDependencies": {
     "package.json": {

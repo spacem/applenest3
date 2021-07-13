@@ -9,7 +9,7 @@ import { ErrorMessage } from '../components/ErrorMessage';
 interface CreateCharacterState {
   name: string;
   saving: boolean;
-  error: any;
+  error?: Error;
 }
 
 interface CreateCharacterProps {
@@ -25,7 +25,6 @@ export class CreateCharacter extends Component<
     this.state = {
       name: '',
       saving: false,
-      error: null,
     };
   }
 
@@ -39,7 +38,6 @@ export class CreateCharacter extends Component<
       this.setState({
         name: this.state.name,
         saving: true,
-        error: null,
       });
       await webService.createCharacter(character);
       this.props.history.push('/select-character');

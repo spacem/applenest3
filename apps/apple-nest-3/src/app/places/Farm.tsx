@@ -3,12 +3,7 @@ import { Quest } from '@apple-nest-3/apple-nest-interfaces';
 import { Place } from '../interfaces/place';
 import { PlaceProps } from '../interfaces/place-props';
 
-export class Farm extends Component<PlaceProps, {}> {
-  constructor(props: PlaceProps) {
-    super(props);
-    this.state = {};
-  }
-
+export class Farm extends Component<PlaceProps, never> {
   render() {
     const extraPlaces = [];
 

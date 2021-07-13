@@ -1,10 +1,10 @@
 import { Component } from 'react';
 
 interface ErrorProps {
-  error: any;
+  error?: Error;
 }
 
-export class ErrorMessage extends Component<ErrorProps, {}> {
+export class ErrorMessage extends Component<ErrorProps, never> {
   render() {
     if (this.props.error) {
       if (this.props.error.message) {

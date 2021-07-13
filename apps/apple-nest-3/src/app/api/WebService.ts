@@ -13,7 +13,7 @@ export class Webservice {
     }
   }
 
-  protected async post(path: string, data?: any) {
+  protected async post(path: string, data?: unknown) {
     try {
       const postOptions: RequestInit = {
         method: 'POST',
@@ -34,7 +34,7 @@ export class Webservice {
 
   private createFullUrl(url: string) {
     // TODO: could get server url in a better way, build parameters, json config, etc
-    const serverBaseUrl: string = 'http://localhost:3333/api';
+    const serverBaseUrl = 'http://localhost:3333/api';
     return `${serverBaseUrl}${this.moduleUrl}${url}`;
   }
 
