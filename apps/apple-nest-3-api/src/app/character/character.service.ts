@@ -20,13 +20,13 @@ export class CharacterService {
 
   async fetchById(id: string) {
     const characters = await this.fetchAll();
-    return characters?.find((c) => c.uuid === id);
+    return characters?.find((c) => c.id === id);
   }
 
   async create(characterName: string) {
     const character: Character = {
       name: characterName,
-      uuid: uuidv4(),
+      id: uuidv4(),
     };
     let characters = await this.fetchAll();
     if (!characters) {
@@ -45,7 +45,7 @@ export class CharacterService {
       characters = [];
     }
 
-    const existing = characters.find((c) => c.uuid === character.uuid);
+    const existing = characters.find((c) => c.id === character.id);
     const index = characters.indexOf(existing);
     if (index >= 0) {
       characters[index] = character;

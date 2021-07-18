@@ -14,7 +14,7 @@ export class EventPlannerWebservice extends Webservice {
   giveReward(character: Character): Promise<ActionResponse> {
     const body: ActionBody = {
       type: ActionType.Reward,
-      characterId: character.uuid,
+      characterId: character.id,
     };
     return this.post(`/action`, body);
   }
@@ -22,7 +22,7 @@ export class EventPlannerWebservice extends Webservice {
   completeQuest(character: Character): Promise<ActionResponse> {
     const body: ActionBody = {
       type: ActionType.Quest,
-      characterId: character.uuid,
+      characterId: character.id,
     };
     return this.post(`/action`, body);
   }

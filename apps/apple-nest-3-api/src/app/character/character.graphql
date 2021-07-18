@@ -1,0 +1,20 @@
+type Character {
+  id: ID
+  name: String!
+  weaponLevel: Int
+  armourLevel: Int
+  lastRewardDate: Int
+  seedReadyDate: Int
+  megaSeedReadyDate: Int
+  legendarySeedReadyDate: Int
+  rankBeaten: Int
+}
+
+type Query {
+  character(id: ID!): Character
+  characters: [Character]
+}
+
+type Mutation {
+  createCharacter(name: String!): Character
+}

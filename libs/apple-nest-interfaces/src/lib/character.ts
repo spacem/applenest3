@@ -2,7 +2,7 @@ import { Quest } from './quest';
 import { Bag } from './bag';
 
 export interface Character {
-  uuid?: string;
+  id?: string;
   name: string;
   bag?: Bag;
   weaponLevel?: number;

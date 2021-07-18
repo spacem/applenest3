@@ -8,16 +8,22 @@ import { EventPlannerController } from './event-planner/event-planner.controller
 import { EventPlannerService } from './event-planner/event-planner.service';
 import { FarmerController } from './farmer/farmer.controller';
 import { PlotController } from './plot/plot.controller';
+import { GraphQLModule } from '@nestjs/graphql';
+import { CharacterResolver } from './character/character.resolver';
 
 @Module({
-  imports: [],
+  imports: [
+    GraphQLModule.forRoot({
+      typePaths: ['./**/*.graphql']
+    })
+  ],
   controllers: [
     AppController,
     CharacterController,
     EventPlannerController,
     FarmerController,
-    PlotController,
+    PlotController
   ],
-  providers: [AppService, StoreService, CharacterService, EventPlannerService],
+  providers: [AppService, StoreService, CharacterService, EventPlannerService, CharacterResolver],
 })
 export class AppModule {}

@@ -1,19 +1,20 @@
-import { Component } from 'react';
-
 interface ErrorProps {
   error?: Error;
+  errors?: Error[];
 }
 
-export class ErrorMessage extends Component<ErrorProps, never> {
-  render() {
-    if (this.props.error) {
-      if (this.props.error.message) {
-        return <>Error: {this.props.error.message}</>;
-      } else {
-        return <>Error...</>;
-      }
+export function ErrorMessage(props: ErrorProps) {
+  if (props.error) {
+    if (props.error.message) {
+      return <>Error: {props.error.message}</>;
     } else {
-      return null;
-    }
+      return <>Error...</>;
+    } 
+  } else if(props.errors && props.errors.length) {
+    return <>{props.errors.map(error => {
+      return <>Error: {error.message}</>;
+    })}</>;
+  } else {
+    return <></>;
   }
 }

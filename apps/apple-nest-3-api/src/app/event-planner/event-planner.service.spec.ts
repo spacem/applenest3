@@ -17,7 +17,7 @@ describe('EventPlannerService', () => {
 
   it('gives reward when no bag', async () => {
     const testCharacter: Character = {
-      uuid: '123',
+      id: '123',
       name: 'test',
     };
 
@@ -30,7 +30,7 @@ describe('EventPlannerService', () => {
 
   it('gives reward when no time', async () => {
     const testCharacter: Character = {
-      uuid: '123',
+      id: '123',
       name: 'test',
       bag: {
         money: 22,
@@ -47,7 +47,7 @@ describe('EventPlannerService', () => {
   it('gives reward when time past due', async () => {
     const testCharacter: Character = {
       lastRewardDate: 1,
-      uuid: '123',
+      id: '123',
       name: 'test',
       bag: {
         money: 22,
@@ -64,7 +64,7 @@ describe('EventPlannerService', () => {
   it('does not give when time not up', async () => {
     const testCharacter: Character = {
       lastRewardDate: 1,
-      uuid: '123',
+      id: '123',
       name: 'test',
       bag: {
         money: 22,

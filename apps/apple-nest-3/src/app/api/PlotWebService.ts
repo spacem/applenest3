@@ -14,7 +14,7 @@ export class PlotWebservice extends Webservice {
   plantSeed(character: Character): Promise<ActionResponse> {
     const body: ActionBody = {
       type: ActionType.Plant,
-      characterId: character.uuid,
+      characterId: character.id,
     };
     return this.post(`/action`, body);
   }
@@ -22,7 +22,7 @@ export class PlotWebservice extends Webservice {
   harvestCrop(character: Character): Promise<ActionResponse> {
     const body: ActionBody = {
       type: ActionType.Harvest,
-      characterId: character.uuid,
+      characterId: character.id,
     };
     return this.post(`/action`, body);
   }

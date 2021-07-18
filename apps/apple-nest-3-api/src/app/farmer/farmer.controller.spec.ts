@@ -14,7 +14,7 @@ describe('FarmerController', () => {
   it('takes money and gives seeds', async () => {
     const testCharacter: Character = {
       name: 'n',
-      uuid: 'u',
+      id: 'u',
       bag: {
         money: 22,
       },

@@ -1,88 +1,78 @@
-import { ChangeEvent, KeyboardEvent, Component } from 'react';
 import { Link } from 'react-router-dom';
 import { History } from 'history';
-import { Character } from '@apple-nest-3/apple-nest-interfaces';
-import { CharacterWebservice } from '../api/CharacterWebService';
 import { Saving } from '../components/Saving';
 import { ErrorMessage } from '../components/ErrorMessage';
+import { gql, useMutation } from '@apollo/client';
+import { Character } from '@apple-nest-3/apple-nest-interfaces';
 
-interface CreateCharacterState {
-  name: string;
-  saving: boolean;
-  error?: Error;
-}
+const ADD_CHARACTER = gql`
+  mutation Character($name: String!) {
+    createCharacter(name: $name) {
+      id,
+      name
+    }
+  }
+`;
 
 interface CreateCharacterProps {
   history: History;
 }
 
-export class CreateCharacter extends Component<
-  CreateCharacterProps,
-  CreateCharacterState
-> {
-  constructor(props: CreateCharacterProps) {
-    super(props);
-    this.state = {
-      name: '',
-      saving: false,
-    };
-  }
+export function CreateCharacter(props: CreateCharacterProps) {
 
-  async createCharacter() {
-    const character: Partial<Character> = {
-      name: this.state.name,
-    };
+  let input: HTMLInputElement | null;
 
-    const webService = new CharacterWebservice();
-    try {
-      this.setState({
-        name: this.state.name,
-        saving: true,
-      });
-      await webService.createCharacter(character);
-      this.props.history.push('/select-character');
-    } catch (err) {
-      this.setState({
-        name: this.state.name,
-        saving: false,
-        error: err,
-      });
+  const [addCharacter, { loading, error }] = useMutation<{ createCharacter: Character }>(ADD_CHARACTER, {
+    update: (cache, added) => cache.modify({
+        fields: {
+          characters: (existingCharacters = []) => {
+            console.log('added', added);
+            console.log('existing values: ', [...existingCharacters]);
+            const newFragment = cache.writeFragment({
+              data: added.data?.createCharacter,
+              fragment: gql`
+                fragment NewCharacter on Character {
+                  id,
+                  name
+                }`
+            });
+            console.log('new value: ', newFragment);
+            return [...existingCharacters, newFragment];
+          }
+        }
+    }),
+    onCompleted: () => {
+      props.history.push('/select-character');
     }
+  });
+
+  async function doAddCharacter() {
+    await addCharacter({ variables: { name: input?.value }});
   }
 
-  handleInputChange(event: ChangeEvent<HTMLInputElement>) {
-    this.setState({
-      name: event.target.value,
-    });
-  }
-
-  handleKeyPress(event: KeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter') {
-      this.createCharacter();
-    }
-  }
-
-  render() {
-    return (
-      <Saving saving={this.state.saving}>
-        <h2>Create Character</h2>
-        <div>
-          <input
-            onKeyPress={(event) => this.handleKeyPress(event)}
-            placeholder="Character Name"
-            onChange={(event) => this.handleInputChange(event)}
-          />
-        </div>
-        <div>
-          <button onClick={() => this.createCharacter()}>
-            Create Character
-          </button>
-          <Link to="/select-character">Cancel</Link>
-        </div>
-        <div>
-          <ErrorMessage error={this.state.error}></ErrorMessage>
-        </div>
-      </Saving>
-    );
-  }
+  return (
+    <Saving saving={loading}>
+      <h2>Create Character</h2>
+      <div>
+        <input
+          ref={node => input = node }
+          onKeyPress={async (event) => {
+            if (event.key === 'Enter') {
+              doAddCharacter();
+            }
+          }}
+          placeholder="Character Name"
+        />
+      </div>
+      <div>
+        <button onClick={async () => doAddCharacter()}>
+          Create Character
+        </button>
+        <Link to="/select-character">Cancel</Link>
+      </div>
+      <div>
+        <ErrorMessage error={error}></ErrorMessage>
+      </div>
+    </Saving>
+  );
 }

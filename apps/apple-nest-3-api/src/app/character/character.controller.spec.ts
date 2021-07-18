@@ -17,7 +17,7 @@ describe('CharacterController', () => {
 
   it('no error when not exists', async () => {
     const existing = {
-      uuid: 'test',
+      id: 'test',
       name: 'test name2',
     };
     jest
@@ -31,7 +31,7 @@ describe('CharacterController', () => {
 
   it('fails to create when exists', async () => {
     const existing = {
-      uuid: 'test',
+      id: 'test',
       name: 'test name',
     };
     jest

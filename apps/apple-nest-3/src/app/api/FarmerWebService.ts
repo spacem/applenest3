@@ -14,7 +14,7 @@ export class FarmerWebservice extends Webservice {
   buySeeds(character: Character, numSeeds: number): Promise<ActionResponse> {
     const body: QtyActionBody = {
       type: ActionType.BuySeeds,
-      characterId: character.uuid,
+      characterId: character.id,
       quantity: numSeeds,
     };
     return this.post(`/action`, body);

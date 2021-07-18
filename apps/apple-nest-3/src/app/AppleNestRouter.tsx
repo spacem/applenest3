@@ -8,9 +8,11 @@ import { History } from 'history';
 
 function GameWrapper(params: { history: History }) {
   // must be a better way to do this
+  // game is a class so cannot call useParams
   const { characterId } = useParams<{ characterId: string }>();
   return <Game characterId={characterId} history={params.history} />;
 }
+
 
 export function AppleNestRouter() {
   const history = createBrowserHistory();
