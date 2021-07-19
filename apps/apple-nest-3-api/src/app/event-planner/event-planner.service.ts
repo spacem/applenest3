@@ -59,4 +59,25 @@ export class EventPlannerService {
         return false;
     }
   }
+
+  async completeQuest(character: Character) {
+    const status = this.isQuestComplete(character);
+    if (status) {
+      const updatedCharacter: Character = {
+        ...character,
+        questNumber: character.questNumber ? character.questNumber + 1 : 2,
+      };
+      await this.characterService.update(updatedCharacter);
+
+      return {
+        character: updatedCharacter,
+        message: 'Good job! Come back to me for more quests!',
+      };
+    } else {
+      return {
+        character: character,
+        message: 'Looks like the quest is not completed???',
+      };
+    }
+  }
 }

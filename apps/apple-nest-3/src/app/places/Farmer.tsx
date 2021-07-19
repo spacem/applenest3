@@ -26,7 +26,9 @@ export class Farmer extends Component<PlaceProps, FarmerState> {
       const webService = new FarmerWebservice();
       const { character: updatedCharacter, message } =
         await webService.buySeeds(this.props.character, numSeeds);
-      this.props.onUpdateCharacter(updatedCharacter);
+      if(this.props.onUpdateCharacter) {
+        this.props.onUpdateCharacter(updatedCharacter);
+      }
       this.setState({ message, saving: false });
     } catch (err) {
       this.setState({ error: err, saving: false });

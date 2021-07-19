@@ -39,7 +39,9 @@ export class Plot extends Component<PlaceProps, PlotState> {
       const webService = new PlotWebservice();
       const { character: updatedCharacter, message } =
         await webService.plantSeed(this.props.character);
-      this.props.onUpdateCharacter(updatedCharacter);
+      if(this.props.onUpdateCharacter) {
+        this.props.onUpdateCharacter(updatedCharacter);
+      }
       this.setState({ message, saving: false });
     } catch (err) {
       this.setState({ error: err, saving: false });
@@ -52,7 +54,9 @@ export class Plot extends Component<PlaceProps, PlotState> {
       const webService = new PlotWebservice();
       const { character: updatedCharacter, message } =
         await webService.harvestCrop(this.props.character);
-      this.props.onUpdateCharacter(updatedCharacter);
+      if(this.props.onUpdateCharacter) {
+        this.props.onUpdateCharacter(updatedCharacter);
+      }
       this.setState({ message, saving: false });
     } catch (err) {
       this.setState({ error: err, saving: false });

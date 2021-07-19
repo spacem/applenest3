@@ -7,7 +7,6 @@ import {
 } from '@nestjs/common';
 import {
   ActionBody,
-  Character,
   ActionType,
 } from '@apple-nest-3/apple-nest-interfaces';
 import { CharacterService } from '../character/character.service';
@@ -37,33 +36,12 @@ export class EventPlannerController {
           new Date().valueOf()
         );
       case ActionType.Quest:
-        return this.doQuest(character);
+        return this.eventPlannerService.completeQuest(character);
       default:
         throw new HttpException(
           `Invalid event planner action ${body.type}`,
           HttpStatus.BAD_REQUEST
         );
-    }
-  }
-
-  async doQuest(character: Character) {
-    const status = this.eventPlannerService.isQuestComplete(character);
-    if (status) {
-      const updatedCharacter: Character = {
-        ...character,
-        questNumber: character.questNumber ? character.questNumber + 1 : 2,
-      };
-      await this.characterService.update(updatedCharacter);
-
-      return {
-        character: updatedCharacter,
-        message: 'Good job! Come back to me for more quests!',
-      };
-    } else {
-      return {
-        character: character,
-        message: 'Looks like the quest is not completed???',
-      };
     }
   }
 }

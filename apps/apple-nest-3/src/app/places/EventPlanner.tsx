@@ -1,17 +1,45 @@
-import { Component } from 'react';
-import { EventPlannerWebservice } from '../api/EventPlannerWebService';
+import { useState } from 'react';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Saving } from '../components/Saving';
 import { Place } from '../interfaces/place';
 import { PlaceProps } from '../interfaces/place-props';
-import { Quest } from '@apple-nest-3/apple-nest-interfaces';
+import { Character, Quest } from '@apple-nest-3/apple-nest-interfaces';
+import { gql, useMutation } from '@apollo/client';
 
 interface EventPlannerState {
-  saving?: boolean;
-  error?: Error;
   message?: string;
   doingQuest?: boolean;
 }
+
+const COMPLETE_QUEST = gql`
+  mutation Character($id: ID!) {
+    completeQuest(id: $id) {
+      message,
+      character {
+        id,
+        name,
+        questNumber
+      }
+    }
+  }
+`;
+
+const COLLECT_REWARD = gql`
+  mutation Character($id: ID!) {
+    collectReward(id: $id) {
+      message,
+      character {
+        id,
+        name,
+        bag {
+          money,
+          apples,
+          seeds
+        }
+      }
+    }
+  }
+`;
 
 const questText: string[] = [];
 questText[Quest.GetMoney] =
@@ -21,96 +49,82 @@ questText[Quest.BuySeed] =
 questText[Quest.GrowApple] =
   'Now you need to grow an apple. Go back to the farm and use the plot.';
 
-export class EventPlanner extends Component<PlaceProps, EventPlannerState> {
-  constructor(props: PlaceProps) {
-    super(props);
-    this.state = {
-      saving: false,
-      message: 'Do you want a quest?',
-    };
-  }
+export function EventPlanner(props: PlaceProps) {
+  const initialState: EventPlannerState = {
+    doingQuest: false,
+    message: 'Do you want a quest?'
+  };
+  const [state, setState] = useState(initialState);
 
-  doQuest() {
-    const quest = this.props.character.questNumber || Quest.GetMoney;
-    this.setState({
+  const [completeQuest, { loading: loadingQuest, error: questError }] = useMutation<{ completeQuest: { message: string, character: Character }}>(COMPLETE_QUEST);
+  const [collectReward, { loading: loadingReward, error: rewardError }] = useMutation<{ collectReward: { message: string, character: Character }}>(COLLECT_REWARD);
+
+  function doQuest() {
+    const quest = props.character.questNumber || Quest.GetMoney;
+    setState({
       doingQuest: questText[quest] != null,
       message: questText[quest] || 'There are no more quests at this time',
     });
   }
 
-  async completeQuest() {
-    try {
-      this.setState({ saving: true });
-      const webService = new EventPlannerWebservice();
-      const { character: updatedCharacter, message } =
-        await webService.completeQuest(this.props.character);
-      this.props.onUpdateCharacter(updatedCharacter);
-      this.setState({ message, saving: false, doingQuest: false });
-    } catch (err) {
-      this.setState({ error: err, saving: false });
-    }
-  }
-
-  acceptQuest() {
-    this.setState({
+  function acceptQuest() {
+    setState({
       doingQuest: false,
       message: 'Come back when the quest is completed',
     });
   }
 
-  async collectReward() {
-    try {
-      this.setState({ saving: true });
-      const webService = new EventPlannerWebservice();
-      const { character: updatedCharacter, message } =
-        await webService.giveReward(this.props.character);
-      this.props.onUpdateCharacter(updatedCharacter);
-      this.setState({ message, saving: false });
-    } catch (err) {
-      this.setState({ error: err, saving: false });
-    }
-  }
-
-  render() {
-    return (
-      <>
-        <h2>Event Planner</h2>
-        <div>Hello I am the event planner.</div>
-        <div>{this.state.message}</div>
-        <Saving saving={this.state.saving}>
-          <div>
-            <ErrorMessage error={this.state.error}></ErrorMessage>
-          </div>
-          {(() => {
-            if (this.state.doingQuest) {
-              return (
-                <div>
-                  <button onClick={() => this.acceptQuest()}>
-                    Accept Quest
-                  </button>
-                  <button onClick={() => this.completeQuest()}>
-                    Complete Quest
-                  </button>
-                </div>
-              );
-            } else {
-              return (
-                <div>
-                  <button onClick={() => this.doQuest()}>Do Quest</button>
-                  <button onClick={() => this.collectReward()}>
-                    Collect Reward
-                  </button>
-                </div>
-              );
-            }
-          })()}
-          <div>
-            <button onClick={() => this.props.onChangePlace(Place.Town)}>
-              Back To Town
-            </button>
-          </div>
-        </Saving>
-      </>
-    );
-  }
+  return (
+    <>
+      <h2>Event Planner</h2>
+      <div>Hello I am the event planner.</div>
+      <div>{state.message}</div>
+      <Saving saving={loadingQuest || loadingReward}>
+        <div>
+          <ErrorMessage error={questError}></ErrorMessage>
+          <ErrorMessage error={rewardError}></ErrorMessage>
+        </div>
+        {(() => {
+          if (state.doingQuest) {
+            return (
+              <div>
+                <button onClick={() => acceptQuest()}>
+                  Accept Quest
+                </button>
+                <button onClick={async () => {
+                  const result = await completeQuest({ variables: { id: props.character.id }})
+                  setState({
+                    doingQuest: false,
+                    message: result.data?.completeQuest.message
+                  });
+                }}>
+                  Complete Quest
+                </button>
+              </div>
+            );
+          } else {
+            return (
+              <div>
+                <button onClick={() => doQuest()}>Do Quest</button>
+                <button onClick={async () => {
+                  const result = await collectReward({ variables: { id: props.character.id }})
+                  setState({
+                    doingQuest: false,
+                    message: result.data?.collectReward.message
+                  });
+                }}>
+                  Collect Reward
+                </button>
+              </div>
+            );
+          }
+        })()}
+        <div>
+          <button onClick={() => props.onChangePlace(Place.Town)}>
+            Back To Town
+          </button>
+        </div>
+      </Saving>
+    </>
+  );
 }

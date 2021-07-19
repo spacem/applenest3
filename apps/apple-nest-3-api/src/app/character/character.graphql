@@ -1,6 +1,7 @@
 type Character {
   id: ID
   name: String!
+  bag: Bag
   weaponLevel: Int
   armourLevel: Int
   lastRewardDate: Int
@@ -8,6 +9,13 @@ type Character {
   megaSeedReadyDate: Int
   legendarySeedReadyDate: Int
   rankBeaten: Int
+  questNumber: String
+}
+
+type Bag {
+  money: Int
+  apples: Int
+  seeds: Int
 }
 
 type Query {
@@ -17,4 +25,11 @@ type Query {
 
 type Mutation {
   createCharacter(name: String!): Character
+  collectReward(id: ID): ActionResult
+  completeQuest(id: ID): ActionResult
+}
+
+type ActionResult {
+  message: String
+  character: Character
 }
