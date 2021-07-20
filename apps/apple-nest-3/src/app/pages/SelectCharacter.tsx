@@ -34,6 +34,8 @@ export function SelectCharacter(props: SelectCharacterProps) {
       getCharacters();
     }
     return () => {
+      // problem with useQuery and react router and this workaround stops errors
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       isMounted = false;
     };
   }, []);

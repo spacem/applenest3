@@ -1,6 +1,7 @@
 import { ActionType, Character } from '@apple-nest-3/apple-nest-interfaces';
 import { CharacterService } from '../character/character.service';
 import { FarmerController } from './farmer.controller';
+import { FarmerService } from './farmer.service';
 
 describe('FarmerController', () => {
   let controller: FarmerController;
@@ -8,7 +9,7 @@ describe('FarmerController', () => {
 
   beforeEach(async () => {
     characterService = new CharacterService({} as any);
-    controller = new FarmerController(characterService);
+    controller = new FarmerController(characterService, new FarmerService(characterService));
   });
 
   it('takes money and gives seeds', async () => {

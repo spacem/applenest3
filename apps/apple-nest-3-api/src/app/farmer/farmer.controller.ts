@@ -7,14 +7,16 @@ import {
 } from '@nestjs/common';
 import {
   ActionType,
-  Character,
   QtyActionBody,
 } from '@apple-nest-3/apple-nest-interfaces';
 import { CharacterService } from '../character/character.service';
+import { FarmerService } from './farmer.service';
 
 @Controller('farmer')
 export class FarmerController {
-  constructor(private characterService: CharacterService) {}
+  constructor(
+    private characterService: CharacterService,
+    private farmerService: FarmerService) {}
 
   @Post('/action')
   async action(@Body() body: QtyActionBody) {
@@ -34,25 +36,6 @@ export class FarmerController {
     }
 
     const numSeeds = body.quantity;
-    if (character.bag?.money >= numSeeds) {
-      const updatedCharacter: Character = {
-        ...character,
-        bag: {
-          ...character?.bag,
-          money: character.bag.money - numSeeds,
-          seeds: (character.bag.seeds || 0) + numSeeds,
-        },
-      };
-      await this.characterService.update(updatedCharacter);
-      return {
-        character: updatedCharacter,
-        message: 'Here are your seeds',
-      };
-    } else {
-      return {
-        character,
-        message: 'Not enough money',
-      };
-    }
+    return this.farmerService.buySeeds(character, numSeeds);
   }
 }

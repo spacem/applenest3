@@ -1,5 +1,6 @@
 import { CharacterService } from '../character/character.service';
 import { PlotController } from './plot.controller';
+import { PlotService } from './plot.service';
 
 describe('PlotController', () => {
   let controller: PlotController;
@@ -7,7 +8,7 @@ describe('PlotController', () => {
 
   beforeEach(async () => {
     characterService = new CharacterService({} as any);
-    controller = new PlotController(characterService);
+    controller = new PlotController(characterService, new PlotService(characterService));
   });
 
   it('should be defined', () => {

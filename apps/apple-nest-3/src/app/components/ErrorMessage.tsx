@@ -15,6 +15,6 @@ export function ErrorMessage(props: ErrorProps) {
       return <>Error: {error.message}</>;
     })}</>;
   } else {
-    return <></>;
+    return null;
   }
 }

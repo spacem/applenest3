@@ -4,10 +4,10 @@ type Character {
   bag: Bag
   weaponLevel: Int
   armourLevel: Int
-  lastRewardDate: Int
-  seedReadyDate: Int
-  megaSeedReadyDate: Int
-  legendarySeedReadyDate: Int
+  lastRewardDate: Float
+  seedReadyDate: Float
+  megaSeedReadyDate: Float
+  legendarySeedReadyDate: Float
   rankBeaten: Int
   questNumber: String
 }
@@ -25,8 +25,11 @@ type Query {
 
 type Mutation {
   createCharacter(name: String!): Character
-  collectReward(id: ID): ActionResult
-  completeQuest(id: ID): ActionResult
+  collectReward(characterId: ID!): ActionResult
+  completeQuest(characterId: ID!): ActionResult
+  buySeeds(characterId: ID!, numSeeds: Int): ActionResult
+  plantSeed(characterId: ID!): ActionResult
+  harvestCrop(characterId: ID!): ActionResult
 }
 
 type ActionResult {

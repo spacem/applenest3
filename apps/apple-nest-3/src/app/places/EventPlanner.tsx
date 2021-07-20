@@ -12,8 +12,8 @@ interface EventPlannerState {
 }
 
 const COMPLETE_QUEST = gql`
-  mutation Character($id: ID!) {
-    completeQuest(id: $id) {
+  mutation Character($characterId: ID!) {
+    completeQuest(characterId: $characterId) {
       message,
       character {
         id,
@@ -25,8 +25,8 @@ const COMPLETE_QUEST = gql`
 `;
 
 const COLLECT_REWARD = gql`
-  mutation Character($id: ID!) {
-    collectReward(id: $id) {
+  mutation Character($characterId: ID!) {
+    collectReward(characterId: $characterId) {
       message,
       character {
         id,
@@ -92,7 +92,7 @@ export function EventPlanner(props: PlaceProps) {
                   Accept Quest
                 </button>
                 <button onClick={async () => {
-                  const result = await completeQuest({ variables: { id: props.character.id }})
+                  const result = await completeQuest({ variables: { characterId: props.character.id }})
                   setState({
                     doingQuest: false,
                     message: result.data?.completeQuest.message
@@ -107,7 +107,7 @@ export function EventPlanner(props: PlaceProps) {
               <div>
                 <button onClick={() => doQuest()}>Do Quest</button>
                 <button onClick={async () => {
-                  const result = await collectReward({ variables: { id: props.character.id }})
+                  const result = await collectReward({ variables: { characterId: props.character.id }})
                   setState({
                     doingQuest: false,
                     message: result.data?.collectReward.message

@@ -10,6 +10,8 @@ import { FarmerController } from './farmer/farmer.controller';
 import { PlotController } from './plot/plot.controller';
 import { GraphQLModule } from '@nestjs/graphql';
 import { CharacterResolver } from './character/character.resolver';
+import { FarmerService } from './farmer/farmer.service';
+import { PlotService } from './plot/plot.service';
 
 @Module({
   imports: [
@@ -24,6 +26,13 @@ import { CharacterResolver } from './character/character.resolver';
     FarmerController,
     PlotController
   ],
-  providers: [AppService, StoreService, CharacterService, EventPlannerService, CharacterResolver],
+  providers: [
+    AppService,
+    StoreService,
+    CharacterService,
+    EventPlannerService,
+    FarmerService,
+    PlotService,
+    CharacterResolver],
 })
 export class AppModule {}

@@ -1,62 +1,66 @@
-import { Component } from 'react';
+import { Component, useState } from 'react';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Saving } from '../components/Saving';
 import { Place } from '../interfaces/place';
 import { PlaceProps } from '../interfaces/place-props';
-import { FarmerWebservice } from '../api/FarmerWebService';
+import { gql, useMutation } from '@apollo/client';
+import { Character } from '@apple-nest-3/apple-nest-interfaces';
 
-interface FarmerState {
-  saving?: boolean;
-  error?: Error;
-  message?: string;
-}
-
-export class Farmer extends Component<PlaceProps, FarmerState> {
-  constructor(props: PlaceProps) {
-    super(props);
-    this.state = {
-      saving: false,
-      message: 'You can buy seeds from me.',
-    };
-  }
-
-  async buySeed(numSeeds: number) {
-    try {
-      this.setState({ saving: true });
-      const webService = new FarmerWebservice();
-      const { character: updatedCharacter, message } =
-        await webService.buySeeds(this.props.character, numSeeds);
-      if(this.props.onUpdateCharacter) {
-        this.props.onUpdateCharacter(updatedCharacter);
+const BUY_SEEDS = gql`
+  mutation Character($characterId: ID!, $numSeeds: Int) {
+    buySeeds(characterId: $characterId, numSeeds: $numSeeds) {
+      message,
+      character {
+        id,
+        name,
+        bag {
+          money,
+          apples,
+          seeds
+        }
       }
-      this.setState({ message, saving: false });
-    } catch (err) {
-      this.setState({ error: err, saving: false });
+    }
+  }
+`;
+
+export function Farmer(props: PlaceProps) {
+
+  const [message, setMessage] = useState('You can buy seeds from me.');
+  const [buySeeds, { loading, error }] = useMutation<{ buySeeds: { message: string, character: Character }}>(BUY_SEEDS);
+
+  async function doBuySeeds(numSeeds: number) {
+    const result = await buySeeds({ variables: { characterId: props.character.id, numSeeds } });
+    if (result.data?.buySeeds.message) {
+      setMessage(result.data?.buySeeds.message);
     }
   }
 
-  render() {
-    return (
-      <>
-        <h2>Farmer</h2>
-        <div>Hello. I am the farmer!</div>
-        <div>{this.state.message}</div>
-        <Saving saving={this.state.saving}>
-          <div>
-            <ErrorMessage error={this.state.error}></ErrorMessage>
-          </div>
-          <div>
-            <button onClick={() => this.buySeed(1)}>Buy One Seed</button>
-            <button onClick={() => this.buySeed(10)}>Buy 10x Seeds</button>
-            <button onClick={() => this.buySeed(100)}>Buy 100x Seeds</button>
-          </div>
-          <div>
-            <button onClick={() => this.props.onChangePlace(Place.Farm)}>
-              Back To Farm
-            </button>
-          </div>
-        </Saving>
-      </>
-    );
-  }
+  return (
+    <>
+      <h2>Farmer</h2>
+      <div>Hello. I am the farmer!</div>
+      <div>{message}</div>
+      <Saving saving={loading}>
+        <div>
+          <ErrorMessage error={error}></ErrorMessage>
+        </div>
+        <div>
+          <button onClick={() => doBuySeeds(1)}>
+            Buy One Seed
+          </button>
+          <button onClick={() => doBuySeeds(10)}>
+            Buy 10x Seeds
+          </button>
+          <button onClick={() => doBuySeeds(100)}>
+            Buy 100x Seeds
+          </button>
+        </div>
+        <div>
+          <button onClick={() => props.onChangePlace(Place.Farm)}>
+            Back To Farm
+          </button>
+        </div>
+      </Saving>
+    </>
+  );
 }
