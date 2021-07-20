@@ -1,5 +1,5 @@
 type Character {
-  id: ID
+  _id: ID
   name: String!
   bag: Bag
   weaponLevel: Int

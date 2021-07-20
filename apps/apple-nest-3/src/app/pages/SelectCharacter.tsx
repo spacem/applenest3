@@ -18,7 +18,7 @@ interface SelectCharacterProps {
 const GET_CHARACTERS = gql`
   query Character {
     characters {
-      id,
+      _id,
       name
     }
   }
@@ -42,7 +42,7 @@ export function SelectCharacter(props: SelectCharacterProps) {
 
   const characters = data?.characters.map((c) => {
     return (
-      <button key={c.id} onClick={() => props.history.push(`/game/${c.id}`)}>
+      <button key={c._id} onClick={() => props.history.push(`/game/${c._id}`)}>
         {c.name}
       </button>
     );

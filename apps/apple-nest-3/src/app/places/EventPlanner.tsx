@@ -16,7 +16,7 @@ const COMPLETE_QUEST = gql`
     completeQuest(characterId: $characterId) {
       message,
       character {
-        id,
+        _id,
         name,
         questNumber
       }
@@ -29,7 +29,7 @@ const COLLECT_REWARD = gql`
     collectReward(characterId: $characterId) {
       message,
       character {
-        id,
+        _id,
         name,
         bag {
           money,
@@ -92,7 +92,7 @@ export function EventPlanner(props: PlaceProps) {
                   Accept Quest
                 </button>
                 <button onClick={async () => {
-                  const result = await completeQuest({ variables: { characterId: props.character.id }})
+                  const result = await completeQuest({ variables: { characterId: props.character._id }})
                   setState({
                     doingQuest: false,
                     message: result.data?.completeQuest.message
@@ -107,7 +107,7 @@ export function EventPlanner(props: PlaceProps) {
               <div>
                 <button onClick={() => doQuest()}>Do Quest</button>
                 <button onClick={async () => {
-                  const result = await collectReward({ variables: { characterId: props.character.id }})
+                  const result = await collectReward({ variables: { characterId: props.character._id }})
                   setState({
                     doingQuest: false,
                     message: result.data?.collectReward.message

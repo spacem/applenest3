@@ -11,7 +11,7 @@ const BUY_SEEDS = gql`
     buySeeds(characterId: $characterId, numSeeds: $numSeeds) {
       message,
       character {
-        id,
+        _id,
         name,
         bag {
           money,
@@ -29,7 +29,7 @@ export function Farmer(props: PlaceProps) {
   const [buySeeds, { loading, error }] = useMutation<{ buySeeds: { message: string, character: Character }}>(BUY_SEEDS);
 
   async function doBuySeeds(numSeeds: number) {
-    const result = await buySeeds({ variables: { characterId: props.character.id, numSeeds } });
+    const result = await buySeeds({ variables: { characterId: props.character._id, numSeeds } });
     if (result.data?.buySeeds.message) {
       setMessage(result.data?.buySeeds.message);
     }

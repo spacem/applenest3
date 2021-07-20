@@ -17,20 +17,20 @@ describe('EventPlannerService', () => {
 
   it('gives reward when no bag', async () => {
     const testCharacter: Character = {
-      id: '123',
+      _id: '123',
       name: 'test',
     };
 
     jest
       .spyOn(characterService, 'update')
-      .mockImplementation((c) => Promise.resolve(c));
+      .mockImplementation(() => Promise.resolve());
     const result = await service.giveReward(testCharacter, 99999999);
     expect(result.character.bag.money).toBe(1);
   });
 
   it('gives reward when no time', async () => {
     const testCharacter: Character = {
-      id: '123',
+      _id: '123',
       name: 'test',
       bag: {
         money: 22,
@@ -39,7 +39,7 @@ describe('EventPlannerService', () => {
 
     jest
       .spyOn(characterService, 'update')
-      .mockImplementation((c) => Promise.resolve(c));
+      .mockImplementation(() => Promise.resolve());
     const result = await service.giveReward(testCharacter, 0);
     expect(result.character.bag.money).toBe(23);
   });
@@ -47,7 +47,7 @@ describe('EventPlannerService', () => {
   it('gives reward when time past due', async () => {
     const testCharacter: Character = {
       lastRewardDate: 1,
-      id: '123',
+      _id: '123',
       name: 'test',
       bag: {
         money: 22,
@@ -56,7 +56,7 @@ describe('EventPlannerService', () => {
 
     jest
       .spyOn(characterService, 'update')
-      .mockImplementation((c) => Promise.resolve(c));
+      .mockImplementation(() => Promise.resolve());
     const result = await service.giveReward(testCharacter, 99999999);
     expect(result.character.bag.money).toBe(23);
   });
@@ -64,7 +64,7 @@ describe('EventPlannerService', () => {
   it('does not give when time not up', async () => {
     const testCharacter: Character = {
       lastRewardDate: 1,
-      id: '123',
+      _id: '123',
       name: 'test',
       bag: {
         money: 22,
@@ -73,7 +73,7 @@ describe('EventPlannerService', () => {
 
     jest
       .spyOn(characterService, 'update')
-      .mockImplementation((c) => Promise.resolve(c));
+      .mockImplementation(() => Promise.resolve());
     const result = await service.giveReward(testCharacter, 1);
     expect(result.character.bag.money).toBe(22);
   });

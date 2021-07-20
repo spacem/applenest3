@@ -1,59 +1,36 @@
 import { Injectable } from '@nestjs/common';
-import { StoreService } from '../store/store.service';
 import { Character } from '@apple-nest-3/apple-nest-interfaces';
-import { v4 as uuidv4 } from 'uuid';
-
-const CHARACTERS_KEY = 'characters';
+import { InjectModel } from '@nestjs/mongoose';
+import { CHARACTER_COLLECTION } from '../store/character.schema';
+import { Document, Model } from 'mongoose';
 
 @Injectable()
 export class CharacterService {
-  constructor(private store: StoreService) {}
+  constructor(
+    @InjectModel(CHARACTER_COLLECTION) private characterModel: Model<Character | Document>
+    ) {
+  }
 
-  async fetchAll() {
-    const characters: Character[] = await this.store.load(CHARACTERS_KEY);
-    if (!characters) {
-      return [];
-    } else {
-      return characters;
-    }
+  async fetchAll(): Promise<Character[]> {
+    const results = await this.characterModel.find().lean();
+    return results as Character[];
   }
 
   async fetchById(id: string) {
-    const characters = await this.fetchAll();
-    return characters?.find((c) => c.id === id);
+    const result = await this.characterModel.findById(id).lean();
+    return result as Character;
   }
 
-  async create(characterName: string) {
+  async create(characterName: string): Promise<Character> {
     const character: Character = {
-      name: characterName,
-      id: uuidv4(),
+      name: characterName
     };
-    let characters = await this.fetchAll();
-    if (!characters) {
-      characters = [];
-    }
-    characters.push(character);
-    await this.store.save(CHARACTERS_KEY, characters);
-    return character;
+    const model = new this.characterModel(character);
+    const result = await model.save();
+    return result as unknown as Character;
   }
 
   async update(character: Character) {
-    // TODO: This is not very safe since changes will be lost if other
-    // players update their characters at the same time
-    let characters = await this.fetchAll();
-    if (!characters) {
-      characters = [];
-    }
-
-    const existing = characters.find((c) => c.id === character.id);
-    const index = characters.indexOf(existing);
-    if (index >= 0) {
-      characters[index] = character;
-    } else {
-      throw new Error('Character not found');
-    }
-
-    await this.store.save(CHARACTERS_KEY, characters);
-    return character;
+    await this.characterModel.findOneAndUpdate({ _id: character._id}, character);
   }
 }

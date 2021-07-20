@@ -39,7 +39,6 @@ export class EventPlannerService {
         },
       };
       await this.characterService.update(updateCharacter);
-
       return {
         character: updateCharacter,
         message: 'Here is your reward',

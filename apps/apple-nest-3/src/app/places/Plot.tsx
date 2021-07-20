@@ -1,7 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
 import { Character } from '@apple-nest-3/apple-nest-interfaces';
-import { Component, useState } from 'react';
-import { PlotWebservice } from '../api/PlotWebService';
+import { useState } from 'react';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Saving } from '../components/Saving';
 import { Place } from '../interfaces/place';
@@ -13,7 +12,7 @@ const PLANT_SEED = gql`
     plantSeed(characterId: $characterId) {
       message,
       character {
-        id,
+        _id,
         name,
         seedReadyDate,
         bag {
@@ -31,7 +30,7 @@ const HARVEST_CROP = gql`
     harvestCrop(characterId: $characterId) {
       message,
       character {
-        id,
+        _id,
         name,
         seedReadyDate,
         bag {
@@ -56,14 +55,14 @@ export function Plot(props: PlaceProps) {
   const [harvestCrop, { loading: loadingHarvest, error: harvestError }] = useMutation<{ harvestCrop: { message: string, character: Character }}>(HARVEST_CROP);
 
   async function doPlantSeed() {
-    const result = await plantSeed({ variables: { characterId: props.character.id } });
+    const result = await plantSeed({ variables: { characterId: props.character._id } });
     if (result.data?.plantSeed.message) {
       setMessage(result.data?.plantSeed.message);
     }
   }
 
   async function doHarvestCrop() {
-    const result = await harvestCrop({ variables: { characterId: props.character.id } });
+    const result = await harvestCrop({ variables: { characterId: props.character._id } });
     if (result.data?.harvestCrop.message) {
       setMessage(result.data?.harvestCrop.message);
     }

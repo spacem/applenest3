@@ -8,7 +8,7 @@ import { Character } from '@apple-nest-3/apple-nest-interfaces';
 const ADD_CHARACTER = gql`
   mutation Character($name: String!) {
     createCharacter(name: $name) {
-      id,
+      _id,
       name
     }
   }
@@ -32,7 +32,7 @@ export function CreateCharacter(props: CreateCharacterProps) {
               data: added.data?.createCharacter,
               fragment: gql`
                 fragment NewCharacter on Character {
-                  id,
+                  _id,
                   name
                 }`
             });

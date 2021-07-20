@@ -15,7 +15,7 @@ describe('FarmerController', () => {
   it('takes money and gives seeds', async () => {
     const testCharacter: Character = {
       name: 'n',
-      id: 'u',
+      _id: 'u',
       bag: {
         money: 22,
       },
@@ -23,10 +23,10 @@ describe('FarmerController', () => {
 
     jest
       .spyOn(characterService, 'update')
-      .mockImplementation((c) => Promise.resolve(c));
+      .mockImplementation(() => Promise.resolve());
     jest
       .spyOn(characterService, 'fetchById')
-      .mockImplementation((c) => Promise.resolve(testCharacter));
+      .mockImplementation(() => Promise.resolve(testCharacter));
     const result = await controller.action({
       characterId: 'u',
       quantity: 2,
