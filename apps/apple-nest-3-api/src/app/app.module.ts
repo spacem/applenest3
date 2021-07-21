@@ -17,7 +17,7 @@ import { CharacterSchema, CHARACTER_COLLECTION } from './store/character.schema'
 @Module({
   imports: [
     GraphQLModule.forRoot({
-      typePaths: ['./**/*.graphql']
+      typePaths: ['./**/graphql-schemas/*.graphql']
     }),
     MongooseModule.forRoot(process.env.APPLE_NEST_MONGO_URL),
     MongooseModule.forFeature([{ name: CHARACTER_COLLECTION, schema: CharacterSchema }]),
