@@ -6,7 +6,7 @@
     "nx": "nx",
     "start": "nx serve apple-nest-3",
     "start-api": "nx serve apple-nest-3-api",
-    "build": "nx build --prod --maxWorkers 2 && nx build apple-nest-3-api --prod --maxWorkers 2",
+    "build": "nx build --prod --configuration=production --maxWorkers 2 && nx build apple-nest-3-api --prod --configuration=production --maxWorkers 2",
     "build-dev": "nx build && nx build apple-nest-3-api",
     "build-api": "nx build apple-nest-3-api --maxWorkers 2",
     "build-ui": "nx build apple-nest-3 --maxWorkers 2",
