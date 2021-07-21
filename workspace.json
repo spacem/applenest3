@@ -89,7 +89,7 @@
             "outputPath": "dist/apps/apple-nest-3-api",
             "main": "apps/apple-nest-3-api/src/lambda.ts",
             "tsConfig": "apps/apple-nest-3-api/tsconfig.app.json",
-            "assets": ["apps/apple-nest-3-api/src/assets", "apps/apple-nest-3-api/src/app/graphql-schemas"]
+            "assets": ["apps/apple-nest-3-api/src/assets"]
           },
           "configurations": {
             "production": {
