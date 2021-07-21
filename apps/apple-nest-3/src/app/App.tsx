@@ -5,10 +5,11 @@ import {
   InMemoryCache,
   ApolloProvider
 } from "@apollo/client";
+import { environment } from '../environments/environment';
 
 function App() {
   const client = new ApolloClient({
-    uri: 'http://localhost:3333/graphql',
+    uri: environment.graphUri,
     cache: new InMemoryCache()
   });
 
