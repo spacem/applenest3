@@ -9,15 +9,6 @@ async function bootstrap() {
 
   const expressApp = app.getHttpAdapter().getInstance();
   return serverlessExpress.configure({
-    eventSource: {
-      getRequest: ({ event }) => {
-        return {
-          method: event.httpMethod,
-          path: event.path,
-          headers: event.headers
-        };
-      }
-    },
     app: expressApp
   });
 }
@@ -26,5 +17,9 @@ async function bootstrap() {
 export const handler = async (event, context, callback) => {
   const server = await bootstrap()
   // server = server ?? (await bootstrap());
-  return server(event, context, callback);
+  console.log('event', event);
+  return server({
+    ...event,
+    requestContext: {}
+  }, context, callback);
 };
