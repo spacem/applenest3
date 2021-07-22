@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
-import serverlessExpress from '@vendia/serverless-express';
 import { AppModule } from './app/app.module';
+import serverlessExpress = require('@vendia/serverless-express');
 
 let server;
 
@@ -9,7 +9,7 @@ async function bootstrap() {
   await app.init();
 
   const expressApp = app.getHttpAdapter().getInstance();
-  return serverlessExpress({ app: expressApp });
+  return serverlessExpress.configure({ app: expressApp });
 }
 
 export const handler = async (event, context, callback) => {
