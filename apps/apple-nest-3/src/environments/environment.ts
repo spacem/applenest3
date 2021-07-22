@@ -3,5 +3,5 @@
 
 export const environment = {
   production: false,
-  graphUri: '/.netlify/functions/main/graphql'
+  graphUri: 'http://localhost:3333/graphql'
 };
