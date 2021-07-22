@@ -14,11 +14,13 @@ import { PlotService } from './plot/plot.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CharacterSchema, CHARACTER_COLLECTION } from './store/character.schema';
 import { CHARACTER_TYPES } from './graphql-schemas/character.graphql';
+import { environment } from '../environments/environment';
 
 @Module({
   imports: [
     GraphQLModule.forRoot({
-      typeDefs: CHARACTER_TYPES
+      typeDefs: CHARACTER_TYPES,
+      path: environment.graphUri
     }),
     MongooseModule.forRoot(process.env.APPLE_NEST_MONGO_URL),
     MongooseModule.forFeature([{ name: CHARACTER_COLLECTION, schema: CharacterSchema }]),
