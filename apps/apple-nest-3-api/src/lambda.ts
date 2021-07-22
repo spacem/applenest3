@@ -9,15 +9,22 @@ async function bootstrap() {
 
   const expressApp = app.getHttpAdapter().getInstance();
   return serverlessExpress.configure({
+    eventSource: {
+      getRequest: ({ event }) => {
+        return {
+          method: event.httpMethod,
+          path: event.path.replace('/.netlify/functions/main/', '/'),
+          headers: event.headers
+        };
+      },
+    },
     app: expressApp
   });
 }
 
-// let server;
+let server;
 export const handler = async (event, context, callback) => {
-  const server = await bootstrap()
-  // server = server ?? (await bootstrap());
-  console.log('event', event);
+  server = server ?? (await bootstrap());
   return server({
     ...event,
     requestContext: {}
