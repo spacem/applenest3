@@ -7,9 +7,9 @@ import { CharacterService } from './character.service';
 export class CharacterController {
   constructor(private characterService: CharacterService) {}
 
-  @Get()
-  get() {
-    return this.characterService.fetchAll();
+  @Get('/:userId')
+  get(@Param('userId') userId) {
+    return this.characterService.fetchForUser(userId);
   }
 
   @Get('/:id')
@@ -30,11 +30,18 @@ export class CharacterController {
         HttpStatus.BAD_REQUEST
       );
     }
+    
+    if (!character.userId) {
+      throw new HttpException(
+        'Character must have a userId',
+        HttpStatus.BAD_REQUEST
+      );
+    }
 
-    const characters = await this.characterService.fetchAll();
+    const characters = await this.characterService.fetchForUser(character.userId);
     if (characters?.find((c) => c.name === character.name)) {
       throw new HttpException('Character exists', HttpStatus.BAD_REQUEST);
     }
-    await this.characterService.create(character.name);
+    await this.characterService.create(character.userId, character.name);
   }
 }

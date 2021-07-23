@@ -5,6 +5,7 @@ export const CHARACTER_COLLECTION = 'Character';
 
 export const CharacterSchema = new mongoose.Schema<Character>({
   name: String,
+  userId: String,
   bag: {
     money: { type: Number },
     apples: { type: Number },

@@ -11,8 +11,8 @@ export class CharacterService {
     ) {
   }
 
-  async fetchAll(): Promise<Character[]> {
-    const results = await this.characterModel.find().lean();
+  async fetchForUser(userId: string): Promise<Character[]> {
+    const results = await this.characterModel.find({userId}).lean();
     return results as Character[];
   }
 
@@ -21,8 +21,9 @@ export class CharacterService {
     return result as Character;
   }
 
-  async create(characterName: string): Promise<Character> {
+  async create(userId: string, characterName: string): Promise<Character> {
     const character: Character = {
+      userId,
       name: characterName
     };
     const model = new this.characterModel(character);

@@ -1,4 +1,4 @@
-import { Component, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Character } from '@apple-nest-3/apple-nest-interfaces';
 import { Loading } from '../components/Loading';
@@ -13,11 +13,12 @@ import {
 
 interface SelectCharacterProps {
   history: History;
+  userId: string;
 }
 
 const GET_CHARACTERS = gql`
-  query Character {
-    characters {
+  query Character($userId: String) {
+    characters(userId: $userId) {
       _id,
       name
     }
@@ -26,7 +27,9 @@ const GET_CHARACTERS = gql`
 
 export function SelectCharacter(props: SelectCharacterProps) {
   // const { loading, error, data } = useQuery<{ characters: Character[]}>(GET_CHARACTERS);
-  const [getCharacters, { loading, error, data }] = useLazyQuery<{ characters: Character[]}>(GET_CHARACTERS);
+  const [getCharacters, { loading, error, data }] = useLazyQuery<{ characters: Character[]}>(GET_CHARACTERS, {
+    variables: { userId: props.userId }
+  });
 
   let isMounted = true;
   useEffect(() => {

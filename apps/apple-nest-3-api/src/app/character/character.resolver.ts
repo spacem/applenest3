@@ -24,17 +24,17 @@ export class CharacterResolver {
   }
 
   @Query("characters")
-  async characters() {
-    return this.characterService.fetchAll();
+  async characters(@Args('userId') userId: string) {
+    return this.characterService.fetchForUser(userId);
   }
 
   @Mutation("createCharacter")
-  async createCharacter(@Args('name') name: string) {
-    const characters = await this.characterService.fetchAll();
+  async createCharacter(@Args('userId') userId: string, @Args('name') name: string) {
+    const characters = await this.characterService.fetchForUser(userId);
     if (characters?.find((c) => c.name === name)) {
       throw new Error('Character exists');
     }
-    return await this.characterService.create(name);
+    return await this.characterService.create(userId, name);
   }
 
   @Mutation('collectReward')

@@ -5,6 +5,8 @@ import { CreateCharacter } from './pages/CreateCharacter';
 import { Home } from './pages/Home';
 import { Game } from './pages/Game';
 import { History } from 'history';
+import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 function GameWrapper(params: { history: History }) {
   // must be a better way to do this
@@ -13,23 +15,33 @@ function GameWrapper(params: { history: History }) {
   return <Game characterId={characterId} history={params.history} />;
 }
 
+const USER_ID_KEY = 'APPLE_NEST_USERID';
+const storedUserId = localStorage.getItem(USER_ID_KEY);
 
 export function AppleNestRouter() {
+  const [userId, setUserId] = useState(storedUserId);
+
+  function createUser() {
+    const userId = uuidv4()
+    localStorage.setItem(USER_ID_KEY, userId);
+    setUserId(userId);
+  }
+
   const history = createBrowserHistory();
   return (
     <Router history={history}>
       <Switch>
         <Route path="/select-character">
-          <SelectCharacter history={history} />
+          <SelectCharacter userId="userId" history={history} />
         </Route>
         <Route path="/create-character">
-          <CreateCharacter history={history} />
+          <CreateCharacter userId="userId" history={history} />
         </Route>
         <Route path="/game/:characterId">
           <GameWrapper history={history} />
         </Route>
         <Route path="/">
-          <Home></Home>
+          <Home onCreate={() => createUser()} userId={userId}></Home>
         </Route>
       </Switch>
     </Router>

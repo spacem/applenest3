@@ -6,8 +6,8 @@ import { gql, useMutation } from '@apollo/client';
 import { Character } from '@apple-nest-3/apple-nest-interfaces';
 
 const ADD_CHARACTER = gql`
-  mutation Character($name: String!) {
-    createCharacter(name: $name) {
+  mutation Character($userId: String!, $name: String!) {
+    createCharacter(userId: $userId, name: $name) {
       _id,
       name
     }
@@ -16,6 +16,7 @@ const ADD_CHARACTER = gql`
 
 interface CreateCharacterProps {
   history: History;
+  userId: string;
 }
 
 export function CreateCharacter(props: CreateCharacterProps) {
@@ -47,7 +48,7 @@ export function CreateCharacter(props: CreateCharacterProps) {
   });
 
   async function doAddCharacter() {
-    await addCharacter({ variables: { name: input?.value }});
+    await addCharacter({ variables: { userId: props.userId, name: input?.value }});
   }
 
   return (

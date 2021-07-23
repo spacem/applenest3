@@ -5,6 +5,7 @@ export const CHARACTER_TYPES = [
 gql`
 type Character {
   _id: ID
+  userId: String!
   name: String!
   bag: Bag
   weaponLevel: Int
@@ -27,12 +28,12 @@ type Bag {
 gql`
 type Query {
   character(id: ID!): Character
-  characters: [Character]
+  characters(userId: String): [Character]
 }`,
 
 gql`
 type Mutation {
-  createCharacter(name: String!): Character
+  createCharacter(userId: String, name: String!): Character
   collectReward(characterId: ID!): ActionResult
   completeQuest(characterId: ID!): ActionResult
   buySeeds(characterId: ID!, numSeeds: Int): ActionResult

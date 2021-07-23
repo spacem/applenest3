@@ -3,6 +3,7 @@ import { Bag } from './bag';
 
 export interface Character {
   _id?: string;
+  userId: string;
   name: string;
   bag?: Bag;
   weaponLevel?: number;

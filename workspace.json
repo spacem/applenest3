@@ -87,12 +87,13 @@
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/apple-nest-3-api",
-            "main": "apps/apple-nest-3-api/src/lambda.ts",
+            "main": "apps/apple-nest-3-api/src/main.ts",
             "tsConfig": "apps/apple-nest-3-api/tsconfig.app.json",
             "assets": ["apps/apple-nest-3-api/src/assets"]
           },
           "configurations": {
             "production": {
+              "main": "apps/apple-nest-3-api/src/lambda.ts",
               "optimization": true,
               "extractLicenses": true,
               "inspect": false,
