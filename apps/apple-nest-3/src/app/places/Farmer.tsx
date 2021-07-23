@@ -5,6 +5,7 @@ import { Place } from '../interfaces/place';
 import { PlaceProps } from '../interfaces/place-props';
 import { gql, useMutation } from '@apollo/client';
 import { Character } from '@apple-nest-3/apple-nest-interfaces';
+import { Link } from 'react-router-dom';
 
 const BUY_SEEDS = gql`
   mutation Character($characterId: ID!, $numSeeds: Int) {
@@ -56,9 +57,7 @@ export function Farmer(props: PlaceProps) {
           </button>
         </div>
         <div>
-          <button onClick={() => props.onChangePlace(Place.Farm)}>
-            Back To Farm
-          </button>
+          <Link to="farm">Back To Farm</Link>
         </div>
       </Saving>
     </>

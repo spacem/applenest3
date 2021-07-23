@@ -16,6 +16,7 @@ describe('FarmerController', () => {
     const testCharacter: Character = {
       name: 'n',
       _id: 'u',
+      userId: '123',
       bag: {
         money: 22,
       },

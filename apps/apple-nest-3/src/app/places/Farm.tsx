@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { Quest } from '@apple-nest-3/apple-nest-interfaces';
-import { Place } from '../interfaces/place';
 import { PlaceProps } from '../interfaces/place-props';
+import { Link } from 'react-router-dom';
 
 export class Farm extends Component<PlaceProps, never> {
   render() {
@@ -10,12 +10,7 @@ export class Farm extends Component<PlaceProps, never> {
     if (this.props.character.questNumber) {
       if (this.props.character.questNumber >= Quest.GrowApple) {
         extraPlaces.push(
-          <button
-            key="plot"
-            onClick={() => this.props.onChangePlace(Place.Plot)}
-          >
-            Plot
-          </button>
+          <Link key="plot" to="plot">Plot</Link>
         );
       }
     }
@@ -23,13 +18,9 @@ export class Farm extends Component<PlaceProps, never> {
     return (
       <>
         <h2>Farm</h2>
-        <button onClick={() => this.props.onChangePlace(Place.Farmer)}>
-          Farmer
-        </button>
+        <Link to="farmer">Farmer</Link>
         {extraPlaces}
-        <button onClick={() => this.props.onChangePlace(Place.Town)}>
-          Town
-        </button>
+        <Link to="town">Town</Link>
       </>
     );
   }

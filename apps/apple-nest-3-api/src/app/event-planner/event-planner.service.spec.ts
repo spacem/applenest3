@@ -19,6 +19,7 @@ describe('EventPlannerService', () => {
     const testCharacter: Character = {
       _id: '123',
       name: 'test',
+      userId: '456'
     };
 
     jest
@@ -31,6 +32,7 @@ describe('EventPlannerService', () => {
   it('gives reward when no time', async () => {
     const testCharacter: Character = {
       _id: '123',
+      userId: '456',
       name: 'test',
       bag: {
         money: 22,
@@ -48,6 +50,7 @@ describe('EventPlannerService', () => {
     const testCharacter: Character = {
       lastRewardDate: 1,
       _id: '123',
+      userId: '456',
       name: 'test',
       bag: {
         money: 22,
@@ -65,6 +68,7 @@ describe('EventPlannerService', () => {
     const testCharacter: Character = {
       lastRewardDate: 1,
       _id: '123',
+      userId: '456',
       name: 'test',
       bag: {
         money: 22,

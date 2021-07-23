@@ -1,19 +1,11 @@
-import { Switch, Route, Router, useParams } from 'react-router-dom';
+import { Switch, Route, Router, useParams, Redirect } from 'react-router-dom';
 import { SelectCharacter } from './pages/SelectCharacter';
 import { createBrowserHistory } from 'history';
 import { CreateCharacter } from './pages/CreateCharacter';
 import { Home } from './pages/Home';
 import { Game } from './pages/Game';
-import { History } from 'history';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-
-function GameWrapper(params: { history: History }) {
-  // must be a better way to do this
-  // game is a class so cannot call useParams
-  const { characterId } = useParams<{ characterId: string }>();
-  return <Game characterId={characterId} history={params.history} />;
-}
 
 const USER_ID_KEY = 'APPLE_NEST_USERID';
 const storedUserId = localStorage.getItem(USER_ID_KEY);
@@ -32,13 +24,12 @@ export function AppleNestRouter() {
     <Router history={history}>
       <Switch>
         <Route path="/select-character">
-          <SelectCharacter userId="userId" history={history} />
+          {userId != null ? <SelectCharacter userId={userId} history={history} /> : <Redirect to="/" /> }
         </Route>
         <Route path="/create-character">
-          <CreateCharacter userId="userId" history={history} />
+          {userId != null ? <CreateCharacter userId={userId} history={history} /> : <Redirect to="/" /> }
         </Route>
-        <Route path="/game/:characterId">
-          <GameWrapper history={history} />
+        <Route path="/game/:characterId" component={Game}>
         </Route>
         <Route path="/">
           <Home onCreate={() => createUser()} userId={userId}></Home>

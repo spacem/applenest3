@@ -9,7 +9,8 @@ const ADD_CHARACTER = gql`
   mutation Character($userId: String!, $name: String!) {
     createCharacter(userId: $userId, name: $name) {
       _id,
-      name
+      name,
+      userId
     }
   }
 `;
@@ -27,17 +28,15 @@ export function CreateCharacter(props: CreateCharacterProps) {
     update: (cache, added) => cache.modify({
         fields: {
           characters: (existingCharacters = []) => {
-            console.log('added', added);
-            console.log('existing values: ', [...existingCharacters]);
             const newFragment = cache.writeFragment({
               data: added.data?.createCharacter,
               fragment: gql`
                 fragment NewCharacter on Character {
                   _id,
-                  name
+                  name,
+                  userId
                 }`
             });
-            console.log('new value: ', newFragment);
             return [...existingCharacters, newFragment];
           }
         }

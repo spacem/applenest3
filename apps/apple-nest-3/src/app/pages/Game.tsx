@@ -1,6 +1,4 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { History } from 'history';
+import { Link, match, Redirect, Route, useParams } from 'react-router-dom';
 import { Town } from '../places/Town';
 import { Character } from '@apple-nest-3/apple-nest-interfaces';
 import { Loading } from '../components/Loading';
@@ -29,63 +27,15 @@ const GET_CHARACTER = gql`
   }
 `;
 
-interface GameProps {
-  history: History;
-  characterId: string;
-}
 
-export function Game(props: GameProps) {
-
-  const [place, setPlace] = useState(Place.Town);
-  function getPlace(character?: Character) {
-    if (character) {
-      switch (place) {
-        case Place.EventPlanner:
-          return (
-            <EventPlanner
-              character={character}
-              onChangePlace={(place) => setPlace(place)}
-            ></EventPlanner>
-          );
-        case Place.Farmer:
-          return (
-            <Farmer
-              character={character}
-              onChangePlace={(place) => setPlace(place)}
-            ></Farmer>
-          );
-        case Place.Plot:
-          return (
-            <Plot
-              character={character}
-              onChangePlace={(place) => setPlace(place)}
-            ></Plot>
-          );
-        case Place.Farm:
-          return (
-            <Farm
-              character={character}
-              onChangePlace={(place) => setPlace(place)}
-            ></Farm>
-          );
-        default:
-          return (
-            <Town
-              character={character}
-              onChangePlace={(place) => setPlace(place)}
-            ></Town>
-          );
-      }
-    } else {
-      return null;
-    }
-  }
-
+export function Game(params: {match: match}) {
+  const { characterId } = useParams<{ characterId: string, place: Place }>();
   const { loading, error, data } = useQuery<{ character: Character}>(GET_CHARACTER, {
-    variables: { id: props.characterId },
+    variables: { id: characterId },
   });
   return (
     <Loading loading={loading}>
+      {data?.character != null && <>
       <div>Character: {data?.character?.name}</div>
       <div>
         <Link to="/select-character">Switch Character</Link>
@@ -96,7 +46,28 @@ export function Game(props: GameProps) {
       <div>
         <BagContents bag={data?.character?.bag} />
       </div>
-      <div>{getPlace(data?.character)}</div>
+      <div>
+        <Route path="/game/:characterId">
+          <Redirect to={`${params.match.url}/town`}></Redirect>
+        </Route>
+        <Route path={`${params.match.url}/event-planner`}>
+          <EventPlanner character={data?.character}></EventPlanner>
+        </Route>
+        <Route path={`${params.match.url}/farmer`}>
+          <Farmer character={data?.character}></Farmer>
+        </Route>
+        <Route path={`${params.match.url}/plot`}>
+          <Plot character={data?.character}></Plot>
+        </Route>
+        <Route path={`${params.match.url}/farm`}>
+          <Farm character={data?.character}></Farm>
+        </Route>
+        <Route path={`${params.match.url}/town`}>
+          <Town character={data?.character}></Town>
+        </Route>
+      </div>
+      </>
+      }
     </Loading>
   );
 }

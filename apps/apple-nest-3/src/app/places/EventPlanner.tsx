@@ -5,6 +5,7 @@ import { Place } from '../interfaces/place';
 import { PlaceProps } from '../interfaces/place-props';
 import { Character, Quest } from '@apple-nest-3/apple-nest-interfaces';
 import { gql, useMutation } from '@apollo/client';
+import { Link } from 'react-router-dom';
 
 interface EventPlannerState {
   message?: string;
@@ -120,9 +121,7 @@ export function EventPlanner(props: PlaceProps) {
           }
         })()}
         <div>
-          <button onClick={() => props.onChangePlace(Place.Town)}>
-            Back To Town
-          </button>
+          <Link to="town">Back To Town</Link>
         </div>
       </Saving>
     </>
