@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import { History } from 'history';
+import { Link, useHistory } from 'react-router-dom';
 import { Saving } from '../components/Saving';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { gql, useMutation } from '@apollo/client';
@@ -16,12 +15,11 @@ const ADD_CHARACTER = gql`
 `;
 
 interface CreateCharacterProps {
-  history: History;
-  userId: string;
+  userId: string | null;
 }
 
 export function CreateCharacter(props: CreateCharacterProps) {
-
+  const history = useHistory();
   let input: HTMLInputElement | null;
 
   const [addCharacter, { loading, error }] = useMutation<{ createCharacter: Character }>(ADD_CHARACTER, {
@@ -42,7 +40,7 @@ export function CreateCharacter(props: CreateCharacterProps) {
         }
     }),
     onCompleted: () => {
-      props.history.push('/select-character');
+      history.push('/select-character');
     }
   });
 

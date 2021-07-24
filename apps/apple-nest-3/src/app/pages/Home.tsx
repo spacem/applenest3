@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 interface HomeProps {
   userId: string | null;
@@ -6,8 +6,10 @@ interface HomeProps {
 }
 
 export function Home(props: HomeProps) {
+  const history = useHistory();
   function createPlayer() {
     props.onCreate();
+    history.push('/create-character');
   }
   
   function fetchAction(userId: string | null) {

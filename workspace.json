@@ -16,6 +16,7 @@
             "polyfills": "apps/apple-nest-3/src/polyfills.ts",
             "tsConfig": "apps/apple-nest-3/tsconfig.app.json",
             "assets": [
+              "apps/apple-nest-3/src/_redirects",
               "apps/apple-nest-3/src/favicon.ico",
               "apps/apple-nest-3/src/assets"
             ],

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Character } from '@apple-nest-3/apple-nest-interfaces';
 import { Loading } from '../components/Loading';
 import { ErrorMessage } from '../components/ErrorMessage';
@@ -12,8 +12,7 @@ import {
 } from "@apollo/client";
 
 interface SelectCharacterProps {
-  history: History;
-  userId: string;
+  userId: string | null;
 }
 
 const GET_CHARACTERS = gql`
@@ -26,6 +25,7 @@ const GET_CHARACTERS = gql`
 `;
 
 export function SelectCharacter(props: SelectCharacterProps) {
+  const history = useHistory();
   // const { loading, error, data } = useQuery<{ characters: Character[]}>(GET_CHARACTERS);
   const [getCharacters, { loading, error, data }] = useLazyQuery<{ characters: Character[]}>(GET_CHARACTERS, {
     variables: { userId: props.userId }
@@ -43,9 +43,13 @@ export function SelectCharacter(props: SelectCharacterProps) {
     };
   }, []);
 
+  if(!props.userId) {
+    return <div>Not signed in<Link to="/">Retry</Link></div>
+  }
+
   const characters = data?.characters.map((c) => {
     return (
-      <button key={c._id} onClick={() => props.history.push(`/game/${c._id}`)}>
+      <button key={c._id} onClick={() => history.push(`/game/${c._id}`)}>
         {c.name}
       </button>
     );
