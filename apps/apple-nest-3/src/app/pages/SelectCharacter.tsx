@@ -15,7 +15,7 @@ interface SelectCharacterProps {
   userId: string | null;
 }
 
-const GET_CHARACTERS = gql`
+export const GET_CHARACTERS = gql`
   query Character($userId: String) {
     characters(userId: $userId) {
       _id,
