@@ -1,3 +1,5 @@
+require('cross-fetch/polyfill');
+
 module.exports = {
   displayName: 'apple-nest-3',
   preset: '../../jest.preset.js',

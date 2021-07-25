@@ -16,7 +16,7 @@ export function Home(props: HomeProps) {
     if (userId) {
       return <div>
         <Link to="/select-character">Sign In</Link>
-        <Link to="/returning-player">Siwtch User</Link>
+        <Link to="/returning-player">Switch User</Link>
         </div>
     } else {
       return <div>
