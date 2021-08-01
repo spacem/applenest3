@@ -4,7 +4,7 @@ import { ErrorMessage } from '../components/ErrorMessage';
 import { gql, useMutation } from '@apollo/client';
 import { Character } from '@apple-nest-3/apple-nest-interfaces';
 
-const ADD_CHARACTER = gql`
+export const ADD_CHARACTER = gql`
   mutation Character($userId: String!, $name: String!) {
     createCharacter(userId: $userId, name: $name) {
       _id,
