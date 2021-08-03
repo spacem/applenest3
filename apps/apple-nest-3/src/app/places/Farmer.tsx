@@ -1,7 +1,6 @@
 import { Component, useState } from 'react';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Saving } from '../components/Saving';
-import { Place } from '../interfaces/place';
 import { PlaceProps } from '../interfaces/place-props';
 import { gql, useMutation } from '@apollo/client';
 import { Character } from '@apple-nest-3/apple-nest-interfaces';

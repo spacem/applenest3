@@ -12,7 +12,7 @@ interface EventPlannerState {
   doingQuest?: boolean;
 }
 
-const COMPLETE_QUEST = gql`
+export const COMPLETE_QUEST = gql`
   mutation Character($characterId: ID!) {
     completeQuest(characterId: $characterId) {
       message,
@@ -25,7 +25,7 @@ const COMPLETE_QUEST = gql`
   }
 `;
 
-const COLLECT_REWARD = gql`
+export const COLLECT_REWARD = gql`
   mutation Character($characterId: ID!) {
     collectReward(characterId: $characterId) {
       message,
@@ -42,7 +42,7 @@ const COLLECT_REWARD = gql`
   }
 `;
 
-const questText: string[] = [];
+export const questText: string[] = [];
 questText[Quest.GetMoney] =
   'Your first quest is to get some money. Perhaps from a reward?';
 questText[Quest.BuySeed] =
