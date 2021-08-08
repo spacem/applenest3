@@ -1,6 +1,6 @@
 /**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
+ * Developemnt start up as express server
+ * instead of lambda function
  */
 
 import { Logger, ValidationPipe } from '@nestjs/common';
@@ -9,10 +9,10 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({
-    origin: 'http://localhost:4200',
+    origin: '*', // NOTE: allowing * only for development
     methods: 'GET, POST',
   });
   const globalPrefix = 'api';
