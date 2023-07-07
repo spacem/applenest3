@@ -54,7 +54,7 @@ questText[Quest.GrowApple] =
 export function EventPlanner(props: PlaceProps) {
   const initialState: EventPlannerState = {
     doingQuest: false,
-    message: 'Do you want a quest?'
+    message: 'Hello I am the event planner. Do you want a quest?'
   };
   const [state, setState] = useState(initialState);
 
@@ -79,7 +79,6 @@ export function EventPlanner(props: PlaceProps) {
   return (
     <>
       <h2>Event Planner</h2>
-      <div>Hello I am the event planner.</div>
       <div>{state.message}</div>
       <img alt="event-planner-icon" src="assets/event_planner.jpg" height="100%"></img>
       <Saving saving={loadingQuest || loadingReward}>
@@ -94,6 +93,12 @@ export function EventPlanner(props: PlaceProps) {
                 <button onClick={() => acceptQuest()}>
                   Accept Quest
                 </button>
+              </div>
+            );
+          } else {
+            return (
+              <div>
+                <button onClick={() => doQuest()}>Do Quest</button>
                 <button onClick={async () => {
                   const result = await completeQuest({ variables: { characterId: props.character._id }})
                   setState({
@@ -101,14 +106,8 @@ export function EventPlanner(props: PlaceProps) {
                     message: result.data?.completeQuest.message
                   });
                 }}>
-                  Complete Quest
+                  Complete Current Quest
                 </button>
-              </div>
-            );
-          } else {
-            return (
-              <div>
-                <button onClick={() => doQuest()}>Do Quest</button>
                 <button onClick={async () => {
                   const result = await collectReward({ variables: { characterId: props.character._id }})
                   setState({

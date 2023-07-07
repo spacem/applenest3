@@ -11,7 +11,7 @@ export class Farm extends Component<PlaceProps, never> {
     if (this.props.character.questNumber) {
       if (this.props.character.questNumber >= Quest.GrowApple) {
         extraPlaces.push(
-          <Link key="plot" to="plot">Plot</Link>
+          <Link key="plot" to="plot">Plant Something</Link>
         );
       }
     }
@@ -20,9 +20,9 @@ export class Farm extends Component<PlaceProps, never> {
       <>
         <h2>Farm</h2>
         <img alt="Farm" src="assets/farm.jpg" height="100%"></img>
-        <Link to="farmer">Farmer</Link>
+        <Link to="farmer">Talk To The Farmer</Link>
         {extraPlaces}
-        <Link to="town">Town</Link>
+        <Link to="town">Go Back To Town</Link>
       </>
     );
   }

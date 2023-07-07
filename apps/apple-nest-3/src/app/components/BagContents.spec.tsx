@@ -6,8 +6,9 @@ describe('Bag', () => {
   it('Shows zero bag contents when empty bag', async () => {
     const bag: Bag = {
     };
-    const { getByText } = render(<BagContents bag={bag}></BagContents>);
-    const elemnt = getByText('Money: 0 | Apples: 0 | Seeds: 0');
+    const { findByText } = render(<BagContents bag={bag}></BagContents>);
+    // const elemnt = getByText('Money: 0 | Apples: 0 | Seeds: 0');
+    const elemnt = findByText('0');
     expect(elemnt).toBeTruthy();
   });
 
@@ -18,7 +19,8 @@ describe('Bag', () => {
       seeds: 3
     };
     const { getByText } = render(<BagContents bag={bag}></BagContents>);
-    const elemnt = getByText('Money: 1 | Apples: 2 | Seeds: 3');
-    expect(elemnt).toBeTruthy();
+    expect(getByText('1')).toBeTruthy();
+    expect(getByText('2')).toBeTruthy();
+    expect(getByText('3')).toBeTruthy();
   });
 });

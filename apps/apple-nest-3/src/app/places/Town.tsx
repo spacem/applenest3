@@ -12,7 +12,7 @@ export class Town extends Component<PlaceProps, never> {
     if (this.props.character.questNumber) {
       if (this.props.character.questNumber >= Quest.BuySeed) {
         places.push(
-          <Link key={Place.Farm} to="farm">Farm</Link>
+          <Link key={Place.Farm} to="farm">Go Visit The Farm</Link>
         );
       }
     }
@@ -21,7 +21,8 @@ export class Town extends Component<PlaceProps, never> {
       <>
         <h2>Town</h2>
         <img alt="town-icon" src="assets/town.jpg" height="100%"></img>
-        <Link to="event-planner">Event Planner</Link>
+        <Link to="event-planner">Talk To The Quest NPC</Link>
+        <Link to="event-planner">Walk To The Wishing Well</Link>
         {places}
       </>
     );
