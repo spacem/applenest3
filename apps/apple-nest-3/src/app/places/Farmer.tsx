@@ -38,6 +38,7 @@ export function Farmer(props: PlaceProps) {
   return (
     <>
       <h2>Farmer</h2>
+      <img alt="Farmer" src="assets/farmer.jpg" height="100%"></img>
       <div>Hello. I am the farmer!</div>
       <div>{message}</div>
       <Saving saving={loading}>

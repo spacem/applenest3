@@ -6,6 +6,7 @@ import { PlaceProps } from '../interfaces/place-props';
 import { Character, Quest } from '@apple-nest-3/apple-nest-interfaces';
 import { gql, useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
+import './places.scss';
 
 interface EventPlannerState {
   message?: string;
@@ -80,6 +81,7 @@ export function EventPlanner(props: PlaceProps) {
       <h2>Event Planner</h2>
       <div>Hello I am the event planner.</div>
       <div>{state.message}</div>
+      <img alt="event-planner-icon" src="assets/event_planner.jpg" height="100%"></img>
       <Saving saving={loadingQuest || loadingReward}>
         <div>
           <ErrorMessage error={questError}></ErrorMessage>

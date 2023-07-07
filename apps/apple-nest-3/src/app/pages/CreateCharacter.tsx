@@ -51,6 +51,7 @@ export function CreateCharacter(props: CreateCharacterProps) {
   return (
     <Saving saving={loading}>
       <h2>Create Character</h2>
+      <img alt="Create Character" src="assets/create_character.jpg" height="100%"></img>
       <div>
         <input
           ref={node => input = node }

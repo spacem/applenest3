@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Saving } from '../components/Saving';
 import { PlaceProps } from '../interfaces/place-props';
+import './places.scss';
 
 
 const PLANT_SEED = gql`
@@ -78,6 +79,7 @@ export function Plot(props: PlaceProps) {
   return (
     <>
       <h2>Plot</h2>
+      <img alt="Plot" src="assets/plot.jpg" height="100%"></img>
       <div>{message}</div>
       <Saving saving={loadingPlant || loadingHarvest}>
         <div>

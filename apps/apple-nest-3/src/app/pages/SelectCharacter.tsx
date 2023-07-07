@@ -59,6 +59,7 @@ export function SelectCharacter(props: SelectCharacterProps) {
     <Loading loading={loading}>
       <ErrorMessage error={error} />
       <h2>Select Character</h2>
+      <img alt="Select Character" src="assets/character_select.jpg" height="100%"></img>
       <div className="character-list">{characters}</div>
       <div className="actions">
         <Link to="/create-character">Create Character</Link>

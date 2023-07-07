@@ -29,6 +29,7 @@ export function Home(props: HomeProps) {
   return (
     <>
       <h1>Apple Nest</h1>
+      <img alt="Farmer" src="assets/apple_nest.jpg" height="100%"></img>
       <p>Welcome. </p>
       {fetchAction(props.userId)}
     </>
