@@ -29,7 +29,7 @@ export function AppleNestRouter() {
           <SelectCharacter userId={userId} />
         </Route>
         <Route path="/create-character">
-          <CreateCharacter userId={userId} />
+          <CreateCharacter userId={userId} cancelLink="/select-character" />
         </Route>
         <Route path="/game/:characterId" component={Game}>
         </Route>

@@ -68,7 +68,7 @@ export function CreateCharacter({ userId, cancelLink }: CreateCharacterProps) {
         <button onClick={async () => doAddCharacter()}>
           Create Character
         </button>
-        <Link to={cancelLink || '/select-character'}>Cancel</Link>
+        <Link to={cancelLink}>Cancel</Link>
       </div>
       <div>
         <ErrorMessage error={error}></ErrorMessage>
