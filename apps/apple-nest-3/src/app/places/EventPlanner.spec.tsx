@@ -2,8 +2,7 @@ import { render, fireEvent, act, getByText, waitFor } from '@testing-library/rea
 import { BrowserRouter, Router } from 'react-router-dom';
 import { COLLECT_REWARD, EventPlanner, questText } from './EventPlanner';
 import { MockedProvider } from '@apollo/client/testing';
-import { createMemoryHistory } from 'history'
-import { Character, Quest } from '@apple-nest-3/apple-nest-interfaces';
+import { Character, Quest } from '@spacems/apple-nest-3-character';
 
 describe('EventPlanner', () => {
   it('Shows do quest and reward at start', async () => {

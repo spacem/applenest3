@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { Character, Quest } from '@apple-nest-3/apple-nest-interfaces';
+import { Character, Quest } from '@spacems/apple-nest-3-character';
 import { BrowserRouter } from 'react-router-dom';
 import { Farm } from './Farm';
 

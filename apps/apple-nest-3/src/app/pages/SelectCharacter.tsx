@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Character } from '@apple-nest-3/apple-nest-interfaces';
+import { Character } from '@spacems/apple-nest-3-character';
 import { Loading } from '../components/Loading';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { History } from 'history';

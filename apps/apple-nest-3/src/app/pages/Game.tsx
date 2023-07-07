@@ -1,6 +1,6 @@
 import { Link, match, Redirect, Route, useParams } from 'react-router-dom';
 import { Town } from '../places/Town';
-import { Character } from '@apple-nest-3/apple-nest-interfaces';
+import { Character } from '@spacems/apple-nest-3-character';
 import { Loading } from '../components/Loading';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Place } from '../interfaces/place';

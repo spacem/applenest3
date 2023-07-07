@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import { Plot } from './Plot';
-import { Character } from '@apple-nest-3/apple-nest-interfaces';
+import { Character } from '@spacems/apple-nest-3-character';
 import { BrowserRouter } from 'react-router-dom';
 import { MockedProvider } from '@apollo/client/testing';
 

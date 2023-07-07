@@ -1,0 +1,13 @@
+import { Meta, Story } from '@storybook/addon-docs';
+
+import { Home } from './Home';
+
+<Meta title="Components/Pages" component={Home} />
+
+export const Template = (args) => <Home {...args} />;
+
+<Story
+  name="Home"
+  args={{}}>
+  {Template.bind({})}
+</Story>

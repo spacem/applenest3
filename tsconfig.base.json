@@ -15,9 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@apple-nest-3/apple-nest-interfaces": [
-        "libs/apple-nest-interfaces/src/index.ts"
-      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

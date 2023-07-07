@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import { BagContents } from './BagContents';
-import { Bag } from '@apple-nest-3/apple-nest-interfaces';
+import { Bag } from '@spacems/apple-nest-3-character';
 
 describe('Bag', () => {
   it('Shows zero bag contents when empty bag', async () => {

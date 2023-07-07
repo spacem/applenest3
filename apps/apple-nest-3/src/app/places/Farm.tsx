@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Quest } from '@apple-nest-3/apple-nest-interfaces';
+import { Quest } from '@spacems/apple-nest-3-character';
 import { PlaceProps } from '../interfaces/place-props';
 import { Link } from 'react-router-dom';
 

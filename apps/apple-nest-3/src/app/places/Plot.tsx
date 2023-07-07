@@ -1,5 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
-import { Character } from '@apple-nest-3/apple-nest-interfaces';
+import { Character } from '@spacems/apple-nest-3-character';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ErrorMessage } from '../components/ErrorMessage';

@@ -3,7 +3,7 @@ import { ErrorMessage } from '../components/ErrorMessage';
 import { Saving } from '../components/Saving';
 import { PlaceProps } from '../interfaces/place-props';
 import { gql, useMutation } from '@apollo/client';
-import { Character } from '@apple-nest-3/apple-nest-interfaces';
+import { Character } from '@spacems/apple-nest-3-character';
 import { Link } from 'react-router-dom';
 
 const BUY_SEEDS = gql`

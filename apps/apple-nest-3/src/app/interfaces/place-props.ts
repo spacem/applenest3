@@ -1,4 +1,4 @@
-import { Character } from '@apple-nest-3/apple-nest-interfaces';
+import { Character } from '@spacems/apple-nest-3-character';
 
 export interface PlaceProps {
   character: Character;

@@ -1,4 +1,4 @@
-import { Bag } from '@apple-nest-3/apple-nest-interfaces';
+import { Bag } from '@spacems/apple-nest-3-character';
 
 interface BagProps {
   bag?: Bag;
