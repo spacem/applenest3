@@ -68,8 +68,8 @@ export class PlotService {
       },
       seedReadyDate: null,
     };
+    updatedCharacter.questNumber = this.eventPlannerService.getNextQuestNumber(updatedCharacter);
     await this.characterService.update(updatedCharacter);
-    await this.eventPlannerService.completeQuest(updatedCharacter);
     return {
       character: updatedCharacter,
       message: `${numApples} apples grown`,

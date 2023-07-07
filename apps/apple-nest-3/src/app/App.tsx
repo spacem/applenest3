@@ -20,6 +20,9 @@ function App() {
             <AppleNestRouter />
           </ApolloProvider>
         </header>
+        <footer>
+          <div><a href="https://github.com/spacem/applenest3">View Code on GitHub</a></div>
+        </footer>
       </div>
   );
 }

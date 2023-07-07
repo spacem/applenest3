@@ -38,8 +38,8 @@ export class EventPlannerService {
           money: (character?.bag?.money || 0) + 1,
         },
       };
+      updatedCharacter.questNumber = this.getNextQuestNumber(updatedCharacter);
       await this.characterService.update(updatedCharacter);
-      await this.completeQuest(updatedCharacter);
       return {
         character: updatedCharacter,
         message: 'Here is your reward',
@@ -60,12 +60,16 @@ export class EventPlannerService {
     }
   }
 
+  getNextQuestNumber(character) {
+    return character.questNumber ? character.questNumber + 1 : 2
+  }
+
   async completeQuest(character: Character) {
     const status = this.isQuestComplete(character);
     if (status) {
       const updatedCharacter: Character = {
         ...character,
-        questNumber: character.questNumber ? character.questNumber + 1 : 2,
+        questNumber: this.getNextQuestNumber(character),
       };
       await this.characterService.update(updatedCharacter);
 

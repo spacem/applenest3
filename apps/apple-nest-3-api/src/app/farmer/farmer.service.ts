@@ -19,8 +19,8 @@ export class FarmerService {
           seeds: (character.bag.seeds || 0) + numSeeds,
         },
       };
+      updatedCharacter.questNumber = this.eventPlannerService.getNextQuestNumber(updatedCharacter);
       await this.characterService.update(updatedCharacter);
-      await this.eventPlannerService.completeQuest(updatedCharacter);
       return {
         character: updatedCharacter,
         message: 'Here are your seeds',
