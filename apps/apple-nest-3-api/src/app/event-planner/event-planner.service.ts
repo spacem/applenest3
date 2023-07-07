@@ -27,10 +27,10 @@ export class EventPlannerService {
         character,
         message: `${Math.ceil(
           remainingTime / 60
-        )} minutes left until you can get another event reward`,
+        )} minutes left until you can get any more.`,
       };
     } else {
-      const updateCharacter = {
+      const updatedCharacter = {
         ...character,
         lastRewardDate: currentTime,
         bag: {
@@ -38,9 +38,10 @@ export class EventPlannerService {
           money: (character?.bag?.money || 0) + 1,
         },
       };
-      await this.characterService.update(updateCharacter);
+      await this.characterService.update(updatedCharacter);
+      await this.completeQuest(updatedCharacter);
       return {
-        character: updateCharacter,
+        character: updatedCharacter,
         message: 'Here is your reward',
       };
     }

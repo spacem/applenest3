@@ -14,7 +14,7 @@ const PLANT_SEED = gql`
       message,
       character {
         _id,
-        name,
+        questNumber,
         seedReadyDate,
         bag {
           money,
@@ -32,7 +32,7 @@ const HARVEST_CROP = gql`
       message,
       character {
         _id,
-        name,
+        questNumber,
         seedReadyDate,
         bag {
           money,

@@ -12,7 +12,7 @@ const BUY_SEEDS = gql`
       message,
       character {
         _id,
-        name,
+        questNumber,
         bag {
           money,
           apples,
@@ -24,7 +24,6 @@ const BUY_SEEDS = gql`
 `;
 
 export function Farmer(props: PlaceProps) {
-
   const [message, setMessage] = useState('You can buy seeds from me.');
   const [buySeeds, { loading, error }] = useMutation<{ buySeeds: { message: string, character: Character }}>(BUY_SEEDS);
 

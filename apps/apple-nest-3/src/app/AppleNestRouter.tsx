@@ -1,4 +1,4 @@
-import { Switch, Route, BrowserRouter, useHistory } from 'react-router-dom';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { SelectCharacter } from './pages/SelectCharacter';
 import { CreateCharacter } from './pages/CreateCharacter';
 import { Home } from './pages/Home';

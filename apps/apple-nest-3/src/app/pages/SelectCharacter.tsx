@@ -3,13 +3,13 @@ import { Link, useHistory } from 'react-router-dom';
 import { Character } from '@apple-nest-3/apple-nest-interfaces';
 import { Loading } from '../components/Loading';
 import { ErrorMessage } from '../components/ErrorMessage';
-import { History } from 'history';
 import './SelectCharacter.scss';
 import {
   useQuery,
   gql,
   useLazyQuery
 } from "@apollo/client";
+import { CreateCharacter } from './CreateCharacter';
 
 interface SelectCharacterProps {
   userId: string | null;
@@ -45,6 +45,9 @@ export function SelectCharacter(props: SelectCharacterProps) {
 
   if(!props.userId) {
     return <div>Not signed in<Link to="/">Retry</Link></div>
+  }
+  if (data?.characters?.length === 0) {
+    return <CreateCharacter userId={props.userId} cancelLink="/"></CreateCharacter>
   }
 
   const characters = data?.characters.map((c) => {

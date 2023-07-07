@@ -1,10 +1,12 @@
 import { Character } from '@apple-nest-3/apple-nest-interfaces';
 import { Injectable } from '@nestjs/common';
 import { CharacterService } from '../character/character.service';
+import { EventPlannerService } from '../event-planner/event-planner.service';
 
 @Injectable()
 export class FarmerService {
-  constructor(private characterService: CharacterService) {
+  constructor(private characterService: CharacterService,
+    private eventPlannerService: EventPlannerService) {
   }
 
   async buySeeds(character: Character, numSeeds: number) {
@@ -18,6 +20,7 @@ export class FarmerService {
         },
       };
       await this.characterService.update(updatedCharacter);
+      await this.eventPlannerService.completeQuest(updatedCharacter);
       return {
         character: updatedCharacter,
         message: 'Here are your seeds',

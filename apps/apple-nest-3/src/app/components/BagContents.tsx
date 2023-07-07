@@ -14,7 +14,6 @@ export const BagContents = (props: BagProps) => {
         <div>{bag?.money || 0}</div>
       </div>
 
-
       <div>
         <div>Apples</div>
         <img className="inventory" alt="Farmer" src="assets/apples.jpg" height="100%"></img>

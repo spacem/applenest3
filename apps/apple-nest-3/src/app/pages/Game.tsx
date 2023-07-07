@@ -4,8 +4,8 @@ import { Character } from '@apple-nest-3/apple-nest-interfaces';
 import { Loading } from '../components/Loading';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Place } from '../interfaces/place';
-import { EventPlanner } from '../places/EventPlanner';
 import { Farmer } from '../places/Farmer';
+import { PlaceLayout } from '../places/PlaceLayout';
 import { Farm } from '../places/Farm';
 import { BagContents } from '../components/BagContents';
 import { Plot } from '../places/Plot';
@@ -27,9 +27,8 @@ const GET_CHARACTER = gql`
   }
 `;
 
-
 export function Game(params: {match: match}) {
-  const { characterId } = useParams<{ characterId: string, place: Place }>();
+  const { characterId, place } = useParams<{ characterId: string, place: Place }>();
   const { loading, error, data } = useQuery<{ character: Character}>(GET_CHARACTER, {
     variables: { id: characterId },
   });
@@ -50,9 +49,6 @@ export function Game(params: {match: match}) {
         <Route path="/game/:characterId">
           <Redirect to={`${params.match.url}/town`}></Redirect>
         </Route>
-        <Route path={`${params.match.url}/event-planner`}>
-          <EventPlanner character={data?.character}></EventPlanner>
-        </Route>
         <Route path={`${params.match.url}/farmer`}>
           <Farmer character={data?.character}></Farmer>
         </Route>
@@ -64,6 +60,18 @@ export function Game(params: {match: match}) {
         </Route>
         <Route path={`${params.match.url}/town`}>
           <Town character={data?.character}></Town>
+        </Route>
+        <Route path={`${params.match.url}/well`}>
+          <PlaceLayout character={data?.character} place={'well'}  />
+        </Route>
+        <Route path={`${params.match.url}/event-planner`}>
+          <PlaceLayout character={data?.character} place={'planner'}  />
+        </Route>
+        <Route path={`${params.match.url}/city`}>
+          <PlaceLayout character={data?.character} place={'city'}  />
+        </Route>
+        <Route path={`${params.match.url}/market`}>
+          <PlaceLayout character={data?.character} place={'market'}  />
         </Route>
       </div>
       </>

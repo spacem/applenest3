@@ -4,6 +4,7 @@ import { EventPlannerService } from '../event-planner/event-planner.service';
 import { FarmerService } from '../farmer/farmer.service';
 import { PlotService } from '../plot/plot.service';
 import { CharacterService } from './character.service';
+import { MarketService } from '../market/market.service';
 
 @Resolver('Character')
 export class CharacterResolver {
@@ -11,6 +12,7 @@ export class CharacterResolver {
     private characterService: CharacterService,
     private eventPlannerService: EventPlannerService,
     private farmerService: FarmerService,
+    private marketService: MarketService,
     private plotService: PlotService) {}
 
   @Query("character")
@@ -46,6 +48,9 @@ export class CharacterResolver {
     );
   }
 
+  /**
+   * @deprecated('');
+   */
   @Mutation('completeQuest')
   async completeQuest(@Args('characterId') id: string) {
     const character = await this.getCharacter(id);
@@ -68,5 +73,26 @@ export class CharacterResolver {
   async harvestCrop(@Args('characterId') id: string) {
     const character = await this.getCharacter(id);
     return this.plotService.harvest(character);
+  }
+
+  @Mutation('performAction')
+  async performAction(@Args('characterId') id: string, @Args('action') action: string) {
+    const character = await this.getCharacter(id);
+    switch (action) {
+      case 'completeQuest':
+        return this.eventPlannerService.completeQuest(character);
+      case 'collectReward':
+        return await this.eventPlannerService.giveReward(
+          character,
+          new Date().valueOf()
+        );
+      case 'sell':
+        return await this.marketService.sell(character);
+      default:
+        return {
+          character,
+          message: `Invalid Action ${action}`,
+        };
+    }
   }
 }

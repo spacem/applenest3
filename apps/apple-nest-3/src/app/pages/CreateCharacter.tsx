@@ -16,9 +16,10 @@ export const ADD_CHARACTER = gql`
 
 interface CreateCharacterProps {
   userId: string | null;
+  cancelLink: string;
 }
 
-export function CreateCharacter(props: CreateCharacterProps) {
+export function CreateCharacter({ userId, cancelLink }: CreateCharacterProps) {
   const history = useHistory();
   let input: HTMLInputElement | null;
 
@@ -45,7 +46,7 @@ export function CreateCharacter(props: CreateCharacterProps) {
   });
 
   async function doAddCharacter() {
-    await addCharacter({ variables: { userId: props.userId, name: input?.value }});
+    await addCharacter({ variables: { userId: userId, name: input?.value }});
   }
 
   return (
@@ -67,7 +68,7 @@ export function CreateCharacter(props: CreateCharacterProps) {
         <button onClick={async () => doAddCharacter()}>
           Create Character
         </button>
-        <Link to="/select-character">Cancel</Link>
+        <Link to={cancelLink || '/select-character'}>Cancel</Link>
       </div>
       <div>
         <ErrorMessage error={error}></ErrorMessage>

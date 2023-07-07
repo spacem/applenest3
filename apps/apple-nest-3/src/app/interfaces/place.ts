@@ -4,4 +4,5 @@ export enum Place {
   Farm = 'farm',
   Farmer = 'farmer',
   Plot = 'plot',
+  City = 'city',
 }

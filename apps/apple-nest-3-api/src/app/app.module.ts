@@ -15,6 +15,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { CharacterSchema, CHARACTER_COLLECTION } from './store/character.schema';
 import { CHARACTER_TYPES } from './graphql-schemas/character.graphql';
 import { environment } from '../environments/environment';
+import { MarketService } from './market/market.service';
 
 @Module({
   imports: [
@@ -38,6 +39,8 @@ import { environment } from '../environments/environment';
     EventPlannerService,
     FarmerService,
     PlotService,
-    CharacterResolver],
+    CharacterResolver,
+    MarketService
+  ],
 })
 export class AppModule {}
