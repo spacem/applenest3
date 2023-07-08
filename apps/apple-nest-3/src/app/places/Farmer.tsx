@@ -19,7 +19,9 @@ const BUY_SEEDS = gql`
           apples,
           seeds,
           buckets,
-          water
+          water,
+          weapon,
+          shield
         }
       }
     }

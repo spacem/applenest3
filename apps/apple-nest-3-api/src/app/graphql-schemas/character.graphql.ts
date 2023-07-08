@@ -28,6 +28,8 @@ type Bag {
   seeds: Int
   buckets: Int
   water: Int
+  weapon: Int
+  shield: Int
 }`,
 
 gql`

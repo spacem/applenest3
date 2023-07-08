@@ -16,7 +16,9 @@ export const PERFORM_ACTION = gql`
           apples,
           seeds,
           buckets,
-          water
+          water,
+          weapon,
+          shield
         }
       }
     }

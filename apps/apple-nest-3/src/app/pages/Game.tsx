@@ -21,7 +21,9 @@ const GET_CHARACTER = gql`
         apples,
         seeds,
         water,
-        buckets
+        buckets,
+        weapon,
+        shield
       },
       seedReadyDate,
       questNumber
@@ -82,6 +84,9 @@ export function Game(params: {match: match}) {
         </Route>
         <Route path={`${params.match.url}/market`}>
           <PlaceLayout character={data?.character} place={places.market}  />
+        </Route>
+        <Route path={`${params.match.url}/blacksmith`}>
+          <PlaceLayout character={data?.character} place={places.blacksmith}  />
         </Route>
       </div>
       </>

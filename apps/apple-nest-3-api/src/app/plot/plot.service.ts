@@ -48,7 +48,7 @@ export class PlotService {
     }
 
     const timeLeft = Math.ceil(character.seedReadyDate - new Date().valueOf());
-    const bonusTime = Math.floor(timeLeft / 2);
+    const bonusTime = Math.floor(timeLeft / 2000);
 
     if (bonusTime < 1) {
       return {
@@ -62,12 +62,12 @@ export class PlotService {
         ...character?.bag,
         water: character.bag.water - 1,
       },
-      seedReadyDate: character.seedReadyDate - bonusTime,
+      seedReadyDate: character.seedReadyDate - (bonusTime * 1000),
     };
     await this.characterService.update(updatedCharacter);
     return {
       character: updatedCharacter,
-      message: `Watering saved ${bonusTime / 1000} seconds`,
+      message: `Watering saved ${bonusTime} seconds`,
     };
   }
 

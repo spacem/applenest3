@@ -78,6 +78,13 @@ export const places: {[key:string]: PlaceConfig} = {
         icon: 'market.jpg'
       },
       {
+        title: 'Visit Blacksmith',
+        action: 'nav',
+        param: 'blacksmith',
+        icon: 'blacksmith.jpg',
+        level: 5,
+      },
+      {
         title: 'Back To Town',
         action: 'nav',
         param: 'town',
@@ -167,6 +174,29 @@ export const places: {[key:string]: PlaceConfig} = {
         action: 'nav',
         param: 'town',
         icon: 'town.jpg',
+      },
+    ]
+  },
+  blacksmith: {
+    title: 'Blacksmith',
+    image: 'blacksmith.jpg',
+    initialText: 'Need stronger weapons, more armour?',
+    actions: [
+      {
+        title: 'Buy/Upgrade Weapon',
+        action: 'buyWeapon',
+        icon: 'weapon.jpg',
+      },
+      {
+        title: 'Buy/Upgrade Shield',
+        action: 'buyShield',
+        icon: 'shield.jpg',
+      },
+      {
+        title: 'Go Back To The City',
+        action: 'nav',
+        param: 'city',
+        icon: 'city.jpg',
       },
     ]
   }

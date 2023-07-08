@@ -4,4 +4,6 @@ export interface Bag {
   seeds?: number;
   water?: number;
   buckets?: number;
+  weapon?: number;
+  shield?: number;
 }

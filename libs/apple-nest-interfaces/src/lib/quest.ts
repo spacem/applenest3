@@ -4,4 +4,5 @@ export enum Quest {
   GrowApple = 3,
   BuyBucket = 4,
   GetWater = 5,
+  GetArms = 6,
 }

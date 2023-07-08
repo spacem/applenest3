@@ -11,3 +11,5 @@ questText[Quest.BuyBucket] =
   'Next I think you should buy yourself a bucket.';
 questText[Quest.GetWater] =
   'Now you have a bucket, why not collect some water?';
+questText[Quest.GetArms] =
+  'It is time to fight. Equip yourself with a sword and shield';

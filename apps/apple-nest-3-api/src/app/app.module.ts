@@ -18,6 +18,7 @@ import { environment } from '../environments/environment';
 import { MarketService } from './market/market.service';
 import { QuestService } from './character/quest.service';
 import { WellService } from './npcs/well.service';
+import { BlacksmithService } from './npcs/blacksmith.service';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { WellService } from './npcs/well.service';
     MarketService,
     QuestService,
     WellService,
+    BlacksmithService,
   ],
 })
 export class AppModule {}
