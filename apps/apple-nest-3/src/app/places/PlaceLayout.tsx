@@ -15,24 +15,30 @@ export function PlaceLayout({ place, character }: PlaceLayoutProps) {
   return (
     <>
       <h2>{place?.title}</h2>
-      <img
-        alt="icon"
-        src={`assets/${place.image}`}
-        height="100%"
-      ></img>
+      <img alt="icon" src={`assets/${place.image}`} height="100%"></img>
       <div>{message || place.initialText}</div>
       <Saving saving={loading}>
         <div>
           <ErrorMessage error={error}></ErrorMessage>
         </div>
-        <div>
-          {place.actions.map(({ title, action, param }) =>
-            action === 'nav' && param ? (
-              <Link key={title} to={param}>{title}</Link>
-            ) : (
-              <button key={title} onClick={() => doAction(action)}>{title}</button>
-            )
-          )}
+        <div className="place-actions">
+          {place.actions
+            .filter((a) => (character?.questNumber || 0) >= (a.level || 0))
+            .map(({ title, action, param, icon }) => (
+              <div>
+                {action === 'nav' && param ? (
+                  <Link key={title} to={param}>
+                    {icon && <img alt="icon" src={`assets/${icon}`} />}
+                    <span>{title}</span>
+                  </Link>
+                ) : (
+                  <button key={title} onClick={() => doAction(action)}>
+                    {icon && <img alt="icon" src={`assets/${icon}`} />}
+                    <span>{title}</span>
+                  </button>
+                )}
+              </div>
+            ))}
         </div>
       </Saving>
     </>

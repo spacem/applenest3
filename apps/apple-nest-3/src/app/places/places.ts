@@ -7,17 +7,20 @@ export const places: {[key:string]: PlaceConfig} = {
     initialText: 'Looks like people have been wishing here.',
     actions: [
       {
-        title: 'Take Money From The Well',
+        title: 'Take Money',
         action: 'collectReward',
+        icon: 'money.jpg'
       },
       {
-        title: 'Take Water From The Well',
+        title: 'Take Water',
         action: 'collectWater',
+        icon: 'water.jpg'
       },
       {
         title: 'Back To Town',
         action: 'nav',
         param: 'town',
+        icon: 'town.jpg'
       },
     ],
   },
@@ -29,11 +32,13 @@ export const places: {[key:string]: PlaceConfig} = {
       {
         title: 'Accept Quest',
         action: 'acceptQuest',
+        icon: 'event_planner.jpg'
       },
       {
         title: 'Back To Town',
         action: 'nav',
         param: 'town',
+        icon: 'town.jpg',
       },
     ],
   },
@@ -45,15 +50,18 @@ export const places: {[key:string]: PlaceConfig} = {
       {
         title: 'Sell Apples',
         action: 'sell',
+        icon: 'apples.jpg',
       },
       {
         title: 'Buy Bucket (10)',
         action: 'buyBucket',
+        icon: 'water.jpg',
       },
       {
         title: 'Back To City',
         action: 'nav',
         param: 'city',
+        icon: 'city.jpg',
       },
     ],
   },
@@ -66,12 +74,75 @@ export const places: {[key:string]: PlaceConfig} = {
         title: 'Visit Markets',
         action: 'nav',
         param: 'market',
+        icon: 'market.jpg'
       },
       {
         title: 'Back To Town',
         action: 'nav',
         param: 'town',
+        icon: 'town.jpg'
       },
     ],
+  },
+  town: {
+    title: 'Town',
+    image: 'town.jpg',
+    initialText: '',
+    actions: [
+      {
+        title: 'Visit The Farm',
+        action: 'nav',
+        param: 'farm',
+        icon: 'farm.jpg',
+        level: 2,
+      },
+      {
+        title: 'Go To The City',
+        action: 'nav',
+        param: 'city',
+        icon: 'city.jpg',
+        level: 3,
+      },
+      {
+        title: 'Talk To The Quest NPC',
+        action: 'nav',
+        param: 'event-planner',
+        icon: 'event_planner.jpg',
+        level: 3,
+      },
+      {
+        title: 'Walk To The Wishing Well',
+        action: 'nav',
+        param: 'well',
+        icon: 'wishing_well.jpg',
+        level: 3,
+      },
+    ],
+  },
+  farm: {
+    title: 'Farm',
+    image: 'farm.jpg',
+    initialText: '',
+    actions: [
+      {
+        title: 'Talk To The Farmer',
+        action: 'nav',
+        param: 'well',
+        icon: 'farmer.jpg',
+      },
+      {
+        title: 'Plant Something',
+        action: 'nav',
+        param: 'plot',
+        icon: 'plot.jpg',
+        level: 3,
+      },
+      {
+        title: 'Go Back To Town',
+        action: 'nav',
+        param: 'town',
+        icon: 'town.jpg',
+      },
+    ]
   }
 };

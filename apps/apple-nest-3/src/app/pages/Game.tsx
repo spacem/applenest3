@@ -69,10 +69,10 @@ export function Game(params: {match: match}) {
           <Plot character={data?.character}></Plot>
         </Route>
         <Route path={`${params.match.url}/farm`}>
-          <Farm character={data?.character}></Farm>
+          <PlaceLayout character={data?.character} place={places.farm}></PlaceLayout>
         </Route>
         <Route path={`${params.match.url}/town`}>
-          <Town character={data?.character}></Town>
+          <PlaceLayout character={data?.character} place={places.town}></PlaceLayout>
         </Route>
         <Route path={`${params.match.url}/well`}>
           <PlaceLayout character={data?.character} place={places.well}  />

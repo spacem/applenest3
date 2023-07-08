@@ -6,5 +6,7 @@ export interface PlaceConfig {
     title: string;
     action: string;
     param?: string;
+    icon?: string;
+    level?: number;
   }[]
 }
