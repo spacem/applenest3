@@ -16,6 +16,7 @@ import { CharacterSchema, CHARACTER_COLLECTION } from './store/character.schema'
 import { CHARACTER_TYPES } from './graphql-schemas/character.graphql';
 import { environment } from '../environments/environment';
 import { MarketService } from './market/market.service';
+import { QuestService } from './character/quest.service';
 
 @Module({
   imports: [
@@ -40,7 +41,8 @@ import { MarketService } from './market/market.service';
     FarmerService,
     PlotService,
     CharacterResolver,
-    MarketService
+    MarketService,
+    QuestService,
   ],
 })
 export class AppModule {}

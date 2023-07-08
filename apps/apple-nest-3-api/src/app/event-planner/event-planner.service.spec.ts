@@ -7,8 +7,8 @@ describe('EventPlannerService', () => {
   let characterService: CharacterService;
 
   beforeEach(async () => {
-    characterService = new CharacterService({} as any);
-    service = new EventPlannerService(characterService);
+    characterService = new CharacterService({} as any, {} as any);
+    service = new EventPlannerService(characterService, {} as any);
   });
 
   it('should be defined', () => {

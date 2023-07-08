@@ -3,22 +3,15 @@ import { Saving } from '../components/Saving';
 import { PlaceProps } from '../interfaces/place-props';
 import { Link } from 'react-router-dom';
 import './places.scss';
-import { places } from './places';
 import { useActions } from './useActions';
+import { PlaceConfig } from './PlaceConfig';
 
-interface EventPlannerState {
-  message?: string;
-  doingQuest?: boolean;
+export interface PlaceLayoutProps extends PlaceProps {
+  place: PlaceConfig;
 }
 
-export function PlaceLayout(props: PlaceProps) {
-  const initialState: EventPlannerState = {
-    doingQuest: false,
-  };
-
-  const place = places[props.place || ''];
-
-  const { doAction, message, error, loading } = useActions(props.character);
+export function PlaceLayout({ place, character }: PlaceLayoutProps) {
+  const { doAction, message, error, loading } = useActions(character);
   return (
     <>
       <h2>{place?.title}</h2>

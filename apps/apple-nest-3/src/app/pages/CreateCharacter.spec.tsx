@@ -10,7 +10,7 @@ describe('CreateCharacter', () => {
       {
         request: {
           query: ADD_CHARACTER,
-          variables: { name: 'new char name', userId: '123' }
+          variables: { name: 'new char name', userId: '123' },
         },
         result: () => {
           addedCharacter = true;
@@ -19,11 +19,19 @@ describe('CreateCharacter', () => {
       },
     ];
 
-    const { getByRole, getByPlaceholderText } = render(<MockedProvider mocks={mocks}><BrowserRouter><CreateCharacter userId={'123'} /></BrowserRouter></MockedProvider>);
+    const { getByRole, getByPlaceholderText } = render(
+      <MockedProvider mocks={mocks}>
+        <BrowserRouter>
+          <CreateCharacter userId={'123'} cancelLink="/" />
+        </BrowserRouter>
+      </MockedProvider>
+    );
     await waitFor(async () => {
-      fireEvent.change(getByPlaceholderText('Character Name'), {target: {value: 'new char name'}});
+      fireEvent.change(getByPlaceholderText('Character Name'), {
+        target: { value: 'new char name' },
+      });
       fireEvent.click(getByRole('button', { name: 'Create Character' }));
-      await new Promise(resolve => setTimeout(resolve, 0)); // wait for response
+      await new Promise((resolve) => setTimeout(resolve, 0)); // wait for response
     });
 
     expect(addedCharacter).toEqual(true);

@@ -7,7 +7,7 @@ describe('CharacterController', () => {
   let characterService: CharacterService;
 
   beforeEach(async () => {
-    characterService = new CharacterService({} as any);
+    characterService = new CharacterService({} as any, {} as any);
     controller = new CharacterController(characterService);
   });
 

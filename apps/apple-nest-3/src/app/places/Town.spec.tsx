@@ -10,7 +10,7 @@ describe('Town', () => {
       userId: '123'
     };
     const { getByText } = render(<BrowserRouter><Town character={character}></Town></BrowserRouter>);
-    expect(() => getByText('Farm')).toThrow();
+    expect(() => getByText('Visit The Farm')).toThrow();
   });
 
   it('Has farm link after quest', async () => {
@@ -20,7 +20,7 @@ describe('Town', () => {
       questNumber: Quest.BuySeed
     };
     const { getByText } = render(<BrowserRouter><Town character={character}></Town></BrowserRouter>);
-    const elemnt = getByText('Farm');
+    const elemnt = getByText('Visit The Farm');
     expect(elemnt).toBeTruthy();
   });
 });

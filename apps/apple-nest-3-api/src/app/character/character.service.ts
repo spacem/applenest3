@@ -3,11 +3,13 @@ import { Character } from '@apple-nest-3/apple-nest-interfaces';
 import { InjectModel } from '@nestjs/mongoose';
 import { CHARACTER_COLLECTION } from '../store/character.schema';
 import { Document, Model } from 'mongoose';
+import { QuestService } from './quest.service';
 
 @Injectable()
 export class CharacterService {
   constructor(
-    @InjectModel(CHARACTER_COLLECTION) private characterModel: Model<Character | Document>
+    @InjectModel(CHARACTER_COLLECTION) private characterModel: Model<Character | Document>,
+    private questService: QuestService
     ) {
   }
 
@@ -32,6 +34,7 @@ export class CharacterService {
   }
 
   async update(character: Character) {
+    character.questNumber = this.questService.getNextQuestNumber(character);
     await this.characterModel.findOneAndUpdate({ _id: character._id}, character);
   }
 }

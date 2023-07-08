@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import {
   ActionResponse,
-  Character,
-  Quest,
+  Character
 } from '@apple-nest-3/apple-nest-interfaces';
 import { CharacterService } from '../character/character.service';
+import { QuestService } from '../character/quest.service';
 
 const REWARD_TIME = 60 * 60;
 
 @Injectable()
 export class EventPlannerService {
-  constructor(private characterService: CharacterService) {}
+  constructor(private characterService: CharacterService, private questService: QuestService) {}
 
   async giveReward(
     character: Character,
@@ -38,7 +38,6 @@ export class EventPlannerService {
           money: (character?.bag?.money || 0) + 1,
         },
       };
-      updatedCharacter.questNumber = this.getNextQuestNumber(updatedCharacter);
       await this.characterService.update(updatedCharacter);
       return {
         character: updatedCharacter,
@@ -47,29 +46,11 @@ export class EventPlannerService {
     }
   }
 
-  isQuestComplete(character: Character) {
-    switch (character.questNumber || Quest.GetMoney) {
-      case Quest.GetMoney:
-        return character?.bag?.money > 0;
-      case Quest.BuySeed:
-        return character?.bag?.seeds > 0;
-      case Quest.GrowApple:
-        return character?.bag?.apples > 0;
-      default:
-        return false;
-    }
-  }
-
-  getNextQuestNumber(character) {
-    return character.questNumber ? character.questNumber + 1 : 2
-  }
-
   async completeQuest(character: Character) {
-    const status = this.isQuestComplete(character);
+    const status = this.questService.isQuestComplete(character);
     if (status) {
       const updatedCharacter: Character = {
         ...character,
-        questNumber: this.getNextQuestNumber(character),
       };
       await this.characterService.update(updatedCharacter);
 

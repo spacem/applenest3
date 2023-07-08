@@ -1,13 +1,12 @@
 import { Character } from '@apple-nest-3/apple-nest-interfaces';
 import { Injectable } from '@nestjs/common';
 import { CharacterService } from '../character/character.service';
-import { EventPlannerService } from '../event-planner/event-planner.service';
 
 const SEED_GROW_TIME = 60 * 1000;
 
 @Injectable()
 export class PlotService {
-  constructor(private characterService: CharacterService, private eventPlannerService: EventPlannerService) {
+  constructor(private characterService: CharacterService) {
   }
 
   async plant(character: Character) {
@@ -68,7 +67,6 @@ export class PlotService {
       },
       seedReadyDate: null,
     };
-    updatedCharacter.questNumber = this.eventPlannerService.getNextQuestNumber(updatedCharacter);
     await this.characterService.update(updatedCharacter);
     return {
       character: updatedCharacter,

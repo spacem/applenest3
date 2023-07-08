@@ -5,8 +5,7 @@ import { EventPlannerService } from '../event-planner/event-planner.service';
 
 @Injectable()
 export class FarmerService {
-  constructor(private characterService: CharacterService,
-    private eventPlannerService: EventPlannerService) {
+  constructor(private characterService: CharacterService) {
   }
 
   async buySeeds(character: Character, numSeeds: number) {
@@ -19,7 +18,6 @@ export class FarmerService {
           seeds: (character.bag.seeds || 0) + numSeeds,
         },
       };
-      updatedCharacter.questNumber = this.eventPlannerService.getNextQuestNumber(updatedCharacter);
       await this.characterService.update(updatedCharacter);
       return {
         character: updatedCharacter,

@@ -10,7 +10,7 @@ describe('Town', () => {
       userId: '123'
     };
     const { getByText } = render(<BrowserRouter><Farm character={character}></Farm></BrowserRouter>);
-    expect(() => getByText('Plot')).toThrow();
+    expect(() => getByText('Plant Something')).toThrow();
   });
 
   it('Has plot link after quest', async () => {
@@ -20,7 +20,7 @@ describe('Town', () => {
       questNumber: Quest.GrowApple
     };
     const { getByText } = render(<BrowserRouter><Farm character={character}></Farm></BrowserRouter>);
-    const elemnt = getByText('Plot');
+    const elemnt = getByText('Plant Something');
     expect(elemnt).toBeTruthy();
   });
 });
