@@ -48,7 +48,7 @@ export function Game(params: {match: match}) {
         <div>
           <BagContents bag={data?.character?.bag} />
         </div>
-        <div>
+        <div className="place-actions">
           <Link to="/select-character">Switch Character</Link>
         </div>
       </div>

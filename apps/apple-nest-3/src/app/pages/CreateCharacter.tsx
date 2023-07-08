@@ -75,7 +75,7 @@ export function CreateCharacter({ userId, cancelLink }: CreateCharacterProps) {
               placeholder="Character Name"
             />
           </div>
-          <div>
+          <div className="place-actions">
             <button onClick={async () => doAddCharacter()}>
               Create Character
             </button>
@@ -95,7 +95,7 @@ export function CreateCharacter({ userId, cancelLink }: CreateCharacterProps) {
               </button>
             ))}
           </div>
-          <div>
+          <div className="place-actions">
             <Link to={cancelLink}>Cancel</Link>
           </div>
         </div>
