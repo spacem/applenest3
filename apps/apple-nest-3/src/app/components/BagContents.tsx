@@ -25,6 +25,12 @@ export const BagContents = (props: BagProps) => {
         <img className="inventory" alt="Farmer" src="assets/seeds.jpg" height="100%"></img>
         <div>{bag?.seeds || 0}</div>
       </div>
+
+      <div>
+        <div>Water</div>
+        <img className="inventory" alt="Water" src="assets/water.jpg" height="100%"></img>
+        <div>{bag?.water || 0}/{bag?.buckets || 0}</div>
+      </div>
     </div>
   );
 };

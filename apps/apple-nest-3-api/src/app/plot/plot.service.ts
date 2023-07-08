@@ -1,6 +1,7 @@
 import { Character } from '@apple-nest-3/apple-nest-interfaces';
 import { Injectable } from '@nestjs/common';
 import { CharacterService } from '../character/character.service';
+import { time } from 'console';
 
 const SEED_GROW_TIME = 60 * 1000;
 
@@ -37,6 +38,38 @@ export class PlotService {
         message: 'Not enough seeds',
       };
     }
+  }
+
+  async water(character: Character) {
+    if (character.seedReadyDate == null) {
+      return {
+        message: 'Character is not growing a tree',
+        character
+      };
+    }
+
+    const timeLeft = Math.ceil(character.seedReadyDate - new Date().valueOf());
+    const bonusTime = Math.floor(timeLeft / 2);
+
+    if (bonusTime < 1) {
+      return {
+        message: 'No need to water this. It\'s almost ready'
+      }
+    }
+
+    const updatedCharacter: Character = {
+      ...character,
+      bag: {
+        ...character?.bag,
+        water: character.bag.water - 1,
+      },
+      seedReadyDate: character.seedReadyDate - bonusTime,
+    };
+    await this.characterService.update(updatedCharacter);
+    return {
+      character: updatedCharacter,
+      message: `Watering saved ${bonusTime / 1000} seconds`,
+    };
   }
 
   async harvest(character: Character) {

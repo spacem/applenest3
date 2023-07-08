@@ -18,10 +18,13 @@ const GET_CHARACTER = gql`
     character(id: $id) {
       _id,
       name,
+      icon,
       bag {
         money,
         apples,
-        seeds
+        seeds,
+        water,
+        buckets
       },
       seedReadyDate,
       questNumber
@@ -40,8 +43,9 @@ export function Game(params: {match: match}) {
       {data?.character != null && <>
       {showInfo &&
       <div>
-        <button onClick={() => setShowInfo(false)}>&lt; Back</button>
-        <div>Character: {data?.character?.name}</div>
+        <button onClick={() => setShowInfo(false)}>&lt; Back To Game</button>
+        <div>{data?.character?.name}</div>
+        <div><img alt="Character Icon" src={`assets/character${data?.character?.icon}.jpg`} /></div>
         <div>
           <BagContents bag={data?.character?.bag} />
         </div>
@@ -53,38 +57,36 @@ export function Game(params: {match: match}) {
       <div>
         <ErrorMessage error={error}></ErrorMessage>
       </div>
-      {!showInfo &&
-        <div>
-          <button onClick={() => setShowInfo(true)}>&#x1f6c8; Character Info</button>
-          <Route path="/game/:characterId">
-            <Redirect to={`${params.match.url}/town`}></Redirect>
-          </Route>
-          <Route path={`${params.match.url}/farmer`}>
-            <Farmer character={data?.character}></Farmer>
-          </Route>
-          <Route path={`${params.match.url}/plot`}>
-            <Plot character={data?.character}></Plot>
-          </Route>
-          <Route path={`${params.match.url}/farm`}>
-            <Farm character={data?.character}></Farm>
-          </Route>
-          <Route path={`${params.match.url}/town`}>
-            <Town character={data?.character}></Town>
-          </Route>
-          <Route path={`${params.match.url}/well`}>
-            <PlaceLayout character={data?.character} place={places.well}  />
-          </Route>
-          <Route path={`${params.match.url}/event-planner`}>
-            <PlaceLayout character={data?.character} place={places.planner}  />
-          </Route>
-          <Route path={`${params.match.url}/city`}>
-            <PlaceLayout character={data?.character} place={places.city}  />
-          </Route>
-          <Route path={`${params.match.url}/market`}>
-            <PlaceLayout character={data?.character} place={places.market}  />
-          </Route>
-        </div>
-      }
+      <div className={ showInfo && 'hidden'}>
+        <button onClick={() => setShowInfo(true)}>&#x1f6c8; Character Info</button>
+        <Route path="/game/:characterId">
+          <Redirect to={`${params.match.url}/town`}></Redirect>
+        </Route>
+        <Route path={`${params.match.url}/farmer`}>
+          <Farmer character={data?.character}></Farmer>
+        </Route>
+        <Route path={`${params.match.url}/plot`}>
+          <Plot character={data?.character}></Plot>
+        </Route>
+        <Route path={`${params.match.url}/farm`}>
+          <Farm character={data?.character}></Farm>
+        </Route>
+        <Route path={`${params.match.url}/town`}>
+          <Town character={data?.character}></Town>
+        </Route>
+        <Route path={`${params.match.url}/well`}>
+          <PlaceLayout character={data?.character} place={places.well}  />
+        </Route>
+        <Route path={`${params.match.url}/event-planner`}>
+          <PlaceLayout character={data?.character} place={places.planner}  />
+        </Route>
+        <Route path={`${params.match.url}/city`}>
+          <PlaceLayout character={data?.character} place={places.city}  />
+        </Route>
+        <Route path={`${params.match.url}/market`}>
+          <PlaceLayout character={data?.character} place={places.market}  />
+        </Route>
+      </div>
       </>
       }
     </Loading>

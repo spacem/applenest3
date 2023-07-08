@@ -18,6 +18,7 @@ describe('CharacterController', () => {
   it('no error when not exists', async () => {
     const existing = {
       id: 'test',
+      icon: '1',
       userId: '123',
       name: 'test name2',
     };
@@ -27,12 +28,13 @@ describe('CharacterController', () => {
     jest
       .spyOn(characterService, 'create')
       .mockImplementation(() => Promise.resolve(null));
-    await controller.create({ name: 'test name', userId: '456' });
+    await controller.create({ name: 'test name', userId: '456', icon: '1' });
   });
 
   it('fails to create when exists', async () => {
     const existing = {
       id: 'test',
+      icon: '1',
       userId: '123',
       name: 'test name',
     };
@@ -42,7 +44,7 @@ describe('CharacterController', () => {
     jest
       .spyOn(characterService, 'create')
       .mockImplementation(() => Promise.resolve(null));
-    await expect(controller.create({ name: 'test name', userId: '456' })).rejects.toThrow(
+    await expect(controller.create({ name: 'test name', userId: '456', icon: '1' })).rejects.toThrow(
       HttpException
     );
   });

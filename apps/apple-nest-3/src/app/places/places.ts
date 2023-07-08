@@ -11,6 +11,10 @@ export const places: {[key:string]: PlaceConfig} = {
         action: 'collectReward',
       },
       {
+        title: 'Take Water From The Well',
+        action: 'collectWater',
+      },
+      {
         title: 'Back To Town',
         action: 'nav',
         param: 'town',
@@ -43,9 +47,13 @@ export const places: {[key:string]: PlaceConfig} = {
         action: 'sell',
       },
       {
+        title: 'Buy Bucket (10)',
+        action: 'buyBucket',
+      },
+      {
         title: 'Back To City',
         action: 'nav',
-        param: 'town',
+        param: 'city',
       },
     ],
   },

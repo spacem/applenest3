@@ -23,10 +23,11 @@ export class CharacterService {
     return result as Character;
   }
 
-  async create(userId: string, characterName: string): Promise<Character> {
+  async create(userId: string, characterName: string, icon: string): Promise<Character> {
     const character: Character = {
       userId,
-      name: characterName
+      name: characterName,
+      icon,
     };
     const model = new this.characterModel(character);
     const result = await model.save();

@@ -10,10 +10,13 @@ export const PERFORM_ACTION = gql`
       character {
         _id,
         questNumber,
+        seedReadyDate,
         bag {
           money,
           apples,
-          seeds
+          seeds,
+          buckets,
+          water
         }
       }
     }

@@ -4,13 +4,12 @@ import {
   Character
 } from '@apple-nest-3/apple-nest-interfaces';
 import { CharacterService } from '../character/character.service';
-import { QuestService } from '../character/quest.service';
 
-const REWARD_TIME = 60 * 60;
+const REWARD_TIME = 60 * 10;
 
 @Injectable()
-export class EventPlannerService {
-  constructor(private characterService: CharacterService, private questService: QuestService) {}
+export class WellService {
+  constructor(private characterService: CharacterService) {}
 
   async giveReward(
     character: Character,
@@ -25,9 +24,9 @@ export class EventPlannerService {
     if (remainingTime > 0) {
       return {
         character,
-        message: `${Math.ceil(
+        message: `Come back in ${Math.ceil(
           remainingTime / 60
-        )} minutes left until you can get any more.`,
+        )} minutes to get more.`,
       };
     } else {
       const updatedCharacter = {
@@ -41,27 +40,30 @@ export class EventPlannerService {
       await this.characterService.update(updatedCharacter);
       return {
         character: updatedCharacter,
-        message: 'Here is your reward',
+        message: 'You found some money. Click character info to view your inventory.',
       };
     }
   }
 
-  async completeQuest(character: Character) {
-    const status = this.questService.isQuestComplete(character);
-    if (status) {
-      const updatedCharacter: Character = {
+  async collectWater(character: Character) {
+    const water = character?.bag?.water || 0;
+    if (water < character?.bag?.buckets) {
+      const updatedCharacter = {
         ...character,
+        bag: {
+          ...character.bag,
+          water: (character?.bag?.water || 0)  + 1,
+        },
       };
       await this.characterService.update(updatedCharacter);
-
       return {
         character: updatedCharacter,
-        message: 'Good job! Come back to me for more quests!',
+        message: 'You filled up a bucket with water.',
       };
     } else {
       return {
-        character: character,
-        message: 'Looks like the quest is not completed???',
+        character,
+        message: 'Cannot fetch water. Not enough empty buckets.',
       };
     }
   }

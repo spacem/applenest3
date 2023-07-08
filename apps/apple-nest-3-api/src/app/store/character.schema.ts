@@ -5,11 +5,14 @@ export const CHARACTER_COLLECTION = 'Character';
 
 export const CharacterSchema = new mongoose.Schema<Character>({
   name: String,
+  icon: String,
   userId: String,
   bag: {
     money: { type: Number },
     apples: { type: Number },
-    seeds: { type: Number }
+    seeds: { type: Number },
+    buckets: { type: Number },
+    water: { type: Number },
   },
   weaponLevel: Number,
   armourLevel: Number,

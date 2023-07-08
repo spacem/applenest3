@@ -1,8 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { Character, Quest } from '@apple-nest-3/apple-nest-interfaces';
-import { InjectModel } from '@nestjs/mongoose';
-import { CHARACTER_COLLECTION } from '../store/character.schema';
-import { Document, Model } from 'mongoose';
 
 @Injectable()
 export class QuestService {
@@ -15,6 +12,10 @@ export class QuestService {
         return character?.bag?.seeds > 0;
       case Quest.GrowApple:
         return character?.bag?.apples > 0;
+      case Quest.GetWater:
+        return character?.bag?.water > 0;
+      case Quest.BuyBucket:
+        return character?.bag?.buckets > 0;
       default:
         return false;
     }

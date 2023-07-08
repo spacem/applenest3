@@ -19,7 +19,8 @@ export const GET_CHARACTERS = gql`
   query Character($userId: String) {
     characters(userId: $userId) {
       _id,
-      name
+      name,
+      icon,
     }
   }
 `;
@@ -53,7 +54,8 @@ export function SelectCharacter(props: SelectCharacterProps) {
   const characters = data?.characters.map((c) => {
     return (
       <button key={c._id} onClick={() => history.push(`/game/${c._id}`)}>
-        {c.name}
+        <img src={`assets/character${c.icon}.jpg`} alt="Character Icon" />
+        <div>{c.name}</div>
       </button>
     );
   });
@@ -62,7 +64,6 @@ export function SelectCharacter(props: SelectCharacterProps) {
     <Loading loading={loading}>
       <ErrorMessage error={error} />
       <h2>Select Character</h2>
-      <img alt="Select Character" src="assets/character_select.jpg" height="100%"></img>
       <div className="character-list">{characters}</div>
       <div className="actions">
         <Link to="/create-character">Create Character</Link>
