@@ -57,7 +57,7 @@ export function Game(params: {match: match}) {
       <div>
         <ErrorMessage error={error}></ErrorMessage>
       </div>
-      <div className={ showInfo && 'hidden'}>
+      <div className={ showInfo ? 'hidden' : ''}>
         <button onClick={() => setShowInfo(true)}>&#x1f6c8; Character Info</button>
         <Route path="/game/:characterId">
           <Redirect to={`${params.match.url}/town`}></Redirect>
