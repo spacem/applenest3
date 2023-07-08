@@ -1,12 +1,11 @@
-import { gql, useMutation } from '@apollo/client';
-import { Character } from '@apple-nest-3/apple-nest-interfaces';
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Saving } from '../components/Saving';
 import { PlaceProps } from '../interfaces/place-props';
 import './places.scss';
 import { useActions } from './useActions';
+import { Action } from './Action';
 
 export function Plot(props: PlaceProps) {
 
@@ -18,12 +17,12 @@ export function Plot(props: PlaceProps) {
 
   const actions: ReactElement[] = [];
   if (props.character.seedReadyDate != null) {
-    actions.push(<button onClick={async () => doAction('harvestCrop') }>Harvest Crop</button>);
+    actions.push(<Action action="custom" icon="apples.jpg" onClick={async () => doAction('harvestCrop') } title="Harvest Crop" />);
     if (props.character.bag?.water) {
-      actions.push(<button onClick={async () => doAction('waterCrop') }>Water Plant</button>);
+      actions.push(<Action action="custom" icon="water.jpg" onClick={async () => doAction('waterCrop')} title="Water Plant" />);
     }
   } else if (props.character.bag?.seeds) {
-    actions.push(<button onClick={async () => doAction('plantSeed') }>Plant Seed</button>);
+    actions.push(<Action action="custom" icon="seeds.jpg" onClick={async () => doAction('plantSeed') } title="Plant Seed" />);
   }
 
   return (
@@ -35,11 +34,9 @@ export function Plot(props: PlaceProps) {
         <div>
           <ErrorMessage error={error}></ErrorMessage>
         </div>
-        <div>
-        {actions}
-        </div>
-        <div>
-          <Link to="farm">Back To Farm</Link>
+        <div className="place-actions">
+          {actions}
+          <Action title="Back To Farm" action="nav" param="farm" icon="farm.jpg" />
         </div>
       </Saving>
     </>

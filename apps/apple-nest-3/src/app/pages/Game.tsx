@@ -3,7 +3,6 @@ import { Character } from '@apple-nest-3/apple-nest-interfaces';
 import { Loading } from '../components/Loading';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Place } from '../interfaces/place';
-import { Farmer } from '../places/Farmer';
 import { PlaceLayout } from '../places/PlaceLayout';
 import { BagContents } from '../components/BagContents';
 import { Plot } from '../places/Plot';
@@ -60,11 +59,11 @@ export function Game(params: {match: match}) {
         <Route path="/game/:characterId">
           <Redirect to={`${params.match.url}/town`}></Redirect>
         </Route>
-        <Route path={`${params.match.url}/farmer`}>
-          <Farmer character={data?.character}></Farmer>
-        </Route>
         <Route path={`${params.match.url}/plot`}>
           <Plot character={data?.character}></Plot>
+        </Route>
+        <Route path={`${params.match.url}/farmer`}>
+          <PlaceLayout character={data?.character} place={places.farmer}></PlaceLayout>
         </Route>
         <Route path={`${params.match.url}/farm`}>
           <PlaceLayout character={data?.character} place={places.farm}></PlaceLayout>

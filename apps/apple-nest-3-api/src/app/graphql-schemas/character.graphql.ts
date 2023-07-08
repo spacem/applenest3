@@ -59,7 +59,7 @@ type Mutation {
   # Validate readyness of crop and give apples
   harvestCrop(characterId: ID!): ActionResult
 
-  performAction(characterId: ID!, action: String!): ActionResult
+  performAction(characterId: ID!, action: String!, param: String): ActionResult
 }`,
 
 gql`

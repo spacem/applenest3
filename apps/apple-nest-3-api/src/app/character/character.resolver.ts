@@ -15,40 +15,46 @@ export class CharacterResolver {
     private wellService: WellService,
     private farmerService: FarmerService,
     private marketService: MarketService,
-    private plotService: PlotService) {}
+    private plotService: PlotService
+  ) {}
 
-  @Query("character")
+  @Query('character')
   async getCharacter(@Args('id') id: string) {
     const character = this.characterService.fetchById(id);
     if (character) {
       return character;
     } else {
-      throw new HttpException(`Invalid character id ${id}`, HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        `Invalid character id ${id}`,
+        HttpStatus.BAD_REQUEST
+      );
     }
   }
 
-  @Query("characters")
+  @Query('characters')
   async characters(@Args('userId') userId: string) {
     return this.characterService.fetchForUser(userId);
   }
 
-  @Mutation("createCharacter")
-  async createCharacter(@Args('userId') userId: string, @Args('name') name: string, @Args('icon') icon: string) {
+  @Mutation('createCharacter')
+  async createCharacter(
+    @Args('userId') userId: string,
+    @Args('name') name: string,
+    @Args('icon') icon: string
+  ) {
     const characters = await this.characterService.fetchForUser(userId);
     if (characters?.find((c) => c.name === name)) {
       throw new Error('Character exists');
     }
     return await this.characterService.create(userId, name, icon);
   }
-  
-  @Mutation('buySeeds')
-  async buySeeds(@Args('characterId') id: string, @Args('numSeeds') numSeeds: number) {
-    const character = await this.getCharacter(id);
-    return this.farmerService.buySeeds(character, numSeeds);
-  }
 
   @Mutation('performAction')
-  async performAction(@Args('characterId') id: string, @Args('action') action: string) {
+  async performAction(
+    @Args('characterId') id: string,
+    @Args('action') action: string,
+    @Args('param') param: string
+  ) {
     const character = await this.getCharacter(id);
     switch (action) {
       case 'completeQuest':
@@ -61,23 +67,21 @@ export class CharacterResolver {
       case 'sell':
         return await this.marketService.sell(character);
       case 'collectWater':
-        return await this.wellService.collectWater(
-          character
-        );
+        return await this.wellService.collectWater(character);
       case 'buyBucket':
-        return await this.marketService.buyBucket(
-          character
-        );
+        return await this.marketService.buyBucket(character);
 
       case 'plantSeed':
         return this.plotService.plant(character);
-      
+
       case 'harvestCrop':
         return this.plotService.harvest(character);
-      
-        case 'waterCrop':
-          return this.plotService.water(character);
 
+      case 'waterCrop':
+        return this.plotService.water(character);
+
+      case 'buySeeds':
+        return this.farmerService.buySeeds(character, Number(param));
       default:
         return {
           character,

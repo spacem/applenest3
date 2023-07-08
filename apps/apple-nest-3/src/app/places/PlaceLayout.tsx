@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import './places.scss';
 import { useActions } from './useActions';
 import { PlaceConfig } from './PlaceConfig';
+import { Action } from './Action';
 
 export interface PlaceLayoutProps extends PlaceProps {
   place: PlaceConfig;
@@ -25,18 +26,14 @@ export function PlaceLayout({ place, character }: PlaceLayoutProps) {
           {place.actions
             .filter((a) => (character?.questNumber || 0) >= (a.level || 0))
             .map(({ title, action, param, icon }) => (
-              <div>
-                {action === 'nav' && param ? (
-                  <Link key={title} to={param}>
-                    {icon && <img alt="icon" src={`assets/${icon}`} />}
-                    <span>{title}</span>
-                  </Link>
-                ) : (
-                  <button key={title} onClick={() => doAction(action)}>
-                    {icon && <img alt="icon" src={`assets/${icon}`} />}
-                    <span>{title}</span>
-                  </button>
-                )}
+              <div key={title}>
+                <Action
+                  title={title}
+                  action={action}
+                  param={param}
+                  icon={icon}
+                  onClick={() => doAction(action, param)}
+                />
               </div>
             ))}
         </div>

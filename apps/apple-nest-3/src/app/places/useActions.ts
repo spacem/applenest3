@@ -4,8 +4,8 @@ import { gql, useMutation } from '@apollo/client';
 import { questText } from './EventPlanner';
 
 export const PERFORM_ACTION = gql`
-  mutation PerformAction($characterId: ID!, $action: String!) {
-    performAction(characterId: $characterId, action: $action) {
+  mutation PerformAction($characterId: ID!, $action: String!, $param: String) {
+    performAction(characterId: $characterId, action: $action, param: $param) {
       message,
       character {
         _id,
@@ -31,8 +31,8 @@ export function useActions(character: Character) {
       PERFORM_ACTION
     );
 
-  const callAction = async (action: string) => {
-    const { data } = await performAction({ variables: { characterId: character._id, action }})
+  const callAction = async (action: string, param?: string) => {
+    const { data } = await performAction({ variables: { characterId: character._id, action, param }})
     setMessage(data?.performAction.message);
   }
 
@@ -41,12 +41,12 @@ export function useActions(character: Character) {
     setMessage(questText[quest] || 'There are no more quests at this time');
   }
 
-  const doAction = async (call: string) => {
-    switch (call) {
+  const doAction = async (action: string, param?: string) => {
+    switch (action) {
       case 'acceptQuest':
         return doQuest();
       default:
-        return callAction(call);
+        return callAction(action, param);
     }
   };
 

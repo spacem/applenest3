@@ -1,7 +1,6 @@
 import { Character } from '@apple-nest-3/apple-nest-interfaces';
 import { Injectable } from '@nestjs/common';
 import { CharacterService } from '../character/character.service';
-import { EventPlannerService } from '../npcs/event-planner.service';
 
 @Injectable()
 export class FarmerService {

@@ -108,14 +108,12 @@ export const places: {[key:string]: PlaceConfig} = {
         action: 'nav',
         param: 'event-planner',
         icon: 'event_planner.jpg',
-        level: 3,
       },
       {
         title: 'Walk To The Wishing Well',
         action: 'nav',
         param: 'well',
         icon: 'wishing_well.jpg',
-        level: 3,
       },
     ],
   },
@@ -127,7 +125,7 @@ export const places: {[key:string]: PlaceConfig} = {
       {
         title: 'Talk To The Farmer',
         action: 'nav',
-        param: 'well',
+        param: 'farmer',
         icon: 'farmer.jpg',
       },
       {
@@ -135,6 +133,32 @@ export const places: {[key:string]: PlaceConfig} = {
         action: 'nav',
         param: 'plot',
         icon: 'plot.jpg',
+        level: 3,
+      },
+      {
+        title: 'Go Back To Town',
+        action: 'nav',
+        param: 'town',
+        icon: 'town.jpg',
+      },
+    ]
+  },
+  farmer: {
+    title: 'Farmer',
+    image: 'farmer.jpg',
+    initialText: 'Hello. I am the farmer! You can buy seeds from me.',
+    actions: [
+      {
+        title: 'Buy One Seed',
+        action: 'buySeeds',
+        param: '1',
+        icon: 'seeds.jpg',
+      },
+      {
+        title: 'Buy 10x Seeds',
+        action: 'buySeeds',
+        param: '10',
+        icon: 'seeds.jpg',
         level: 3,
       },
       {
