@@ -144,10 +144,10 @@ export const places: {[key:string]: PlaceConfig} = {
         level: 3,
       },
       {
-        title: 'Go Back To Town',
+        title: 'Go Back To Farm',
         action: 'nav',
-        param: 'town',
-        icon: 'town.jpg',
+        param: 'farm',
+        icon: 'farm.jpg',
       },
     ]
   },
