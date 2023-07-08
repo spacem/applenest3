@@ -1,9 +1,8 @@
 import { Character } from '@apple-nest-3/apple-nest-interfaces';
 import { Injectable } from '@nestjs/common';
 import { CharacterService } from '../character/character.service';
-import { time } from 'console';
 
-const SEED_GROW_TIME = 60 * 1000;
+const SEED_GROW_TIME = 30 * 1000;
 
 @Injectable()
 export class PlotService {
