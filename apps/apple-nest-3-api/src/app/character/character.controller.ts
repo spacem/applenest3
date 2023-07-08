@@ -42,6 +42,6 @@ export class CharacterController {
     if (characters?.find((c) => c.name === character.name)) {
       throw new HttpException('Character exists', HttpStatus.BAD_REQUEST);
     }
-    await this.characterService.create(character.userId, character.name);
+    await this.characterService.create(character.userId, character.name, character.icon);
   }
 }

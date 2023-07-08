@@ -1,47 +1,11 @@
-import { gql, useMutation } from '@apollo/client';
-import { Character } from '@apple-nest-3/apple-nest-interfaces';
-import { useState } from 'react';
+import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Saving } from '../components/Saving';
 import { PlaceProps } from '../interfaces/place-props';
-
-
-const PLANT_SEED = gql`
-  mutation Character($characterId: ID!) {
-    plantSeed(characterId: $characterId) {
-      message,
-      character {
-        _id,
-        name,
-        seedReadyDate,
-        bag {
-          money,
-          apples,
-          seeds
-        }
-      }
-    }
-  }
-`;
-
-const HARVEST_CROP = gql`
-  mutation Character($characterId: ID!) {
-    harvestCrop(characterId: $characterId) {
-      message,
-      character {
-        _id,
-        name,
-        seedReadyDate,
-        bag {
-          money,
-          apples,
-          seeds
-        }
-      }
-    }
-  }
-`;
+import './places.scss';
+import { useActions } from './useActions';
+import { Action } from './Action';
 
 export function Plot(props: PlaceProps) {
 
@@ -49,46 +13,30 @@ export function Plot(props: PlaceProps) {
   if (props.character.seedReadyDate == null && !props.character.bag?.seeds) {
     initialMessage = 'If you had seeds you could plant them here.';
   }
-  const [message, setMessage] = useState(initialMessage);
+  const { doAction, message, error, loading } = useActions(props.character);
 
-  const [plantSeed, { loading: loadingPlant, error: plantError }] = useMutation<{ plantSeed: { message: string, character: Character }}>(PLANT_SEED);
-  const [harvestCrop, { loading: loadingHarvest, error: harvestError }] = useMutation<{ harvestCrop: { message: string, character: Character }}>(HARVEST_CROP);
-
-  async function doPlantSeed() {
-    const result = await plantSeed({ variables: { characterId: props.character._id } });
-    if (result.data?.plantSeed.message) {
-      setMessage(result.data?.plantSeed.message);
-    }
-  }
-
-  async function doHarvestCrop() {
-    const result = await harvestCrop({ variables: { characterId: props.character._id } });
-    if (result.data?.harvestCrop.message) {
-      setMessage(result.data?.harvestCrop.message);
-    }
-  }
-
-  let action;
+  const actions: ReactElement[] = [];
   if (props.character.seedReadyDate != null) {
-    action = <button onClick={async () => doHarvestCrop() }>Harvest Crop</button>;
+    actions.push(<Action action="custom" icon="apples.jpg" onClick={async () => doAction('harvestCrop') } title="Harvest Crop" />);
+    if (props.character.bag?.water) {
+      actions.push(<Action action="custom" icon="water.jpg" onClick={async () => doAction('waterCrop')} title="Water Plant" />);
+    }
   } else if (props.character.bag?.seeds) {
-    action = <button onClick={async () => doPlantSeed() }>Plant Seed</button>;
+    actions.push(<Action action="custom" icon="seeds.jpg" onClick={async () => doAction('plantSeed') } title="Plant Seed" />);
   }
 
   return (
     <>
       <h2>Plot</h2>
-      <div>{message}</div>
-      <Saving saving={loadingPlant || loadingHarvest}>
+      <img alt="Plot" src="assets/plot.jpg" height="100%"></img>
+      <div>{message || initialMessage}</div>
+      <Saving saving={loading}>
         <div>
-          <ErrorMessage error={plantError}></ErrorMessage>
-          <ErrorMessage error={harvestError}></ErrorMessage>
+          <ErrorMessage error={error}></ErrorMessage>
         </div>
-        <div>
-        {action}
-        </div>
-        <div>
-          <Link to="farm">Back To Farm</Link>
+        <div className="place-actions">
+          {actions}
+          <Action title="Back To Farm" action="nav" param="farm" icon="farm.jpg" />
         </div>
       </Saving>
     </>

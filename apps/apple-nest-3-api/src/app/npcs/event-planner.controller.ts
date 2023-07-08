@@ -30,11 +30,6 @@ export class EventPlannerController {
     }
 
     switch (body.type) {
-      case ActionType.Reward:
-        return await this.eventPlannerService.giveReward(
-          character,
-          new Date().valueOf()
-        );
       case ActionType.Quest:
         return this.eventPlannerService.completeQuest(character);
       default:

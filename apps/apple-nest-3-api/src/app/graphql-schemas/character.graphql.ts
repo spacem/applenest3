@@ -8,6 +8,7 @@ type Character {
   _id: ID
   userId: String!
   name: String!
+  icon: String!
   bag: Bag
   weaponLevel: Int
   armourLevel: Int
@@ -25,6 +26,10 @@ type Bag {
   money: Int
   apples: Int
   seeds: Int
+  buckets: Int
+  water: Int
+  weapon: Int
+  shield: Int
 }`,
 
 gql`
@@ -39,7 +44,7 @@ type Query {
 gql`
 type Mutation {
   # Create a new character for the user
-  createCharacter(userId: String, name: String!): Character
+  createCharacter(userId: String, name: String!, icon: String!): Character
 
   # Collect a small reward, used in case characters spend all their gold
   collectReward(characterId: ID!): ActionResult
@@ -55,6 +60,8 @@ type Mutation {
 
   # Validate readyness of crop and give apples
   harvestCrop(characterId: ID!): ActionResult
+
+  performAction(characterId: ID!, action: String!, param: String): ActionResult
 }`,
 
 gql`

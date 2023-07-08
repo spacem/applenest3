@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  background-color: white;
+}
+
+body {
+  margin: 0px;
+  background-color: black;
+  min-width: 320px;
 }
 
 body,
@@ -7,6 +14,21 @@ a,
 button {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   font-size: large;
+}
+
+input[type=text] {
+  height: 1.5rem;  
+  border-radius: 2em;
+  padding-left: 0.5em;
+  padding-left: 0.5em;
+}
+
+a {
+  min-height: 34px;
+}
+
+button {
+  min-height: 45px;
 }
 
 a,
@@ -19,7 +41,119 @@ button {
   border-radius: 2em;
   background: #000;
   text-decoration: none;
-  color: grey;
+  color: whitesmoke;
   display: inline-block;
   margin: 0.1em;
+}
+img {
+  width: 180px;
+  height: 180px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border: 10px solid;
+  border-radius: 60px 0px 60px;
+  margin-bottom: 10px;
+}
+
+img.inventory {
+  width: 60px;
+  height: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border: 10px solid;
+  border-radius: 60px;
+  margin-bottom: -0px;
+}
+
+div.inventory {
+  display: flex;
+  justify-content: center;
+}
+
+div.actions {
+  border: 10px solid;
+  border-radius:  0px 60px 0px 60px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 180px;
+  height: 180px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+div.character-list button {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 200px;
+  border: 10px solid black;
+  border-radius: 0px 60px 60px 0px;
+  padding: 0px;
+  display: flex;
+}
+
+div.character-list button div {
+  flex-grow: 1;
+  text-align: left;
+  padding: 5px;
+}
+
+div.character-list img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  border: 0px;
+  display: inline;
+  flex-shrink: 1;
+}
+
+footer {
+  margin-top:30px;
+  padding-top:20px;
+  width: 100%;
+  background-color: black;
+  text-align: right;
+  a {
+    border: none;
+    margin-top: auto;
+  }
+}
+
+div.character-picker button {
+  border-radius: 10px;
+}
+
+div.character-picker img {
+  width: 60px;
+  height: 60px;
+  border-radius: 0px;
+  border: 0px;
+}
+
+.hidden {
+ display: none; 
+}
+
+div.place-actions button,
+div.place-actions a {
+  width: 200px;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div.place-actions img {
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 30px 5px 5px 30px;
+  flex-grow: 0;
+  padding: 0px;
+  margin: 0px;
+}
+
+div.place-actions span {
+  flex-grow: 1;
 }

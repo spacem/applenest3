@@ -8,7 +8,7 @@ describe('FarmerController', () => {
   let characterService: CharacterService;
 
   beforeEach(async () => {
-    characterService = new CharacterService({} as any);
+    characterService = new CharacterService({} as any, {} as any);
     controller = new FarmerController(characterService, new FarmerService(characterService));
   });
 
