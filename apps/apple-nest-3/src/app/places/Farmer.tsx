@@ -13,10 +13,13 @@ const BUY_SEEDS = gql`
       character {
         _id,
         questNumber,
+        seedReadyDate,
         bag {
           money,
           apples,
-          seeds
+          seeds,
+          buckets,
+          water
         }
       }
     }

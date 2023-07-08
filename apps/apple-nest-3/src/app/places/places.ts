@@ -14,7 +14,8 @@ export const places: {[key:string]: PlaceConfig} = {
       {
         title: 'Take Water',
         action: 'collectWater',
-        icon: 'water.jpg'
+        icon: 'water.jpg',
+        level: 5,
       },
       {
         title: 'Back To Town',
@@ -101,7 +102,7 @@ export const places: {[key:string]: PlaceConfig} = {
         action: 'nav',
         param: 'city',
         icon: 'city.jpg',
-        level: 3,
+        level: 4,
       },
       {
         title: 'Talk To The Quest NPC',
