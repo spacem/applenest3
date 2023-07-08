@@ -52,13 +52,13 @@ export class WellService {
         ...character,
         bag: {
           ...character.bag,
-          water: (character?.bag?.water || 0)  + 1,
+          water: character?.bag?.buckets,
         },
       };
       await this.characterService.update(updatedCharacter);
       return {
         character: updatedCharacter,
-        message: 'You filled up a bucket with water.',
+        message: 'You filled up your buckets with water.',
       };
     } else {
       return {

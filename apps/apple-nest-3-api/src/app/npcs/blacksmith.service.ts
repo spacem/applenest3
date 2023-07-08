@@ -26,7 +26,7 @@ export class BlacksmithService {
       await this.characterService.update(updatedCharacter);
       return {
         character: updatedCharacter,
-        message: character?.bag?.weapon ? 'You now have a basic weapon.' : `Upgraded to lv${character?.bag?.weapon}`,
+        message: character?.bag?.weapon ? `Upgraded to lv${character?.bag?.weapon}` : 'You now have a basic weapon.',
       };
     } else {
       return {
@@ -50,7 +50,7 @@ export class BlacksmithService {
       await this.characterService.update(updatedCharacter);
       return {
         character: updatedCharacter,
-        message: character?.bag?.weapon ? 'You now have a weak shield.' : `Upgraded to lv${character?.bag?.shield}`,
+        message: character?.bag?.weapon ? `Upgraded to lv${character?.bag?.shield}` : 'You now have a weak shield.',
       };
     } else {
       return {
