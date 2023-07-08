@@ -1,12 +1,10 @@
 import { Link, match, Redirect, Route, useParams } from 'react-router-dom';
-import { Town } from '../places/Town';
 import { Character } from '@apple-nest-3/apple-nest-interfaces';
 import { Loading } from '../components/Loading';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Place } from '../interfaces/place';
 import { Farmer } from '../places/Farmer';
 import { PlaceLayout } from '../places/PlaceLayout';
-import { Farm } from '../places/Farm';
 import { BagContents } from '../components/BagContents';
 import { Plot } from '../places/Plot';
 import { gql, useQuery } from '@apollo/client';
