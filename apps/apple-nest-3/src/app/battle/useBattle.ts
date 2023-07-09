@@ -9,7 +9,7 @@ export function useBattle({ bag }: Character, creature: BattleCreature) {
   const [enemyHp, setEnemyHp] = useState(100);
 
   const doEnemyAttack = () => {
-    const damage = creature.weapon;
+    const damage = creature.weapon * 10;
     const absorbedDamage = Math.min((bag?.shield || 0), damage)
     const actualDamage = (damage - absorbedDamage);
     const newHp = hp - actualDamage;
@@ -18,7 +18,7 @@ export function useBattle({ bag }: Character, creature: BattleCreature) {
   }
 
   const attackEnemy = () => {
-    const damage = (bag?.weapon || 0);
+    const damage = (bag?.weapon || 0) * 10;
     const absorbedDamage = Math.min(creature.shield, damage)
     const actualDamage = (damage - absorbedDamage);
     const newHp = enemyHp - actualDamage;
