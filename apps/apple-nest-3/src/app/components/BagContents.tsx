@@ -47,6 +47,13 @@ export const BagContents = (props: BagProps) => {
           <img className="inventory" alt="Water" src="assets/shield.jpg" height="100%"></img>
           <div>lv{bag?.shield || 0}</div>
         </div>}
+
+        {bag?.tickets &&
+        <div>
+          <div>Tickets</div>
+          <img className="inventory" alt="Tickets" src="assets/tickets.jpg" height="100%"></img>
+          <div>{bag?.tickets || 0}</div>
+        </div>}
       </div>
     </>
   );

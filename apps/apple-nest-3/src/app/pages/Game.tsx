@@ -1,5 +1,5 @@
 import { Link, match, Redirect, Route, useParams } from 'react-router-dom';
-import { Character } from '@apple-nest-3/apple-nest-interfaces';
+import { Character, easyEnemies, hardEnemies } from '@apple-nest-3/apple-nest-interfaces';
 import { Loading } from '../components/Loading';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Place } from '../interfaces/place';
@@ -10,8 +10,6 @@ import { gql, useQuery } from '@apollo/client';
 import { places } from '../places/places';
 import { useState } from 'react';
 import { ExplorePlace } from '../places/ExplorePlace';
-import { hardEnemies } from '../battle/hardEnemies';
-import { easyEnemies } from '../battle/easyEnemies';
 
 const GET_CHARACTER = gql`
   query Character($id: ID!) {
@@ -26,7 +24,8 @@ const GET_CHARACTER = gql`
         water,
         buckets,
         weapon,
-        shield
+        shield,
+        tickets
       },
       seedReadyDate,
       questNumber

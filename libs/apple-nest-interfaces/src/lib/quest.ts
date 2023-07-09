@@ -5,4 +5,6 @@ export enum Quest {
   BuyBucket = 4,
   GetWater = 5,
   GetArms = 6,
+  GetTicket = 7,
+  Fight = 8,
 }

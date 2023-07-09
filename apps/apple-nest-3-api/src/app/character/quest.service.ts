@@ -18,6 +18,8 @@ export class QuestService {
         return character?.bag?.buckets > 0;
       case Quest.GetArms:
         return character?.bag?.weapon > 0 && character?.bag?.shield > 0;
+      case Quest.GetTicket:
+        return character?.bag?.tickets > 0;
       default:
         return false;
     }

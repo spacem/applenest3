@@ -3,4 +3,5 @@ export interface BattleCreature {
   weapon: number;
   shield: number;
   battleStart: string;
+  reward: number;
 }

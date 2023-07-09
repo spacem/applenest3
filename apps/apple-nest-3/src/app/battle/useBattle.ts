@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { BattleCreature } from './battle-creature';
-import { Character } from '@apple-nest-3/apple-nest-interfaces';
+import { BattleCreature, Character } from '@apple-nest-3/apple-nest-interfaces';
 
 export function useBattle({ bag }: Character, creature: BattleCreature) {  
+  const [numTurns, setNumTurns] = useState(0);
   const [yourTurn, setYourTurn] = useState(false);
   const [hp, setHp] = useState(100);
   const [message, setMessage] = useState(creature.battleStart);
@@ -27,12 +27,16 @@ export function useBattle({ bag }: Character, creature: BattleCreature) {
   }
 
   const nextStage = () => {
-    if (yourTurn) {
+    if (numTurns >= 8) {
+      setMessage('This is taking too long, the enemy ran away');
+      setHp(0);
+    } else if (yourTurn) {
       attackEnemy();
     } else {
       doEnemyAttack();
     }
     setYourTurn(!yourTurn);
+    setNumTurns(numTurns + 1);
   };
 
   return { message, hp, enemyHp, nextStage };

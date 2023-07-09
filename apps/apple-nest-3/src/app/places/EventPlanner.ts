@@ -13,3 +13,7 @@ questText[Quest.GetWater] =
   'Now you have a bucket, why not collect some water?';
 questText[Quest.GetArms] =
   'It is time to fight. Equip yourself with a sword and shield';
+questText[Quest.GetTicket] =
+  'Visit the fields of the farm and battle some easy opponents';
+questText[Quest.Fight] =
+  'Try harder battles in the forest near town';

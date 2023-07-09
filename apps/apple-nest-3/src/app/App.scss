@@ -39,6 +39,7 @@ button:hover {
 .character-list button,
 .actions a,
 .actions button,
+.battle-actions button,
 .place-actions a,
 .place-actions button {
   display: flex;
@@ -94,9 +95,9 @@ div.actions {
   margin-left: auto;
   margin-right: auto;
   width: 180px;
-  height: 180px;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  min-height: 180px;
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
 div.character-list button {

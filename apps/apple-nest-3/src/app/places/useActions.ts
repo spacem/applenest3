@@ -18,7 +18,8 @@ export const PERFORM_ACTION = gql`
           buckets,
           water,
           weapon,
-          shield
+          shield,
+          tickets
         }
       }
     }
@@ -35,7 +36,7 @@ export function useActions(character: Character) {
 
   const callAction = async (action: string, param?: string) => {
     const { data } = await performAction({ variables: { characterId: character._id, action, param }})
-    setMessage(data?.performAction.message);
+    setMessage(data?.performAction?.message);
   }
 
   function doQuest() {

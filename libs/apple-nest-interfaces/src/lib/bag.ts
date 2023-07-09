@@ -6,4 +6,5 @@ export interface Bag {
   buckets?: number;
   weapon?: number;
   shield?: number;
+  tickets?: number;
 }

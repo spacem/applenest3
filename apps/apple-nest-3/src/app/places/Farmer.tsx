@@ -21,7 +21,8 @@ const BUY_SEEDS = gql`
           buckets,
           water,
           weapon,
-          shield
+          shield,
+          tickets
         }
       }
     }

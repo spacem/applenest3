@@ -8,7 +8,7 @@ import { useActions } from './useActions';
 import { Action } from './Action';
 import { PlaceConfig } from './PlaceConfig';
 import { useBattle } from '../battle/useBattle';
-import { BattleCreature } from '../battle/battle-creature';
+import { BattleCreature } from '@apple-nest-3/apple-nest-interfaces';
 
 export interface ExplorePlaceProps extends PlaceProps {
   place: PlaceConfig;
@@ -20,7 +20,11 @@ export function ExplorePlace({ character, place, enemies }: ExplorePlaceProps) {
   const [enemy] = useState(enemies[Math.floor(Math.random()*enemies.length)]);
   const { hp, enemyHp, message, nextStage } = useBattle(character, enemy);
 
-  const { doAction, message: saveMessage, error, loading } = useActions(character);
+  const { doAction, message: outcomeMessage, error, loading } = useActions(character);
+
+  const battle = () => {
+    doAction('battle', enemy.name);
+  };
 
   return (
     <>
@@ -30,7 +34,7 @@ export function ExplorePlace({ character, place, enemies }: ExplorePlaceProps) {
         <div>
           <ErrorMessage error={error}></ErrorMessage>
         </div>
-        {hp > 0 && enemyHp > 0 &&<div className="actions">
+        {hp > 0 && enemyHp > 0 && !outcomeMessage && <div className="actions">
           <div className="hp-bar" style={{width: `${hp}%`}}>
             {hp > 40 && `HP`}
           </div>
@@ -41,17 +45,33 @@ export function ExplorePlace({ character, place, enemies }: ExplorePlaceProps) {
             {message}
           </div>
           <button onClick={nextStage}>Continue</button>
+          <button onClick={battle}>View Outcome</button>
         </div>}
-        {hp <= 0 && <div>
+        {hp <= 0 && !outcomeMessage && <div>
           {message}
           <h4>You are defeated and cannot stay here.</h4>
+          <button onClick={battle}>View Outcome</button>
         </div>}
-        {enemyHp <= 0 && <div>
+        {enemyHp <= 0 && !outcomeMessage && <div>
           {message}
           <h4>You won!</h4>
+          <button onClick={battle}>View Outcome</button>
         </div>}
+        {outcomeMessage}
         <div className="place-actions">
-          <Action title="Back To Farm" action="nav" param="farm" icon="farm.jpg" />
+          {place.actions
+            .filter((a) => (character?.questNumber || 0) >= (a.level || 0))
+            .map(({ title, action, param, icon }) => (
+              <div key={title}>
+                <Action
+                  title={title}
+                  action={action}
+                  param={param}
+                  icon={icon}
+                  onClick={() => doAction(action, param)}
+                />
+              </div>
+            ))}
         </div>
       </Saving>
     </>

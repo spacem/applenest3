@@ -15,6 +15,7 @@ export const CharacterSchema = new mongoose.Schema<Character>({
     water: { type: Number },
     weapon: { type: Number },
     shield: { type: Number },
+    tickets: { type: Number },
   },
   weaponLevel: Number,
   armourLevel: Number,

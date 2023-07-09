@@ -5,3 +5,6 @@ export * from './lib/quest';
 export * from './lib/action-type';
 export * from './lib/action-body';
 export * from './lib/qty-action-body';
+export * from './easyEnemies';
+export * from './hardEnemies';
+export * from './battle-creature';

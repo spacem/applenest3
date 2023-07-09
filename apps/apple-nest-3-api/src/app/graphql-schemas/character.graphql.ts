@@ -30,6 +30,7 @@ type Bag {
   water: Int
   weapon: Int
   shield: Int
+  tickets: Int
 }`,
 
 gql`

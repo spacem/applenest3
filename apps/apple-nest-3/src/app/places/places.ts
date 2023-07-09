@@ -28,10 +28,10 @@ export const places: {[key:string]: PlaceConfig} = {
   planner: {
     title: 'Event Planner',
     image: 'event_planner.jpg',
-    initialText: 'Hello I am the event planner. Do you want a quest?',
+    initialText: 'Hello! Do you need help to know what to do next?',
     actions: [
       {
-        title: 'Accept Quest',
+        title: 'Ask what to do?',
         action: 'acceptQuest',
         icon: 'event_planner.jpg'
       },
@@ -85,7 +85,7 @@ export const places: {[key:string]: PlaceConfig} = {
         level: 5,
       },
       {
-        title: 'Back To Town',
+        title: 'Go To The Town',
         action: 'nav',
         param: 'town',
         icon: 'town.jpg'
@@ -97,6 +97,18 @@ export const places: {[key:string]: PlaceConfig} = {
     image: 'town.jpg',
     initialText: '',
     actions: [
+      {
+        title: 'Get Help From The Quest NPC',
+        action: 'nav',
+        param: 'event-planner',
+        icon: 'event_planner.jpg',
+      },
+      {
+        title: 'Walk To The Wishing Well',
+        action: 'nav',
+        param: 'well',
+        icon: 'wishing_well.jpg',
+      },
       {
         title: 'Visit The Farm',
         action: 'nav',
@@ -112,23 +124,11 @@ export const places: {[key:string]: PlaceConfig} = {
         level: 4,
       },
       {
-        title: 'Talk To The Quest NPC',
-        action: 'nav',
-        param: 'event-planner',
-        icon: 'event_planner.jpg',
-      },
-      {
         title: 'Explore The Forest',
         action: 'nav',
         param: 'forest',
         icon: 'forest.jpg',
-        level: 7
-      },
-      {
-        title: 'Walk To The Wishing Well',
-        action: 'nav',
-        param: 'well',
-        icon: 'wishing_well.jpg',
+        level: 8
       },
     ],
   },

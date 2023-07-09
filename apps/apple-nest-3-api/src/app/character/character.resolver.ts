@@ -7,6 +7,7 @@ import { CharacterService } from './character.service';
 import { MarketService } from '../market/market.service';
 import { WellService } from '../npcs/well.service';
 import { BlacksmithService } from '../npcs/blacksmith.service';
+import { BattleService } from '../npcs/battle.service';
 
 @Resolver('Character')
 export class CharacterResolver {
@@ -17,7 +18,8 @@ export class CharacterResolver {
     private farmerService: FarmerService,
     private marketService: MarketService,
     private plotService: PlotService,
-    private blacksmithService: BlacksmithService
+    private blacksmithService: BlacksmithService,
+    private battleService: BattleService
   ) {}
 
   @Query('character')
@@ -90,6 +92,9 @@ export class CharacterResolver {
 
       case 'buyShield':
         return this.blacksmithService.buyShield(character);
+
+      case 'battle':
+        return this.battleService.battle(character, param);
 
       default:
         return {

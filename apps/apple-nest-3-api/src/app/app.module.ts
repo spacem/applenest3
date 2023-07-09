@@ -19,6 +19,7 @@ import { MarketService } from './market/market.service';
 import { QuestService } from './character/quest.service';
 import { WellService } from './npcs/well.service';
 import { BlacksmithService } from './npcs/blacksmith.service';
+import { BattleService } from './npcs/battle.service';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { BlacksmithService } from './npcs/blacksmith.service';
     QuestService,
     WellService,
     BlacksmithService,
+    BattleService
   ],
 })
 export class AppModule {}
