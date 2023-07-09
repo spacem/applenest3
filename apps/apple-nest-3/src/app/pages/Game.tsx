@@ -9,6 +9,9 @@ import { Plot } from '../places/Plot';
 import { gql, useQuery } from '@apollo/client';
 import { places } from '../places/places';
 import { useState } from 'react';
+import { ExplorePlace } from '../places/ExplorePlace';
+import { hardEnemies } from '../battle/hardEnemies';
+import { easyEnemies } from '../battle/easyEnemies';
 
 const GET_CHARACTER = gql`
   query Character($id: ID!) {
@@ -63,6 +66,12 @@ export function Game(params: {match: match}) {
         </Route>
         <Route path={`${params.match.url}/plot`}>
           <Plot character={data?.character}></Plot>
+        </Route>
+        <Route path={`${params.match.url}/forest`}>
+          <ExplorePlace character={data?.character} place={places.forest} enemies={hardEnemies}></ExplorePlace>
+        </Route>
+        <Route path={`${params.match.url}/fields`}>
+          <ExplorePlace character={data?.character} place={places.fields} enemies={easyEnemies}></ExplorePlace>
         </Route>
         <Route path={`${params.match.url}/farmer`}>
           <PlaceLayout character={data?.character} place={places.farmer}></PlaceLayout>

@@ -118,6 +118,13 @@ export const places: {[key:string]: PlaceConfig} = {
         icon: 'event_planner.jpg',
       },
       {
+        title: 'Explore The Forest',
+        action: 'nav',
+        param: 'forest',
+        icon: 'forest.jpg',
+        level: 7
+      },
+      {
         title: 'Walk To The Wishing Well',
         action: 'nav',
         param: 'well',
@@ -142,6 +149,13 @@ export const places: {[key:string]: PlaceConfig} = {
         param: 'plot',
         icon: 'plot.jpg',
         level: 3,
+      },
+      {
+        title: 'Explore The Fields',
+        action: 'nav',
+        param: 'fields',
+        icon: 'fields.jpg',
+        level: 7
       },
       {
         title: 'Go Back To Town',
@@ -197,6 +211,32 @@ export const places: {[key:string]: PlaceConfig} = {
         action: 'nav',
         param: 'city',
         icon: 'city.jpg',
+      },
+    ]
+  },
+  fields: {
+    title: 'Fields',
+    image: 'fields.jpg',
+    initialText: '',
+    actions: [
+      {
+        title: 'Return To The Farm',
+        action: 'nav',
+        param: 'farm',
+        icon: 'farm.jpg',
+      },
+    ]
+  },
+  forest: {
+    title: 'Forest',
+    image: 'forest.jpg',
+    initialText: '',
+    actions: [
+      {
+        title: 'Return To The Town',
+        action: 'nav',
+        param: 'town',
+        icon: 'town.jpg',
       },
     ]
   }

@@ -26,7 +26,7 @@ export class BlacksmithService {
       await this.characterService.update(updatedCharacter);
       return {
         character: updatedCharacter,
-        message: character?.bag?.weapon ? `Upgraded to lv${character?.bag?.weapon}` : 'You now have a basic weapon.',
+        message: character?.bag?.weapon ? `Upgraded to lv${updatedCharacter?.bag?.weapon}` : 'You now have a basic weapon.',
       };
     } else {
       return {
@@ -50,12 +50,12 @@ export class BlacksmithService {
       await this.characterService.update(updatedCharacter);
       return {
         character: updatedCharacter,
-        message: character?.bag?.weapon ? `Upgraded to lv${character?.bag?.shield}` : 'You now have a weak shield.',
+        message: character?.bag?.shield ? `Upgraded to lv${updatedCharacter?.bag?.shield}` : 'You now have a weak shield.',
       };
     } else {
       return {
         character,
-        message: `Not enough money. Sheilds costs ${SHIELD_COST} to buy/upgrade.`,
+        message: `Not enough money. Shield costs ${SHIELD_COST} to buy/upgrade.`,
       };
     }
   }

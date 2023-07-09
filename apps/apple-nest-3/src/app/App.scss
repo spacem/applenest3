@@ -44,6 +44,8 @@ button:hover {
   display: flex;
   align-items: center; /* Vertical center alignment */
   justify-content: center; /* Horizontal center alignment */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 a,
@@ -170,4 +172,22 @@ div.place-actions img {
 
 div.place-actions span {
   flex-grow: 1;
+}
+
+.hp-bar {
+  background-color: green;
+  height: 20px;
+  border-right: solid 5px black;
+  border-top: solid 5px black;
+  border-bottom: solid 5px black;
+  border-radius: 0px 10px 0px 0px;
+}
+
+.enemy-hp-bar {
+  background-color: red;
+  height: 20px;
+  border-right: solid 5px black;
+  border-top: solid 5px black;
+  border-bottom: solid 5px black;
+  border-radius: 0px 0px 10px 0px;
 }
