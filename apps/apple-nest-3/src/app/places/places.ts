@@ -5,6 +5,9 @@ export const places: {[key:string]: PlaceConfig} = {
     title: 'Wishing Well',
     image: 'wishing_well.jpg',
     initialText: 'Looks like people have been wishing here.',
+    left: {
+      place: 'town'
+    },
     actions: [
       {
         title: 'Take Money',
@@ -15,36 +18,26 @@ export const places: {[key:string]: PlaceConfig} = {
         title: 'Take Water',
         action: 'collectWater',
         icon: 'water.jpg',
-        level: 5,
-      },
-      {
-        title: 'Back To Town',
-        action: 'nav',
-        param: 'town',
-        icon: 'town.jpg'
       },
     ],
   },
   planner: {
-    title: 'Event Planner',
+    title: 'Helper',
     image: 'event_planner.jpg',
-    initialText: 'Hello! Do you need help to know what to do next?',
+    initialText: '',
+    left: {
+      place: 'town'
+    },
     actions: [
       {
-        title: 'Ask what to do?',
+        title: 'Ask for help?',
         action: 'acceptQuest',
         icon: 'event_planner.jpg'
-      },
-      {
-        title: 'Back To Town',
-        action: 'nav',
-        param: 'town',
-        icon: 'town.jpg',
       },
     ],
   },
   market: {
-    title: 'Markets',
+    title: 'Market',
     image: 'market.jpg',
     initialText: '',
     left: {
@@ -97,7 +90,7 @@ export const places: {[key:string]: PlaceConfig} = {
     },
     actions: [
       {
-        title: 'Get Help From The Quest NPC',
+        title: 'Get Help',
         action: 'nav',
         param: 'event-planner',
         icon: 'event_planner.jpg',
@@ -148,6 +141,9 @@ export const places: {[key:string]: PlaceConfig} = {
     title: 'Farmer',
     image: 'farmer.jpg',
     initialText: 'Hello. I am the farmer! You can buy seeds from me.',
+    left: {
+      place: 'farm'
+    },
     actions: [
       {
         title: 'Buy One Seed',
@@ -161,19 +157,16 @@ export const places: {[key:string]: PlaceConfig} = {
         param: '10',
         icon: 'seeds.jpg',
         level: 3,
-      },
-      {
-        title: 'Go Back To Farm',
-        action: 'nav',
-        param: 'farm',
-        icon: 'farm.jpg',
-      },
+      }
     ]
   },
   blacksmith: {
     title: 'Blacksmith',
     image: 'blacksmith.jpg',
     initialText: 'Need stronger weapons, more armour?',
+    left: {
+      place: 'city',
+    },
     actions: [
       {
         title: 'Buy/Upgrade Weapon',
@@ -184,12 +177,6 @@ export const places: {[key:string]: PlaceConfig} = {
         title: 'Buy/Upgrade Shield',
         action: 'buyShield',
         icon: 'shield.jpg',
-      },
-      {
-        title: 'Go Back To The City',
-        action: 'nav',
-        param: 'city',
-        icon: 'city.jpg',
       },
     ]
   },

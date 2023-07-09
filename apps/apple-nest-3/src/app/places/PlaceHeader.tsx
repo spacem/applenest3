@@ -3,14 +3,18 @@ import { Link } from 'react-router-dom';
 import './places.scss';
 import { PlaceConfig } from './PlaceConfig';
 import { places } from './places';
+import { Quest } from '@apple-nest-3/apple-nest-interfaces';
 
 export interface PlaceHeaderProps {
   place: PlaceConfig;
+  questNumber?: Quest;
 }
 
-export function PlaceHeader({ place }: PlaceHeaderProps) {
-  const left = place.left?.place ? places[place.left.place] : undefined;
-  const right = place.right?.place ? places[place.right.place] : undefined;
+export function PlaceHeader({ place, questNumber }: PlaceHeaderProps) {
+  const isUnlocked = (level?: number) => (questNumber || 0) >= (level || 0);
+
+  const left = place.left?.place && isUnlocked(place.left.level) ? places[place.left.place] : undefined;
+  const right = place.right?.place && isUnlocked(place.right.level) ? places[place.right.place] : undefined;
   return (
     <>
       <h2>{place?.title}</h2>
@@ -19,7 +23,7 @@ export function PlaceHeader({ place }: PlaceHeaderProps) {
           {left && place.left?.place && (
             <Link to={place.left.place}>
               <img alt="icon" src={`assets/${left.image}`} />
-              &lt; {left?.title}
+              &lt;&nbsp;{left?.title}
             </Link>
           )}
           {!left && <div className="place-nav-spacer">&nbsp;</div>}
@@ -29,7 +33,7 @@ export function PlaceHeader({ place }: PlaceHeaderProps) {
           {right && place.right?.place && (
             <Link to={place.right.place}>
               <img alt="icon" src={`assets/${right.image}`} />
-              {right?.title} &gt;
+              {right?.title}&nbsp;&gt;
             </Link>
           )}
           {!right && <div className="place-nav-spacer">&nbsp;</div>}

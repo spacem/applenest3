@@ -20,9 +20,7 @@ export function Plot(props: PlaceProps) {
   const actions: ReactElement[] = [];
   if (props.character.seedReadyDate != null) {
     actions.push(<Action action="custom" icon="apples.jpg" onClick={async () => doAction('harvestCrop') } title="Harvest Crop" />);
-    if (props.character.bag?.water) {
-      actions.push(<Action action="custom" icon="water.jpg" onClick={async () => doAction('waterCrop')} title="Water Plant" />);
-    }
+    actions.push(<Action action="custom" icon="water.jpg" onClick={async () => doAction('waterCrop')} title="Water Plant" />);
   } else if (props.character.bag?.seeds) {
     actions.push(<Action action="custom" icon="seeds.jpg" onClick={async () => doAction('plantSeed') } title="Plant Seed" />);
   }

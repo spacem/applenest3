@@ -15,7 +15,7 @@ export function PlaceLayout({ place, character }: PlaceLayoutProps) {
   const { doAction, message, error, loading } = useActions(character);
   return (
     <>
-      <PlaceHeader place={place} />
+      <PlaceHeader place={place} questNumber={character.questNumber} />
       <div>{message || place.initialText}</div>
       <Saving saving={loading}>
         <div>

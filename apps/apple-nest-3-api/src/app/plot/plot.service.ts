@@ -40,6 +40,13 @@ export class PlotService {
   }
 
   async water(character: Character) {
+    if (character.bag?.water == null) {
+      return {
+        message: 'You do not have any water. Fill up your buckets.',
+        character
+      };
+    }
+
     if (character.seedReadyDate == null) {
       return {
         message: 'Character is not growing a tree',
