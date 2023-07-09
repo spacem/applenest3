@@ -29,7 +29,7 @@ export class PlotService {
       await this.characterService.update(updatedCharacter);
       return {
         character: updatedCharacter,
-        message: `That will take ${SEED_GROW_TIME / 1000} seconds to grow`,
+        message: ``,
       };
     } else {
       return {
@@ -74,7 +74,7 @@ export class PlotService {
     await this.characterService.update(updatedCharacter);
     return {
       character: updatedCharacter,
-      message: `Watering saved ${bonusTime} seconds`,
+      message: ``,
     };
   }
 
