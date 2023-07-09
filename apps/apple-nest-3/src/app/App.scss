@@ -192,3 +192,36 @@ div.place-actions span {
   border-bottom: solid 5px black;
   border-radius: 0px 0px 10px 0px;
 }
+
+.place-images {
+  display: inline-flex;
+}
+
+.place-nav img {
+  width: 90px;
+  height: 90px;
+  margin: 0px;
+  border: none;
+  border-radius: 0px;
+}
+
+.place-nav a {
+  margin: 0px;
+  border: none;
+  padding: 10px;
+}
+
+.place-nav-left a {
+  border-radius: 10px 0px 0px 10px;
+  margin-top: 69px;
+  padding-right: 0px;
+}
+
+.place-nav-right a {
+  border-radius: 0px 10px 10px 0px;
+  padding-left: 0px;
+}
+
+.place-nav-spacer {
+  width: 120px;
+}

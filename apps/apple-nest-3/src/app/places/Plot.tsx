@@ -6,6 +6,8 @@ import { PlaceProps } from '../interfaces/place-props';
 import './places.scss';
 import { useActions } from './useActions';
 import { Action } from './Action';
+import { PlaceHeader } from './PlaceHeader';
+import { places } from './places';
 
 export function Plot(props: PlaceProps) {
 
@@ -27,8 +29,7 @@ export function Plot(props: PlaceProps) {
 
   return (
     <>
-      <h2>Plot</h2>
-      <img alt="Plot" src="assets/plot.jpg" height="100%"></img>
+      <PlaceHeader place={places.plot} />
       <div>{message || initialMessage}</div>
       <Saving saving={loading}>
         <div>
@@ -36,7 +37,6 @@ export function Plot(props: PlaceProps) {
         </div>
         <div className="place-actions">
           {actions}
-          <Action title="Back To Farm" action="nav" param="farm" icon="farm.jpg" />
         </div>
       </Saving>
     </>

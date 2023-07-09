@@ -9,4 +9,12 @@ export interface PlaceConfig {
     icon?: string;
     level?: number;
   }[]
+  left?: {
+    place: string,
+    level?: number
+  },
+  right?: {
+    place: string,
+    level?: number
+  }
 }

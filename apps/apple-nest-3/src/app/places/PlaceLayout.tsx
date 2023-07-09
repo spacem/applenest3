@@ -1,11 +1,11 @@
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Saving } from '../components/Saving';
 import { PlaceProps } from '../interfaces/place-props';
-import { Link } from 'react-router-dom';
 import './places.scss';
 import { useActions } from './useActions';
 import { PlaceConfig } from './PlaceConfig';
 import { Action } from './Action';
+import { PlaceHeader } from './PlaceHeader';
 
 export interface PlaceLayoutProps extends PlaceProps {
   place: PlaceConfig;
@@ -15,8 +15,7 @@ export function PlaceLayout({ place, character }: PlaceLayoutProps) {
   const { doAction, message, error, loading } = useActions(character);
   return (
     <>
-      <h2>{place?.title}</h2>
-      <img alt="icon" src={`assets/${place.image}`} height="100%"></img>
+      <PlaceHeader place={place} />
       <div>{message || place.initialText}</div>
       <Saving saving={loading}>
         <div>

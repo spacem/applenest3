@@ -44,9 +44,12 @@ export const places: {[key:string]: PlaceConfig} = {
     ],
   },
   market: {
-    title: 'Market',
+    title: 'Markets',
     image: 'market.jpg',
-    initialText: 'Should easy to sell apples here',
+    initialText: '',
+    left: {
+      place: 'city'
+    },
     actions: [
       {
         title: 'Sell Apples',
@@ -57,26 +60,20 @@ export const places: {[key:string]: PlaceConfig} = {
         title: 'Buy Bucket (10)',
         action: 'buyBucket',
         icon: 'water.jpg',
-      },
-      {
-        title: 'Back To City',
-        action: 'nav',
-        param: 'city',
-        icon: 'city.jpg',
-      },
+      }
     ],
   },
   city: {
     title: 'City',
     image: 'city.jpg',
     initialText: '',
+    left: {
+      place: 'town'
+    },
+    right: {
+      place: 'market'
+    },
     actions: [
-      {
-        title: 'Visit Markets',
-        action: 'nav',
-        param: 'market',
-        icon: 'market.jpg'
-      },
       {
         title: 'Visit Blacksmith',
         action: 'nav',
@@ -84,18 +81,20 @@ export const places: {[key:string]: PlaceConfig} = {
         icon: 'blacksmith.jpg',
         level: 5,
       },
-      {
-        title: 'Go To The Town',
-        action: 'nav',
-        param: 'town',
-        icon: 'town.jpg'
-      },
     ],
   },
   town: {
     title: 'Town',
     image: 'town.jpg',
     initialText: '',
+    left: {
+      place: 'farm',
+      level: 2,
+    },
+    right: {
+      place: 'city',
+      level: 4
+    },
     actions: [
       {
         title: 'Get Help From The Quest NPC',
@@ -110,20 +109,6 @@ export const places: {[key:string]: PlaceConfig} = {
         icon: 'wishing_well.jpg',
       },
       {
-        title: 'Visit The Farm',
-        action: 'nav',
-        param: 'farm',
-        icon: 'farm.jpg',
-        level: 2,
-      },
-      {
-        title: 'Go To The City',
-        action: 'nav',
-        param: 'city',
-        icon: 'city.jpg',
-        level: 4,
-      },
-      {
         title: 'Explore The Forest',
         action: 'nav',
         param: 'forest',
@@ -136,33 +121,27 @@ export const places: {[key:string]: PlaceConfig} = {
     title: 'Farm',
     image: 'farm.jpg',
     initialText: '',
+    right: {
+      place: 'town',
+    },
+    left: {
+      place: 'plot',
+      level: 3,
+    },
     actions: [
       {
         title: 'Talk To The Farmer',
         action: 'nav',
         param: 'farmer',
         icon: 'farmer.jpg',
-      },
-      {
-        title: 'Plant Something',
-        action: 'nav',
-        param: 'plot',
-        icon: 'plot.jpg',
-        level: 3,
-      },
+      },  
       {
         title: 'Explore The Fields',
         action: 'nav',
         param: 'fields',
         icon: 'fields.jpg',
         level: 7
-      },
-      {
-        title: 'Go Back To Town',
-        action: 'nav',
-        param: 'town',
-        icon: 'town.jpg',
-      },
+      }
     ]
   },
   farmer: {
@@ -239,5 +218,14 @@ export const places: {[key:string]: PlaceConfig} = {
         icon: 'town.jpg',
       },
     ]
+  },
+  plot: {
+    title: 'Plot',
+    image: 'plot.jpg',
+    initialText: '',
+    actions: [],
+    right: {
+      place: 'farm'
+    }
   }
 };
