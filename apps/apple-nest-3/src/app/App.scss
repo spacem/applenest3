@@ -203,6 +203,7 @@ div.place-actions span {
   margin: 0px;
   border: none;
   border-radius: 0px;
+  padding-bottom: 5px;
 }
 
 .place-nav a {
@@ -213,13 +214,15 @@ div.place-actions span {
 
 .place-nav-left a {
   border-radius: 10px 0px 0px 10px;
-  margin-top: 49px;
+  margin-top: 45px;
+  height: 95px;
   padding-right: 0px;
 }
 
 .place-nav-right a {
   border-radius: 0px 10px 10px 0px;
   padding-left: 0px;
+  height: 95px;
 }
 
 .place-nav-spacer {
