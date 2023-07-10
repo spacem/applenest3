@@ -35,27 +35,27 @@ export function PlaceHeader({
       <div>
         <div className="place-images">
             <div className="place-nav place-nav-up" key={upPlace}>
-              <PlaceNavLink place={upPlace} suffix={'🠝'} />
+              <PlaceNavLink place={upPlace} suffix={'˄'} />
             </div>
         </div>
       </div>}
       <div className="place-images">
         <div className="place-nav place-nav-left">
           {leftPlace && (
-            <PlaceNavLink place={leftPlace} prefix={'🠜'} />
+            <PlaceNavLink place={leftPlace} prefix={'<'} />
           )}
           {downPlace && !leftPlace && (
-            <PlaceNavLink place={downPlace} prefix={'🠟'} />
+            <PlaceNavLink place={downPlace} prefix={'˅'} />
           )}
           {!leftPlace && !downPlace && <div className="place-nav-spacer">&nbsp;</div>}
         </div>
         <img alt="icon" src={`assets/${image}`} />
         <div className="place-nav place-nav-right">
           {rightPlace && (
-            <PlaceNavLink place={rightPlace} suffix={'🠞'} />
+            <PlaceNavLink place={rightPlace} suffix={'>'} />
           )}
           {upPlace && !rightPlace && (
-            <PlaceNavLink place={upPlace} suffix={'🠝'} />
+            <PlaceNavLink place={upPlace} suffix={'˄'} />
           )}
           {!rightPlace && !upPlace && <div className="place-nav-spacer">&nbsp;</div>}
         </div>
@@ -64,7 +64,7 @@ export function PlaceHeader({
       <div>
         <div className="place-images">
             <div className="place-nav place-nav-down" key={downPlace}>
-              <PlaceNavLink place={downPlace} prefix={'🠟'} />
+              <PlaceNavLink place={downPlace} prefix={'˅'} />
             </div>
         </div>
       </div>}
