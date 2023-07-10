@@ -70,7 +70,6 @@ img {
   display: block;
   border: 10px solid;
   border-radius: 40px 0px 40px;
-  margin-bottom: 10px;
 }
 
 img.inventory {
@@ -227,4 +226,28 @@ div.place-actions span {
 
 .place-nav-spacer {
   width: 80px;
+}
+
+.place-nav-up a {
+  padding-bottom: 10px;
+  border-radius: 10px 10px 0px 0px ;
+  height: 95px;
+}
+
+.place-nav-up {
+  padding-left: 70px;
+}
+
+.place-nav-down a {
+  padding-top: 0px;
+  border-radius: 0px 0px 10px 10px;
+  height: 95px;
+}
+
+.place-nav-down {
+  padding-right: 60px;
+}
+
+header {
+  height: 100vh;
 }

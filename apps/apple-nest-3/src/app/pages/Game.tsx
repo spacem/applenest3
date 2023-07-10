@@ -10,6 +10,7 @@ import { gql, useQuery } from '@apollo/client';
 import { places } from '../places/places';
 import { useState } from 'react';
 import { ExplorePlace } from '../places/ExplorePlace';
+import { useActions } from '../places/useActions';
 
 const GET_CHARACTER = gql`
   query Character($id: ID!) {
@@ -33,18 +34,36 @@ const GET_CHARACTER = gql`
   }
 `;
 
+type screenMode = 'normal' | 'info' | 'help';
+
 export function Game(params: {match: match}) {
-  const [showInfo, setShowInfo] = useState(false);
+  const [screenMode, setScreenMode] = useState('normal');
   const { characterId, place } = useParams<{ characterId: string, place: Place }>();
   const { loading, error, data } = useQuery<{ character: Character}>(GET_CHARACTER, {
     variables: { id: characterId },
   });
+
+  const { doAction, message: outcomeMessage, error: questError, loading: questLoading } = useActions(data?.character);
+
+  const help = () => {
+    setScreenMode('help');
+    doAction('acceptQuest');
+  };
+
   return (
-    <Loading loading={loading}>
+    <Loading loading={loading || questLoading}>
       {data?.character != null && <>
-      {showInfo &&
+      {screenMode === 'help' &&
       <div>
-        <button onClick={() => setShowInfo(false)}>&lt; Back To Game</button>
+        <button onClick={() => setScreenMode('normal')}>&lt; Back To Game</button>
+        <div>
+        {outcomeMessage}
+        </div>
+      </div>
+      }
+      {screenMode === 'info' &&
+      <div>
+        <button onClick={() => setScreenMode('normal')}>&lt; Back To Game</button>
         <div>{data?.character?.name}</div>
         <div><img alt="Character Icon" src={`assets/character${data?.character?.icon}.jpg`} /></div>
         <div>
@@ -58,8 +77,9 @@ export function Game(params: {match: match}) {
       <div>
         <ErrorMessage error={error}></ErrorMessage>
       </div>
-      <div className={ showInfo ? 'hidden' : ''}>
-        <button onClick={() => setShowInfo(true)}>&#x1f6c8; Character Info</button>
+      <div className={ screenMode !== 'normal' ? 'hidden' : ''}>
+        <button onClick={() => setScreenMode('info')}>Character Info</button>
+        <button onClick={() => help()}>Need Help?</button>
         <Route path="/game/:characterId">
           <Redirect to={`${params.match.url}/town`}></Redirect>
         </Route>

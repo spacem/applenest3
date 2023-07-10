@@ -1,18 +1,18 @@
 import { PlaceConfig } from './PlaceConfig';
 
-export const places: {[key:string]: PlaceConfig} = {
+export const places: { [key: string]: PlaceConfig } = {
   well: {
-    title: 'Wishing Well',
+    title: 'Well',
     image: 'wishing_well.jpg',
     initialText: 'Looks like people have been wishing here.',
-    left: {
-      place: 'town'
+    down: {
+      place: 'town',
     },
     actions: [
       {
         title: 'Take Money',
         action: 'collectReward',
-        icon: 'money.jpg'
+        icon: 'money.jpg',
       },
       {
         title: 'Take Water',
@@ -26,13 +26,13 @@ export const places: {[key:string]: PlaceConfig} = {
     image: 'event_planner.jpg',
     initialText: '',
     left: {
-      place: 'town'
+      place: 'town',
     },
     actions: [
       {
         title: 'Ask for help?',
         action: 'acceptQuest',
-        icon: 'event_planner.jpg'
+        icon: 'event_planner.jpg',
       },
     ],
   },
@@ -41,7 +41,7 @@ export const places: {[key:string]: PlaceConfig} = {
     image: 'market.jpg',
     initialText: '',
     left: {
-      place: 'city'
+      place: 'city',
     },
     actions: [
       {
@@ -53,7 +53,7 @@ export const places: {[key:string]: PlaceConfig} = {
         title: 'Buy Bucket (10)',
         action: 'buyBucket',
         icon: 'water.jpg',
-      }
+      },
     ],
   },
   city: {
@@ -61,20 +61,15 @@ export const places: {[key:string]: PlaceConfig} = {
     image: 'city.jpg',
     initialText: '',
     left: {
-      place: 'town'
+      place: 'town',
     },
     right: {
-      place: 'market'
+      place: 'market',
     },
-    actions: [
-      {
-        title: 'Visit Blacksmith',
-        action: 'nav',
-        param: 'blacksmith',
-        icon: 'blacksmith.jpg',
-        level: 5,
-      },
-    ],
+    down: {
+      place: 'blacksmith',
+      level: 5
+    },
   },
   town: {
     title: 'Town',
@@ -86,29 +81,15 @@ export const places: {[key:string]: PlaceConfig} = {
     },
     right: {
       place: 'city',
-      level: 4
+      level: 4,
     },
-    actions: [
-      {
-        title: 'Get Help',
-        action: 'nav',
-        param: 'event-planner',
-        icon: 'event_planner.jpg',
-      },
-      {
-        title: 'Walk To The Wishing Well',
-        action: 'nav',
-        param: 'well',
-        icon: 'wishing_well.jpg',
-      },
-      {
-        title: 'Explore The Forest',
-        action: 'nav',
-        param: 'forest',
-        icon: 'forest.jpg',
-        level: 8
-      },
-    ],
+    up: {
+      place: 'well'
+    },
+    down: {
+      place: 'forest',
+      level: 8
+    },
   },
   farm: {
     title: 'Farm',
@@ -121,28 +102,15 @@ export const places: {[key:string]: PlaceConfig} = {
       place: 'plot',
       level: 3,
     },
-    actions: [
-      {
-        title: 'Talk To The Farmer',
-        action: 'nav',
-        param: 'farmer',
-        icon: 'farmer.jpg',
-      },  
-      {
-        title: 'Explore The Fields',
-        action: 'nav',
-        param: 'fields',
-        icon: 'fields.jpg',
-        level: 7
-      }
-    ]
+    up: { place: 'farmer' },
+    down: { place: 'fields', level: 7 },
   },
   farmer: {
     title: 'Farmer',
     image: 'farmer.jpg',
     initialText: 'Hello. I am the farmer! You can buy seeds from me.',
-    left: {
-      place: 'farm'
+    down: {
+      place: 'farm',
     },
     actions: [
       {
@@ -157,14 +125,14 @@ export const places: {[key:string]: PlaceConfig} = {
         param: '10',
         icon: 'seeds.jpg',
         level: 3,
-      }
-    ]
+      },
+    ],
   },
   blacksmith: {
-    title: 'Blacksmith',
+    title: 'Smith',
     image: 'blacksmith.jpg',
     initialText: 'Need stronger weapons, more armour?',
-    left: {
+    up: {
       place: 'city',
     },
     actions: [
@@ -178,33 +146,25 @@ export const places: {[key:string]: PlaceConfig} = {
         action: 'buyShield',
         icon: 'shield.jpg',
       },
-    ]
+    ],
   },
   fields: {
     title: 'Fields',
     image: 'fields.jpg',
     initialText: '',
-    actions: [
-      {
-        title: 'Return To The Farm',
-        action: 'nav',
-        param: 'farm',
-        icon: 'farm.jpg',
-      },
-    ]
+    up: {
+      place: 'farm',
+    },
+    actions: [],
   },
   forest: {
     title: 'Forest',
     image: 'forest.jpg',
     initialText: '',
-    actions: [
-      {
-        title: 'Return To The Town',
-        action: 'nav',
-        param: 'town',
-        icon: 'town.jpg',
-      },
-    ]
+    up: {
+      place: 'town',
+    },
+    actions: [],
   },
   plot: {
     title: 'Plot',
@@ -212,7 +172,7 @@ export const places: {[key:string]: PlaceConfig} = {
     initialText: '',
     actions: [],
     right: {
-      place: 'farm'
-    }
-  }
+      place: 'farm',
+    },
+  },
 };

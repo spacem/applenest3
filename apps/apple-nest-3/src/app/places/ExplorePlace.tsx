@@ -9,6 +9,7 @@ import { Action } from './Action';
 import { PlaceConfig } from './PlaceConfig';
 import { useBattle } from '../battle/useBattle';
 import { BattleCreature } from '@apple-nest-3/apple-nest-interfaces';
+import { PlaceHeader } from './PlaceHeader';
 
 export interface ExplorePlaceProps extends PlaceProps {
   place: PlaceConfig;
@@ -28,8 +29,7 @@ export function ExplorePlace({ character, place, enemies }: ExplorePlaceProps) {
 
   return (
     <>
-      <h2>{place?.title}</h2>
-      <img alt="icon" src={`assets/${place.image}`} height="100%"></img>
+      <PlaceHeader place={place} questNumber={character.questNumber} />
       <Saving saving={loading}>
         <div>
           <ErrorMessage error={error}></ErrorMessage>
@@ -59,7 +59,7 @@ export function ExplorePlace({ character, place, enemies }: ExplorePlaceProps) {
         </div>}
         {outcomeMessage}
         <div className="place-actions">
-          {place.actions
+          {place.actions && place.actions
             .filter((a) => (character?.questNumber || 0) >= (a.level || 0))
             .map(({ title, action, param, icon }) => (
               <div key={title}>

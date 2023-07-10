@@ -26,7 +26,7 @@ export const PERFORM_ACTION = gql`
   }
 `;
 
-export function useActions(character: Character) {
+export function useActions(character?: Character) {
   const [message, setMessage] = useState<string>();
 
   const [performAction, { loading, error }] =
@@ -35,13 +35,17 @@ export function useActions(character: Character) {
     );
 
   const callAction = async (action: string, param?: string) => {
-    const { data } = await performAction({ variables: { characterId: character._id, action, param }})
-    setMessage(data?.performAction?.message);
+    if (character) {
+      const { data } = await performAction({ variables: { characterId: character._id, action, param }})
+      setMessage(data?.performAction?.message);
+    }
   }
 
   function doQuest() {
-    const quest = character.questNumber || Quest.GetMoney;
-    setMessage(questText[quest] || 'There are no more quests at this time');
+    if (character) {
+      const quest = character.questNumber || Quest.GetMoney;
+      setMessage(questText[quest] || 'There are no more quests at this time');
+    }
   }
 
   const doAction = async (action: string, param?: string) => {

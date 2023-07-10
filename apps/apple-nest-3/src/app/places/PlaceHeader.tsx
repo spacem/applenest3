@@ -10,35 +10,64 @@ export interface PlaceHeaderProps {
   questNumber?: Quest;
 }
 
-export function PlaceHeader({ place, questNumber }: PlaceHeaderProps) {
+const PlaceNavLink = ({ place, prefix, suffix }: { place: string, prefix?: string, suffix?: string }) => (
+  <Link to={place}>
+    <img alt="icon" src={`assets/${places[place].image}`} />
+    {prefix}{places[place]?.title}{suffix}
+  </Link>
+);
+
+export function PlaceHeader({
+  place: { left, right, up, down, title, image },
+  questNumber,
+}: PlaceHeaderProps) {
   const isUnlocked = (level?: number) => (questNumber || 0) >= (level || 0);
 
-  const left = place.left?.place && isUnlocked(place.left.level) ? places[place.left.place] : undefined;
-  const right = place.right?.place && isUnlocked(place.right.level) ? places[place.right.place] : undefined;
+  const leftPlace = isUnlocked(left?.level) && left?.place;
+  const rightPlace = isUnlocked(right?.level) && right?.place;
+  const upPlace = isUnlocked(up?.level) && up?.place;
+  const downPlace = isUnlocked(down?.level) && down?.place;
+
   return (
     <>
-      <h2>{place?.title}</h2>
+      <h2>{title}</h2>
+      {upPlace && rightPlace &&
+      <div>
+        <div className="place-images">
+            <div className="place-nav place-nav-up" key={upPlace}>
+              <PlaceNavLink place={upPlace} suffix={'🠝'} />
+            </div>
+        </div>
+      </div>}
       <div className="place-images">
         <div className="place-nav place-nav-left">
-          {left && place.left?.place && (
-            <Link to={place.left.place}>
-              <img alt="icon" src={`assets/${left.image}`} />
-              &lt;&nbsp;{left?.title}
-            </Link>
+          {leftPlace && (
+            <PlaceNavLink place={leftPlace} prefix={'🠜'} />
           )}
-          {!left && <div className="place-nav-spacer">&nbsp;</div>}
+          {downPlace && !leftPlace && (
+            <PlaceNavLink place={downPlace} prefix={'🠟'} />
+          )}
+          {!leftPlace && !downPlace && <div className="place-nav-spacer">&nbsp;</div>}
         </div>
-        <img alt="icon" src={`assets/${place.image}`} />
+        <img alt="icon" src={`assets/${image}`} />
         <div className="place-nav place-nav-right">
-          {right && place.right?.place && (
-            <Link to={place.right.place}>
-              <img alt="icon" src={`assets/${right.image}`} />
-              {right?.title}&nbsp;&gt;
-            </Link>
+          {rightPlace && (
+            <PlaceNavLink place={rightPlace} suffix={'🠞'} />
           )}
-          {!right && <div className="place-nav-spacer">&nbsp;</div>}
+          {upPlace && !rightPlace && (
+            <PlaceNavLink place={upPlace} suffix={'🠝'} />
+          )}
+          {!rightPlace && !upPlace && <div className="place-nav-spacer">&nbsp;</div>}
         </div>
       </div>
+      {downPlace && leftPlace &&
+      <div>
+        <div className="place-images">
+            <div className="place-nav place-nav-down" key={downPlace}>
+              <PlaceNavLink place={downPlace} prefix={'🠟'} />
+            </div>
+        </div>
+      </div>}
     </>
   );
 }
