@@ -36,6 +36,7 @@ export class CharacterService {
 
   async update(character: Character) {
     character.questNumber = this.questService.getNextQuestNumber(character);
-    await this.characterModel.findOneAndUpdate({ _id: character._id}, character);
+    const { _id } = character;
+    await this.characterModel.findOneAndUpdate({ _id }, character);
   }
 }
