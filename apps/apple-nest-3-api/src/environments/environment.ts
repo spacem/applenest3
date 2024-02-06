@@ -1,4 +1,5 @@
 export const environment = {
   production: false,
-  graphUri: '/graphql'
+  graphUri: '/graphql',
+  password: 'password123'
 };
